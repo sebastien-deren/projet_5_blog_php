@@ -1,6 +1,13 @@
 <header class="container-xxl">
 	<div class="row align-items-center bg-warning">
 		<div class="col">
+            {% if name %}
+            <h2> {{name.firstname}}</h2>
+            <h3> {{name.lastname}}</h3>
+            {% else %}
+            <a class="btn" href="">Se connecter</a>
+            {% endif %}
+    
 			<p>vous connecter</p>
 		</div>
 		<div class="col">
