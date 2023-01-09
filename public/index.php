@@ -11,5 +11,7 @@ $twig->addExtension(new \Twig\Extension\DebugExtension);
 $template = $twig->load("layout.html.twig");
 $hello = new Test;
 $content =" bonjour et bienvenu sur mon site";
+
 $display= ["title" =>$hello->hello,"content"=>$content,"name"=>["lastname"=>"bonjour","firstname"=>"machin"]];
+
 echo $template->render($display);
