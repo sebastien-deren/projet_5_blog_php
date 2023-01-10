@@ -1,7 +1,7 @@
 <?php
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Sebastien\Blog\src\Test;
+use Blog\Test;
 require_once(dirname(__FILE__).'/../bootstrap.php');
 
 $dir_template = dirname(__FILE__).'/../template/';

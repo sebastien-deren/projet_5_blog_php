@@ -4,8 +4,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Sebastien\\Blog\\src\\": "src/",
-            "Sebastien\\Blog\\templates\\": "templates/"
+            "Blog\\": "src/",
+            "templates\\": "templates/"
         }
     },
     "authors": [

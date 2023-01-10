@@ -1,6 +1,5 @@
 <?php
-namespace Sebastien\Blog\src;
-
+namespace Blog;
 
 
 
