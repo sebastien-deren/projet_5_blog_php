@@ -1,7 +1,6 @@
 <?php
 namespace Blog\Entity;
 
-use Blog\Entity\RoleEnum;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
@@ -10,6 +9,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OneToMany;
 
 declare(strict_types=1);
@@ -30,11 +30,11 @@ class User{
     private string $lastname;
     #[Column()]
     private string $mail;
-    #[OneToMany(mappedBy:'comment',targetEntity: Comment::class)]
+    #[OneToMany(mappedBy:'user',targetEntity: Comment::class)]
     private Collection $comment;
     #[Column()]
     private RoleEnum $role;
-    #[OneToMany(mappedBy:'post',targetEntity: Post::class)]
+    #[OneToMany(mappedBy:'user',targetEntity: Post::class)]
     private Collection $post;
     
     public function getPassword()
