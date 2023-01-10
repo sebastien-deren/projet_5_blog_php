@@ -16,10 +16,13 @@ $loader->addPath($dir_template . "/user", "user");
 $twig = new Environment($loader, ['debug' => true]);
 $twig->addExtension(new \Twig\Extension\DebugExtension);
 $template = $twig->load("/admin/createPost.html.twig");
-$listOfThings=["lastname"=>"nom","firstname"=>"prenom","mail"=>"mail","password"=>"pswd","role"=>0];
+$user = $entityManager->find('\Blog\Entity\User',2);
+echo is_object($user);
+echo is_a($user,'Blog\Entity\User');
+/*$listOfThings=["lastname"=>"nom","firstname"=>"prenom","mail"=>"mail","password"=>"pswd","role"=>0];
 $userController = new UserController;
 $user = $userController->addUser($listOfThings);
-$entityManager->persist($user);
+$entityManager->persist($user);*/
 
 
 
@@ -28,9 +31,10 @@ if ($_GET['url'] === 'admin/index.php') {
     if (isset($_POST)) {
         $postController = new PostController;
         $post = $postController->addpost($_POST,$user);
-        var_dump($postController);
         $entityManager->persist($post);
         $entityManager->flush();
+        
+        echo "le post a été ajouté";
     }
 }
 if ($_GET['url'] === 'admin/createPost') {
