@@ -19,16 +19,18 @@ class Post extends ContentAbstract{
     #[Column(unique:true,updatable:false)]
     #[GeneratedValue()]
     private int $id;
-    #[Column()]
+    #[Column(length: 255)]
     private string $excerpt;
     #[Column()]
+    private string $title;
+    #[Column(type: Types::TEXT)]
     private string $content;
     #[Column(type: TYPES::DATETIME_MUTABLE)]
     private \DateTime $date;
     #[ManyToOne(targetEntity:User::class,inversedBy:'post')]
     #[JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private User|null  $user=null;
-    #[OneToMany(mappedBy:'post',targetEntity:Comment::class)]
+    #[OneToMany(mappedBy:'post',targetEntity: Comment::class)]
     private Collection $comment;
 
     public function __construct($user){
@@ -80,5 +82,17 @@ class Post extends ContentAbstract{
     public function getComment()
     {
         return $this->comment;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
     }
 }

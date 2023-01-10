@@ -1,0 +1,18 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+<form action="index.php" method="post" class="form-post">
+    <div class="form-post">
+        <label for="title">Entrer le titre:</label>
+        <input type="text" name="title" id="title" required>
+    </div>
+    <div class="form-post">
+        <label for="exerpt">entrer un résumé du post</label>
+        <input type ="text" name="exerpt" id="exerpt" length="255">
+    </div>
+    <div class ="form-post">
+        <textarea name="content" id="content_id"></textarea>
+    </div>
+    <div><input type="submit" value="publier"></div>
+</form>
+{% endblock %}

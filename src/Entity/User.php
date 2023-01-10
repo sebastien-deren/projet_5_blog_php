@@ -23,18 +23,18 @@ class User{
     private int $id;
     #[Column()]
     private string $password;
-    #[Column(unique:true)]
+    #[Column(unique:true, length:45)]
     private string $login;
-    #[Column()]
+    #[Column(type: Types::STRING, length:30)]
     private string $firstname;
-    #[Column()]
+    #[Column(type: Types::STRING, length:30)]
     private string $lastname;
-    #[Column()]
+    #[Column(type: Types::STRING, length:40)]
     private string $mail;
     #[OneToMany(mappedBy:'user',targetEntity: Comment::class)]
     private Collection $comment;
     #[Column()]
-    private RoleEnum $role;
+    private int $role;
     #[OneToMany(mappedBy:'user',targetEntity: Post::class)]
     private Collection $post;
     

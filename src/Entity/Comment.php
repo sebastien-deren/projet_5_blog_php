@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Blog\Entity;
 
+use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -16,7 +17,7 @@ class Comment{
     #[Column(type: Types::INTEGER, updatable:false,unique:true)]
     #[GeneratedValue()]
     private int $id;
-    #[Column()]
+    #[Column(type: Types::TEXT)]
     private  $content;
     #[Column()]
     private \DateTime $date;
