@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Blog\Entity;
 
 use DateTime;
@@ -9,10 +10,12 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\OneToMany;
 
 #[Entity()]
 class Post extends ContentAbstract{
+    #[Id]
     #[Column(unique:true,updatable:false)]
     #[GeneratedValue()]
     private int $id;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Blog\Entity;
 
 use Doctrine\ORM\Mapping\Id;
@@ -12,7 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OneToMany;
 
-declare(strict_types=1);
+
 //anemic class with setter & getter for all attribute except id (only getter)
 #[Entity]
 class User{

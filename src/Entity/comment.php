@@ -1,16 +1,18 @@
 <?php
+declare(strict_types=1);
 namespace Blog\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 #[Entity()]
 class Comment{
-    
+    #[Id]
     #[Column(type: Types::INTEGER, updatable:false,unique:true)]
     #[GeneratedValue()]
     private int $id;
