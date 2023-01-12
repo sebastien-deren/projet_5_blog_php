@@ -4,10 +4,8 @@ namespace Blog\Controller;
 use Twig\Environment;
 
 
-Abstract class Controller  
+interface Controller  
 {
-    public function __construct(protected Environment $twig)
-    {}
-    public function doYourThing(){
-    }
+    public function __construct(Environment $twig);
+    public function doYourThing(?int $id);
 }

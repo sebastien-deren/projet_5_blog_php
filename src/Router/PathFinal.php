@@ -2,14 +2,14 @@
 namespace Blog\Router;
 
 use Blog\Controller\Controller;
-use Blog\Router\Domain;
+use Blog\Router\Path;
 
-class SubPathFinal extends Domain{
+class PathFinal extends Path{
     public function __construct($name,private Controller $controller)
     {
       parent::__construct($name);   
     }
-    public function callController(){
-        return $this->controller->doYourThing();
+    public function callController(?string $id){
+        return $this->controller->doYourThing($id);
     }
 }

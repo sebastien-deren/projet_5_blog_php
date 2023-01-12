@@ -4,47 +4,28 @@ declare(strict_types=1);
 
 namespace Blog\Router;
 
-<<<<<<< HEAD
-use Blog\Router\Domain;
-=======
 use Exception;
 use Twig\Environment;
-use Blog\Router\Domain;
+use Blog\Router\Path;
 use Twig\TemplateWrapper;
-use Blog\Router\SubPathFinal;
->>>>>>> 14cc5f9 (adding subpathfinal)
+use Blog\Router\PathFinal;
 
 class Router
 {
 
-<<<<<<< HEAD
-    private Domain $index ;
+    private Path $index;
 
-    public function setDomain(?string $name){
-        $this->index= new Domain($name);
+    public function setPath(?string $name,$controller)
+    {
+        $this->index = new PathFinal($name,$controller);
         return $this->index;
     }
 
-    public function findOurRoute(string $url_argument, $method):string
-    {
-        $splittedUrl = $this->splitRoute($url_argument);
-        $route = $this->checkRoute(\array_shift($splittedUrl),$splittedUrl,$this->index);
-        return $route;
-=======
-    private Domain $index;
-
-    public function setDomain(?string $name,$controller)
-    {
-        $this->index = new SubPathFinal($name,$controller);
-        return $this->index;
-    }
-
-    public function findOurRoute(string $url_argument, $method): TemplateWrapper
+    public function findOurRoute(string $url_argument): TemplateWrapper
     {
         $splittedUrl = $this->splitRoute($url_argument);
         $template = $this->checkRoute(\array_shift($splittedUrl), $splittedUrl, $this->index);
         return $template;
->>>>>>> 14cc5f9 (adding subpathfinal)
     }
     private function splitRoute(string $path): array
     {
@@ -54,31 +35,34 @@ class Router
         }
         return $splittedPath;
     }
-<<<<<<< HEAD
-    private function checkRoute(string $pathPart, array $pahtRest, Domain $inDomain){
-        $domain = $inDomain->isSubdomain($pathPart);
-        if($domain && !empty($pahtRest)){
-            return $domain->getDomainName() ."\\". $this->checkRoute(\array_shift($pahtRest),$pahtRest,$domain);
-        }
-        else{
-            return $domain->getDomainName();
-
-        }
-=======
-    private function checkRoute(string $pathPart, array $pahtRest, Domain $inDomain): TemplateWrapper
+    private function checkRoute(string $pathPart, array $pathRest, Path $inPath): TemplateWrapper
     {
-        $domain = $inDomain->isSubdomain($pathPart);
-        if ($domain && !empty($pahtRest)) {
-            return $this->checkRoute(\array_shift($pahtRest), $pahtRest, $domain);
+        $path = $inPath->isSubPath($pathPart);
+        //check if we are in a finalpath (fullyqualifiedpath)
+        if (\is_a($path, PathFinal::class)&&(count($pathRest)==0 || \is_numeric($pathRest[0])))
+        {
+            return $this->callController($path,$pathRest);
         }
-        if (\is_a($domain, SubPathFinal::class)) {
-            return $this->callController($domain);
+        //check if we are in the good path and if we still have subpath to check
+        if ($path && !empty($pathRest)) {
+            return $this->checkRoute(\array_shift($pathRest), $pathRest, $path);
         }
+
+
         throw new Exception("le chemin n'est pas complet");
     }
-    private function callController(SubPathFinal $finalPath){
-        return $finalPath->callController();
+    private function callController(PathFinal $finalPath,array $pathRest){
+        /**
+         * check if we have just one element who is not a path of our finalpath (checked before)
+         * if we have more than one path we throw an exception
+         * if not we will send our pathrest as an argument
+         * and we will let the controller do its thing, he might throw an exception if it doesn't accept any argument.
+         * **/
+        if(count($pathRest)>1)
+        {
+            throw new Exception("le chemin est trop long");
+        }
+        return $finalPath->callController(empty($pathRest[0]) ? null : $pathRest[0]);
         
->>>>>>> 14cc5f9 (adding subpathfinal)
     }
 }

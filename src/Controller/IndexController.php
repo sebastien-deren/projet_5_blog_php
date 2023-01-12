@@ -1,10 +1,12 @@
 <?php
 namespace Blog\Controller;
 
+use Twig\Environment;
 use Blog\Controller\Controller;
 
-class IndexController extends Controller{
-    public function doYourThing(){
+class IndexController implements Controller{
+    public function __construct(private Environment $twig){}
+    public function doYourThing(?int $id){
 
         return  $this->twig->load("@user/index.html.twig");
     }

@@ -7,13 +7,11 @@ use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
-use Blog\Exception\RouterException;
-
-use Doctrine\DBAL\DriverManager;
-use Twig\Loader\FilesystemLoader;
 use Blog\Controller\PostController;
-use Blog\Exception\RouterException;
 use Blog\Controller\IndexController;
+use Blog\Controller\User\ConnectionController;
+use Blog\Controller\Admin\PostCreaterController;
+use Blog\Controller\Admin\CommentAdminController;
 
 
 require_once(dirname(__FILE__).'/vendor/autoload.php');
@@ -41,17 +39,17 @@ $twig = new Environment($loader, ['debug' => true]);
 $twig->addExtension(new \Twig\Extension\DebugExtension);
 
 $router = new Router();
-/*create the tree of our site we just have to add a subdomain to be checked by our router,
+/*create the tree of our site we just have to add a subpath to be checked by our router,
  if none exist for now our router throw a RouterException, and then will redirect us to our index.
  We will need to take into account the $_METHOD to link our controller.
- and we might add a callable or a controller directly into our subdomain*/
- $index= $router->setDomain(null, new IndexController($twig));
- $admin = $index->addSubdomain('admin');
- $connection = $index->addSubdomain('connection');
- $blog = $index->addSubdomain('blog');
- $create_post = $admin->addFinalPath('createpost',new PostController($twig));
- $comment = $admin->addSubdomain('comment');
- $comment->subDomainIdentifiable();
- $post = $blog->addSubdomain('post');
- $post->subDomainIdentifiable();
+ and we might add a callable or a controller directly into our subpath*/
+ $index= $router->setPath(null, new IndexController($twig));
+ $admin = $index->addSubPath('admin');
+ $connection = $index->addFinalPath('connection',new ConnectionController($twig));
+ $blog = $index->addSubPath('blog');
+ $create_post = $admin->addFinalPath('createpost',new PostCreaterController($twig));
+ $comment = $admin->addFinalPath('comment',new CommentAdminController($twig));
+ $comment->subPathIdentifiable();
+ $post = $blog->addFinalPath('post',new PostController($twig));
+ $post->subPathIdentifiable();
 
