@@ -1,20 +1,25 @@
 <header class="container-xxl">
 	<div class="row align-items-center bg-secondary">
 		<div class="col">
-            {% if name %}
-            <h2> {{name.firstname}} {{name.lastname}}</h3>
-            {% else %}
-            <a class="btn bg-info" href="">Se connecter</a>
-            {% endif %}
-    
+			{% if name %}
+				<h2>
+					{{name.firstname}}
+					{{name.lastname}}</h3>
+			{% else %}
+				<a class="btn bg-info" href="">Se connecter</a>
+			{% endif %}
+
 		</div>
 		<div class="col">
 			<ul class="row">
 				<li class="col">
-					<a href="">Accueil</a>
+					<a href="/">Accueil</a>
 				</li>
 				<li class="col">
-					<a href="">Blog</a>
+					<a href="/blog/">Blog</a>
+				</li>
+				<li class="col">
+					<a href="/admin/createpost">createpost</a>
 				</li>
 				<li class="col">
 					<a href="">Contact</a>

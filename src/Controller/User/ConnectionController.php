@@ -1,9 +1,10 @@
 <?php
-namespace Blog\Controller;
+namespace Blog\Controller\User;
 
 use Twig\Environment;
+use Blog\Controller\Controller;
 
-class PostController implements Controller{
+class ConnectionController implements Controller{
     public function __construct(private Environment $twig)
     {
         # code...
@@ -12,5 +13,5 @@ class PostController implements Controller{
     {
         # code...
     }
-
+    
 }

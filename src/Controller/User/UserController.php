@@ -1,12 +1,18 @@
 <?php
 
-namespace Blog\Controller;
+namespace Blog\Controller\User;
 
 use Blog\Entity\User;
+use Twig\Environment;
+use Blog\Controller\Controller;
 
-class UserController
+class UserController implements Controller
 {
     private User $user;
+    public function __construct(private Environment $twig)
+    {
+        
+    }
     public function addUser(Array $property):User
     {
         $this->user =new User;
@@ -17,5 +23,15 @@ class UserController
         $this->user->setPassword($property["password"]);
         $this->user->setLogin(\strval(\rand(0,200)));
         return $this->user;
+    }
+    public function createView(?int $id)
+    {
+        if($_SERVER['REQUEST_METHOD']==='POST'){
+            $this->addUser($_POST);
+        }
+        if($_SERVER['REQUEST_METHOD']==='GET'){
+            //dothings
+        }
+        return 'createPost.html.twig';
     }
 }

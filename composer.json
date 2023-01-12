@@ -5,7 +5,8 @@
     "autoload": {
         "psr-4": {
             "Blog\\": "src/",
-            "templates\\": "templates/"
+            "templates\\": "templates/",
+            "Test\\":"Test/"
         }
     },
     "authors": [

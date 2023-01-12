@@ -4,25 +4,30 @@ declare(strict_types=1);
 
 namespace Blog\Router;
 
-use Blog\Router\Domain;
+use Exception;
+use Twig\Environment;
+use Blog\Router\Path;
+use Twig\TemplateWrapper;
+use Blog\Router\PathFinal;
 
 class Router
 {
 
-    private Domain $index ;
+    private Path $index;
 
-    public function setDomain(?string $name){
-        $this->index= new Domain($name);
+    public function initPath(?string $name, $controller)
+    {
+        $this->index = new PathFinal($name, $controller);
         return $this->index;
     }
 
-    public function findOurRoute(string $url_argument, $method):string
+    public function FindTheController(string $url_argument): TemplateWrapper
     {
-        $splittedUrl = $this->splitRoute($url_argument);
-        $route = $this->checkRoute(\array_shift($splittedUrl),$splittedUrl,$this->index);
-        return $route;
+        $splittedPath = $this->splitPathIntoSubPath($url_argument);
+        $template = $this->checkPathsInSite($splittedPath, $this->index);
+        return $template;
     }
-    private function splitRoute(string $path): array
+    private function splitPathIntoSubPath(string $path): array
     {
         $splittedPath = explode("/", $path);
         if (empty($splittedPath)) {
@@ -30,14 +35,32 @@ class Router
         }
         return $splittedPath;
     }
-    private function checkRoute(string $pathPart, array $pahtRest, Domain $inDomain){
-        $domain = $inDomain->isSubdomain($pathPart);
-        if($domain && !empty($pahtRest)){
-            return $domain->getDomainName() ."\\". $this->checkRoute(\array_shift($pahtRest),$pahtRest,$domain);
+    private function checkPathsInSite(array $pathToCheck, Path $validPath): TemplateWrapper
+    {
+        $subpathToCheck = \array_shift($pathToCheck);
+        $subPath = $validPath->isSubPath($subpathToCheck);
+        //check if we are in a finalpath (fullyqualifiedpath) and if we have (numerical argument after that or nothing)
+        if (\is_a($subPath, PathFinal::class) && (count($pathToCheck) == 0 || \is_numeric($pathToCheck[0]))) {
+            return $this->useController($subPath, $pathToCheck);
         }
-        else{
-            return $domain->getDomainName();
-
+        //check if we are in the good path and if we still have subpath to check
+        if (!empty($pathToCheck)) {
+            return $this->checkPathsInSite( $pathToCheck, $subPath);
         }
+        throw new Exception("le chemin n'est pas correct");
+    }
+    private function useController(PathFinal $finalPath, array $pathRest)
+    {
+        /**
+         * check if we have just one element who is not a path of our finalpath (checked before)
+         * if we have more than one path we throw an exception
+         * if not we will send our pathrest as an argument
+         * and we will let the controller do its thing, he might throw an exception if it doesn't accept any argument.
+         * **/
+        if (count($pathRest) > 1) {
+            throw new Exception("On ne peut pas avoir (pour l'instant d'argument après une id");
+        }
+        $controller =$finalPath->getController();
+        return $controller->createView(empty($pathRest[0]) ? null : \intval($pathRest[0]) );
     }
 }
