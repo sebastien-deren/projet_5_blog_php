@@ -1,5 +1,5 @@
 <?php
-namespace Blog\controller;
+namespace Blog\Controller;
 
 use Blog\Entity\Post;
 use Exception;

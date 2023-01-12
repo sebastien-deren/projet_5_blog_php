@@ -1,8 +1,12 @@
 <?php
 
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\EntityManager;
+use Twig\Environment;
+use Blog\Router\Router;
 use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\EntityManager;
+use Doctrine\DBAL\DriverManager;
+use Twig\Loader\FilesystemLoader;
+use Blog\Exception\RouterException;
 
 require_once(dirname(__FILE__).'/vendor/autoload.php');
 
@@ -18,3 +22,18 @@ $dbParams=[
 $config = ORMSetup::createAttributeMetadataConfiguration($paths,$isDevMode);
 $connection = DriverManager::getConnection($dbParams,$config);
 $entityManager= new EntityManager($connection,$config);
+
+
+$dir_template = dirname(__FILE__) . '/template';
+$loader = new FilesystemLoader($dir_template);
+$loader->addPath($dir_template . "/admin", "admin");
+$loader->addPath($dir_template . "/user", "user");
+$twig = new Environment($loader, ['debug' => true]);
+$twig->addExtension(new \Twig\Extension\DebugExtension);
+
+
+
+
+$router = new Router();
+echo PHP_EOL;
+var_dump($_GET);
