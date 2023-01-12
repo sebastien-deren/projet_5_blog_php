@@ -3,11 +3,13 @@ namespace Blog\Controller\Admin;
 
 use Blog\Entity\Post;
 use Blog\Controller\Controller;
+use Doctrine\ORM\EntityManager;
 use Exception;
 use Twig\Environment;
 
 class PostCreaterController implements Controller{
     private Post $post;
+    private EntityManager $entity;
     public function __construct(private Environment $twig){}
 
     public function addpost($donneeEnvoye,$user){
@@ -22,7 +24,7 @@ class PostCreaterController implements Controller{
     public function setTwig(Environment $twig){
         $this->twig =$twig;
     }
-    public function doYourThing(?int $id)
+    public function createView(?int $id)
     {
         if(empty($_SERVER['REQUEST_METHOD'])){
             $id =empty($id) ? 'aucun' :$id;
@@ -30,7 +32,7 @@ class PostCreaterController implements Controller{
         }
         //todo ajouter user
         if($_SERVER['REQUEST_METHOD']==='POST'){
-            $this->addpost($_POST,null);
+            $ $this->addpost($_POST,null);
             echo"on passe bien la";
         }
         if($_SERVER['REQUEST_METHOD']==='GET'){

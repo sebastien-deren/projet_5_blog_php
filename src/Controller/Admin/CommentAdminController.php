@@ -8,6 +8,6 @@ class CommentAdminController implements Controller{
     public function __construct(private Environment $twig){
 
     }
-    public function doYourThing(?int $id){}
+    public function createView(?int $id){}
     
 }

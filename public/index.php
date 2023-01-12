@@ -13,7 +13,7 @@ require_once(dirname(__FILE__) . '/../bootstrap.php');
 $user = $entityManager->find('\Blog\Entity\User',2);
 try{
 
-    $route =$router->findOurRoute($_GET['url']);
+    $route =$router->FindTheController($_GET['url']);
     echo $route->render();
     }
     catch(Exception $e){

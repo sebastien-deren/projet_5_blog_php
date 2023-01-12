@@ -43,7 +43,7 @@ $router = new Router();
  if none exist for now our router throw a RouterException, and then will redirect us to our index.
  We will need to take into account the $_METHOD to link our controller.
  and we might add a callable or a controller directly into our subpath*/
- $index= $router->setPath(null, new IndexController($twig));
+ $index= $router->initPath(null, new IndexController($twig));
  $admin = $index->addSubPath('admin');
  $connection = $index->addFinalPath('connection',new ConnectionController($twig));
  $blog = $index->addSubPath('blog');

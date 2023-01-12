@@ -9,7 +9,7 @@ class PathFinal extends Path{
     {
       parent::__construct($name);   
     }
-    public function callController(?string $id){
-        return $this->controller->doYourThing($id);
+    public function getController(){
+        return $this->controller;
     }
 }

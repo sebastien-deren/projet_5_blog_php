@@ -8,7 +8,7 @@ class PostController implements Controller{
     {
         # code...
     }
-    public function doYourThing(?int $id)
+    public function createView(?int $id)
     {
         # code...
     }

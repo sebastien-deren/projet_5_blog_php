@@ -24,7 +24,7 @@ class UserController implements Controller
         $this->user->setLogin(\strval(\rand(0,200)));
         return $this->user;
     }
-    public function doYourThing(?int $id)
+    public function createView(?int $id)
     {
         if($_SERVER['REQUEST_METHOD']==='POST'){
             $this->addUser($_POST);

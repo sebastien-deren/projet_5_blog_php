@@ -15,19 +15,19 @@ class Router
 
     private Path $index;
 
-    public function setPath(?string $name,$controller)
+    public function initPath(?string $name, $controller)
     {
-        $this->index = new PathFinal($name,$controller);
+        $this->index = new PathFinal($name, $controller);
         return $this->index;
     }
 
-    public function findOurRoute(string $url_argument): TemplateWrapper
+    public function FindTheController(string $url_argument): TemplateWrapper
     {
-        $splittedUrl = $this->splitRoute($url_argument);
-        $template = $this->checkRoute(\array_shift($splittedUrl), $splittedUrl, $this->index);
+        $splittedPath = $this->splitPathIntoSubPath($url_argument);
+        $template = $this->checkPathsInSite($splittedPath, $this->index);
         return $template;
     }
-    private function splitRoute(string $path): array
+    private function splitPathIntoSubPath(string $path): array
     {
         $splittedPath = explode("/", $path);
         if (empty($splittedPath)) {
@@ -35,34 +35,32 @@ class Router
         }
         return $splittedPath;
     }
-    private function checkRoute(string $pathPart, array $pathRest, Path $inPath): TemplateWrapper
+    private function checkPathsInSite(array $pathToCheck, Path $validPath): TemplateWrapper
     {
-        $path = $inPath->isSubPath($pathPart);
-        //check if we are in a finalpath (fullyqualifiedpath)
-        if (\is_a($path, PathFinal::class)&&(count($pathRest)==0 || \is_numeric($pathRest[0])))
-        {
-            return $this->callController($path,$pathRest);
+        $subpathToCheck = \array_shift($pathToCheck);
+        $subPath = $validPath->isSubPath($subpathToCheck);
+        //check if we are in a finalpath (fullyqualifiedpath) and if we have (numerical argument after that or nothing)
+        if (\is_a($subPath, PathFinal::class) && (count($pathToCheck) == 0 || \is_numeric($pathToCheck[0]))) {
+            return $this->useController($subPath, $pathToCheck);
         }
         //check if we are in the good path and if we still have subpath to check
-        if ($path && !empty($pathRest)) {
-            return $this->checkRoute(\array_shift($pathRest), $pathRest, $path);
+        if (!empty($pathToCheck)) {
+            return $this->checkPathsInSite( $pathToCheck, $subPath);
         }
-
-
-        throw new Exception("le chemin n'est pas complet");
+        throw new Exception("le chemin n'est pas correct");
     }
-    private function callController(PathFinal $finalPath,array $pathRest){
+    private function useController(PathFinal $finalPath, array $pathRest)
+    {
         /**
          * check if we have just one element who is not a path of our finalpath (checked before)
          * if we have more than one path we throw an exception
          * if not we will send our pathrest as an argument
          * and we will let the controller do its thing, he might throw an exception if it doesn't accept any argument.
          * **/
-        if(count($pathRest)>1)
-        {
-            throw new Exception("le chemin est trop long");
+        if (count($pathRest) > 1) {
+            throw new Exception("On ne peut pas avoir (pour l'instant d'argument après une id");
         }
-        return $finalPath->callController(empty($pathRest[0]) ? null : $pathRest[0]);
-        
+        $controller =$finalPath->getController();
+        return $controller->createView(empty($pathRest[0]) ? null : \intval($pathRest[0]) );
     }
 }
