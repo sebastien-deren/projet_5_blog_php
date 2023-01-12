@@ -1,7 +1,9 @@
 <?php
 namespace Blog\Router;
 
+use Blog\Controller\Controller;
 use Blog\Exception\RouterException;
+
 //the name of this class is really poorly choosen we will need to find a better one asap
 class Domain{
     private array $subdomain =[];
@@ -14,6 +16,11 @@ class Domain{
         $this->subdomain[]=$domain;
         return $domain;
     }
+    public function addFinalPath(string $name,Controller $controller){
+        $path = new SubPathFinal($name,$controller);
+        $this->subdomain[]=$path;
+        return $path;
+    }
 
     //we will check if the part of the url is a subdomain of our site
     public function isSubdomain(string $partOfPath):Domain{
@@ -25,6 +32,9 @@ class Domain{
             if(\strtolower($sub->getDomainName())===\strtolower($partOfPath)){
                 return $sub;
             }
+        }
+        if(($this->name ===null)){
+            throw new RouterException('on est dans index?');
         }
         throw new RouterException("pas de sousdomaine à ce nom ".$partOfPath);
     }

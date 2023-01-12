@@ -10,6 +10,7 @@ use Blog\Exception\RouterException;
 
 require_once(dirname(__FILE__) . '/../bootstrap.php');
 
+<<<<<<< HEAD
 
 $template = $twig->load("/admin/createPost.html.twig");
 $user = $entityManager->find('\Blog\Entity\User',2);
@@ -33,31 +34,37 @@ $comment->subDomainIdentifiable();
 $post = $blog->addSubdomain('post');
 $post->subDomainIdentifiable();
 
+$dir_template = dirname(__FILE__, 2) . '/template';
+$loader = new FilesystemLoader($dir_template);
+$loader->addPath($dir_template . "/admin", "admin");
+$loader->addPath($dir_template . "/user", "user");
+$twig = new Environment($loader, ['debug' => true]);
+$twig->addExtension(new \Twig\Extension\DebugExtension);
+$template = $twig->load("/admin/createPost.html.twig");
+$user = $entityManager->find('\Blog\Entity\User',2);
+
+>>>>>>> 14cc5f9 (adding subpathfinal)
+
 try{
 
     $route =$router->findOurRoute($_GET['url'],$_SERVER['REQUEST_METHOD']);
-    echo $route;
+    echo $route->render();
     }
     catch(Exception $e){
         echo $e->getMessage();
+        echo "</br>retour à index";
     }
 
 
+
 /*base routing need to create a real router*/
-if ($_GET['url'] === 'admin/index.php') {
+/*if ($_GET['url'] === 'admin/index.php') {
     if (isset($_POST)) {
-        $postController = new PostController;
+        $postController = new PostController($twig);
         $post = $postController->addpost($_POST,$user);
         $entityManager->persist($post);
         $entityManager->flush();
         
         echo "le post a été ajouté";
     }
-}
-if ($_GET['url'] === 'admin/createPost') {
-    $template = $twig->load("@admin/createPost.html.twig");
-    echo $template->render();
-} else {
-    $template = $twig->load("@user/index.html.twig");
-    echo $template->render();
-}
+}*/
