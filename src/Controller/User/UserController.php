@@ -6,13 +6,10 @@ use Blog\Entity\User;
 use Twig\Environment;
 use Blog\Controller\Controller;
 
-class UserController implements Controller
+class UserController extends Controller
 {
     private User $user;
-    public function __construct(private Environment $twig)
-    {
-        
-    }
+
     public function addUser(Array $property):User
     {
         $this->user =new User;

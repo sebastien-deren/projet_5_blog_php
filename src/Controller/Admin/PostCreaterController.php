@@ -7,10 +7,10 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Twig\Environment;
 
-class PostCreaterController implements Controller{
+class PostCreaterController extends Controller{
     private Post $post;
     private EntityManager $entity;
-    public function __construct(private Environment $twig){}
+
 
     public function addpost($donneeEnvoye,$user){
             $this->post = new Post($user);
@@ -21,9 +21,7 @@ class PostCreaterController implements Controller{
         return $this->post;
 
     }
-    public function setTwig(Environment $twig){
-        $this->twig =$twig;
-    }
+
     public function createView(?int $id)
     {
         if(empty($_SERVER['REQUEST_METHOD'])){
@@ -33,11 +31,12 @@ class PostCreaterController implements Controller{
         //todo ajouter user
         if($_SERVER['REQUEST_METHOD']==='POST'){
             $ $this->addpost($_POST,null);
+            
             echo"on passe bien la";
         }
         if($_SERVER['REQUEST_METHOD']==='GET'){
             //dothings
         }
-        return $this->twig->load("@admin/createPost.html.twig");
+        //return $this->twig->load("@admin/createPost.html.twig");
     }
 }
