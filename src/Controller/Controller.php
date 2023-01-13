@@ -1,11 +1,18 @@
 <?php
 namespace Blog\Controller;
 
-use Twig\Environment;
+use Twig\Template;
+use Doctrine\ORM\EntityManager;
+use Blog\Controller\ControllerInterface;
 
+abstract class Controller implements ControllerInterface{
+    private array $argument;
+    public function getModel(EntityManager $entityManager){
 
-interface Controller  
-{
-    public function __construct(Environment $twig);
-    public function createView(?int $id);
+    }
+    public function render(){
+        echo 'coucou';
+        
+    }
+
 }

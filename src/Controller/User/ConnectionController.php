@@ -4,11 +4,8 @@ namespace Blog\Controller\User;
 use Twig\Environment;
 use Blog\Controller\Controller;
 
-class ConnectionController implements Controller{
-    public function __construct(private Environment $twig)
-    {
-        # code...
-    }
+class ConnectionController extends Controller{
+
     public function createView(?int $id)
     {
         # code...
