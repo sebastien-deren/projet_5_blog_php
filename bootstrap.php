@@ -8,12 +8,11 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
 use Blog\Controller\PostController;
-use Blog\Controller\IndexController;
 use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\PostCreaterController;
 use Blog\Controller\Admin\CommentAdminController;
-use Blog\Router\Path;
-use Blog\Router\PathFinal;
+use Blog\Controller\Blog\BlogListController;
+
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
@@ -37,6 +36,7 @@ $dir_template = dirname(__FILE__) . '/template';
 $loader = new FilesystemLoader($dir_template);
 $loader->addPath($dir_template . "/admin", "admin");
 $loader->addPath($dir_template . "/user", "user");
+$loader->addPath($dir_template."/blog", "blog");
 $twig = new Environment($loader, ['debug' => true]);
 $twig->addExtension(new \Twig\Extension\DebugExtension);
 
@@ -47,3 +47,4 @@ $router->addPath('connection', ConnectionController::class);
 $router->addPath('admin/createpost', PostCreaterController::class);
 $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
+$router->addPath('blog',BlogListController::class);

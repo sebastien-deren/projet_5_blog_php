@@ -1,2 +1,9 @@
 {% extends "layout.html.twig"%}
 {% block title "accueil" %}
+{% block content %}
+{% if error %}
+    <h2>{{error.code}}</h2>
+    <h3> {{error.message}}</h3>
+{% endif %}
+
+{% endblock %}
