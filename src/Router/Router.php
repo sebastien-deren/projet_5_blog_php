@@ -21,8 +21,8 @@ class Router
     }
     public function getController(string $url): string
     {
-        if (empty($path)) {
-            $this->controller = IndexController::class;
+        if (empty($url)) {
+            return IndexController::class;
         }
         $this->controller = $this->findController($url);
         return $this->controller;
