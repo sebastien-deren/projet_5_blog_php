@@ -22,7 +22,7 @@ class PostCreaterController extends Controller{
 
     }
 
-    public function createView(?int $id)
+    public function render()
     {
         if(empty($_SERVER['REQUEST_METHOD'])){
             $id =empty($id) ? 'aucun' :$id;
@@ -30,7 +30,13 @@ class PostCreaterController extends Controller{
         }
         //todo ajouter user
         if($_SERVER['REQUEST_METHOD']==='POST'){
-            $ $this->addpost($_POST,null);
+            $e =New Exception("le formulaire est mal rempli");
+            $fields =[];
+            foreach($_POST as $field){
+
+            }
+            $fields['content'] = !empty(\htmlspecialchars( $_POST['content'])) ? $_POST['content'] :throw $e; 
+            //$creater =new CreaterPost($fields);
             
             echo"on passe bien la";
         }
