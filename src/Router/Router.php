@@ -19,13 +19,13 @@ class Router
     {
         $this->paths[] =["name"=> $name,"controller"=>$fullyQualifierController];
     }
-    public function getController(string $url): controller
+    public function getController(string $url): string
     {
-        if (empty($path)) {
-            $this->controller = IndexController::class;
+        if (empty($url)) {
+            return IndexController::class;
         }
         $this->controller = $this->findController($url);
-        return new $this->controller;
+        return $this->controller;
 
     }
     private function findController(string $path):string
