@@ -21,6 +21,7 @@ class Router
     }
     public function getController(string $url): string
     {
+        $url = \trim($url,'/');
         if (empty($url)) {
             return IndexController::class;
         }
@@ -35,6 +36,6 @@ class Router
                 return $validpath["controller"];
             }
         }
-        throw new RouterException("il n'y a pas de page à ce chemin");
+        throw new RouterException("page non trouvé",404);
     }
 }

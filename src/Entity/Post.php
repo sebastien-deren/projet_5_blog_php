@@ -46,54 +46,31 @@ class Post extends ContentAbstract{
     {
         return $this->content;
     }
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
     public function getDate()
     {
         return $this->date;
-    }
-    public function setDate()
-    {
-        $this->date= new \DateTime();
-        return $this;
     }
     public function getUser()
     {
         return $this->user;
     }
-    public function setUser($user)
-    {
-        $this->user = $user;
-        return $this;
-    }
     public function getExcerpt()
     {
         return $this->excerpt;
-    }
-    public function setExcerpt($excerpt)
-    {
-        $this->excerpt = $excerpt;
-
-        return $this;
     }
     public function getComment()
     {
         return $this->comment;
     }
-
     public function getTitle()
     {
         return $this->title;
     }
-
-    public function setTitle($title)
+    public function addpost($field)
     {
-        $this->title = $title;
-
-        return $this;
+        $this->content = $field['content'];
+        $this->title = $field['title'];
+        $this->excerpt = $field['exerpt'];
+        $this->date = new \DateTime();
     }
 }
