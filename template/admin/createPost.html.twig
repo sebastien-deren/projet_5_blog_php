@@ -1,28 +1,32 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-		{% if error %}
-			<h1>{{ error }}</h1>
-            <p>vous avez mal renseigner un champ veillez a bien remplir tout les champs</p>
-		{% elseif message %}
-			<h1>{{message}}</h1>
-			<h2>{{post.title}}</h2>
-            <p> voulez vous créer un nouveau post</p>
-		{% endif %}
-		<form action="" method="post" class="form-post">
-			<div class="form-post row">
-				<label for="title">Entrer le titre:</label>
-				<input type="text" name="title" id="title" required>
+	{% if error %}
+		<h1>{{ error }}</h1>
+		<p>vous avez mal renseigner un champ veillez a bien remplir tout les champs</p>
+	{% elseif message %}
+		<h1>{{message}}</h1>
+		<h2>{{post.title}}</h2>
+		<p>
+			voulez vous créer un nouveau post</p>
+	{% endif %}
+	<div class="container-lg border border-white rounded">
+        <h2 class="text-lg-center mt-3">Veuillez écrire votre blog post ici:</h2>
+		<form action="" method="post" class="form-post mt-3 ms-2 me-2 ms-lg-3 me-lg-3">
+			<div class="form-post row mb-3 mt-3 ">
+				<label class="form-label col-md-3" for="title">Entrer le titre:</label>
+				<input class="form-control col-md" type="text" name="title" id="title" required>
 			</div>
-			<div class="form-post row">
-				<label for="exerpt">entrer un résumé du post</label>
-				<input type="text" name="exerpt" id="exerpt" length="255">
+			<div class="form-post row mb-3">
+				<label for="exerpt" class="form-label col-md-3">entrer un résumé du post</label>
+				<input class="form-control col-md" type="text" name="exerpt" id="exerpt" length="255">
 			</div>
-			<div class="form-post row">
-                <label for"content">entrer le contenu du blog post</label>
-				<textarea name="content" id="content_id"></textarea>
+			<div class="form-post row mb-3 ">
+				<label class="form-label col-md-3" for"content">entrer le contenu du blog post</label>
+				<textarea class="form-control col-md" name="content" id="content_id" rows="10" required></textarea>
 			</div>
-			<div class="text-lg-center"><input class="btn-bd-light" type="submit" value="publier"></div>
+			<div class="form-input mb-3"><input class=" position-relative start-50 btn btn-primary" type="submit" value="publier"></div>
 		</form>
+	</div>
 
 {% endblock %}

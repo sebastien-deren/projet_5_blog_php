@@ -36,6 +36,6 @@ class Router
                 return $validpath["controller"];
             }
         }
-        throw new RouterException("il n'y a pas de page à ce chemin");
+        throw new RouterException("page non trouvé",404);
     }
 }
