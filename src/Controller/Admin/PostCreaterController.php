@@ -19,6 +19,7 @@ class PostCreaterController extends Controller
 
     public function render()
     {
+        $template =$this->twig->load('@admin/createPost.html.twig');
         if (empty($_SERVER['REQUEST_METHOD'])) {
             $id = empty($id) ? 'aucun' : $id;
             throw new \Exception("on a pas de call du server, si c'est un test on est dans " . self::class . "argument envoyé " . $id);
@@ -27,7 +28,8 @@ class PostCreaterController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $e = new Exception("le formulaire est mal rempli");
             $fields = [];
-            try {
+            
+            //try {
                 foreach ($_POST as $fieldKey => $fieldValue) {
                     $fields[$fieldKey] = !empty(\htmlspecialchars($fieldValue)) ? $fieldValue : throw $e;
                 }
@@ -38,16 +40,17 @@ class PostCreaterController extends Controller
                 $post->addpost($fields);
                 $this->entityManager->persist($post);
                 $this->entityManager->flush();
-            } catch (Exception $e) {
-                echo $e->getMessage();
-                echo $this->twig->render('@admin/createPost.html.twig', ['error' => $e->getMessage()]);
-            }
+                echo $template->render([
+                    "post" => $post,
+                    "message"=> 'post envoyé dans la base de donnée'
+                ]);
+         /*   } catch (Exception $e) {
+                echo $template->render(['error' => $e->getMessage()]);
+            }*/
 
-            echo $this->twig->render('@admin/createPost.html.twig', [$post, 'post envoyé dans la base de donnée']);
         }
         elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            echo $this->twig->render('@admin/createPost.html.twig');
-            //dothings
+            echo $template->render();
         }
         //return $this->twig->load("@admin/createPost.html.twig");
     }

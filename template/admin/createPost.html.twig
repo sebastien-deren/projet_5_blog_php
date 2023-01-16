@@ -1,18 +1,28 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-<form action="" method="post" class="form-post">
-    <div class="form-post">
-        <label for="title">Entrer le titre:</label>
-        <input type="text" name="title" id="title" required>
-    </div>
-    <div class="form-post">
-        <label for="exerpt">entrer un résumé du post</label>
-        <input type ="text" name="exerpt" id="exerpt" length="255">
-    </div>
-    <div class ="form-post">
-        <textarea name="content" id="content_id"></textarea>
-    </div>
-    <div><input type="submit" value="publier"></div>
-</form>
+		{% if error %}
+			<h1>{{ error }}</h1>
+            <p>vous avez mal renseigner un champ veillez a bien remplir tout les champs</p>
+		{% elseif message %}
+			<h1>{{message}}</h1>
+			<h2>{{post.title}}</h2>
+            <p> voulez vous créer un nouveau post</p>
+		{% endif %}
+		<form action="" method="post" class="form-post">
+			<div class="form-post row">
+				<label for="title">Entrer le titre:</label>
+				<input type="text" name="title" id="title" required>
+			</div>
+			<div class="form-post row">
+				<label for="exerpt">entrer un résumé du post</label>
+				<input type="text" name="exerpt" id="exerpt" length="255">
+			</div>
+			<div class="form-post row">
+                <label for"content">entrer le contenu du blog post</label>
+				<textarea name="content" id="content_id"></textarea>
+			</div>
+			<div class="text-lg-center"><input class="btn-bd-light" type="submit" value="publier"></div>
+		</form>
+
 {% endblock %}
