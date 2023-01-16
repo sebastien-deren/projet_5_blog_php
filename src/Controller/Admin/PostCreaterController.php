@@ -1,46 +1,52 @@
 <?php
+
 namespace Blog\Controller\Admin;
 
-use Blog\Entity\Post;
-use Blog\Controller\Controller;
-use Doctrine\ORM\EntityManager;
 use Exception;
+use CreaterPost;
+use Blog\Entity\Post;
 use Twig\Environment;
+use Blog\Controller\Controller;
+use Blog\Entity\User;
+use Doctrine\ORM\EntityManager;
 
-class PostCreaterController extends Controller{
-    private Post $post;
+class PostCreaterController extends Controller
+{
     private EntityManager $entity;
 
 
-    public function addpost($donneeEnvoye,$user){
-            $this->post = new Post($user);
-            $this->post->setContent( $donneeEnvoye['content']);
-            $this->post->setTitle($donneeEnvoye['title']);
-            $this->post->setExcerpt($donneeEnvoye['exerpt']);
-            $this->post->setDate(\localtime());
-        return $this->post;
 
-    }
 
     public function render()
     {
-        if(empty($_SERVER['REQUEST_METHOD'])){
-            $id =empty($id) ? 'aucun' :$id;
-            throw new \Exception("on a pas de call du server, si c'est un test on est dans ". self::class. "argument envoyé " .$id);
+        if (empty($_SERVER['REQUEST_METHOD'])) {
+            $id = empty($id) ? 'aucun' : $id;
+            throw new \Exception("on a pas de call du server, si c'est un test on est dans " . self::class . "argument envoyé " . $id);
         }
         //todo ajouter user
-        if($_SERVER['REQUEST_METHOD']==='POST'){
-            $e =New Exception("le formulaire est mal rempli");
-            $fields =[];
-            foreach($_POST as $field){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $e = new Exception("le formulaire est mal rempli");
+            $fields = [];
+            try {
+                foreach ($_POST as $fieldKey => $fieldValue) {
+                    $fields[$fieldKey] = !empty(\htmlspecialchars($fieldValue)) ? $fieldValue : throw $e;
+                }
+                $userId = !empty($_SESSION['id']) ? $_SESSION['id'] : 2;
+                $user = $this->entityManager->find('\Blog\Entity\User', $userId);
 
+                $post = new Post($user);
+                $post->addpost($fields);
+                $this->entityManager->persist($post);
+                $this->entityManager->flush();
+            } catch (Exception $e) {
+                echo $e->getMessage();
+                echo $this->twig->render('@admin/createPost.html.twig', ['error' => $e->getMessage()]);
             }
-            $fields['content'] = !empty(\htmlspecialchars( $_POST['content'])) ? $_POST['content'] :throw $e; 
-            //$creater =new CreaterPost($fields);
-            
-            echo"on passe bien la";
+
+            echo $this->twig->render('@admin/createPost.html.twig', [$post, 'post envoyé dans la base de donnée']);
         }
-        if($_SERVER['REQUEST_METHOD']==='GET'){
+        elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            echo $this->twig->render('@admin/createPost.html.twig');
             //dothings
         }
         //return $this->twig->load("@admin/createPost.html.twig");

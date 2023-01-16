@@ -21,10 +21,7 @@ class Router
     }
     public function getController(string $url): string
     {
-<<<<<<< HEAD
         $url = \trim($url,'/');
-=======
->>>>>>> 985c9dae4c057695b2c5c7bfb5e77d74e74eb3f5
         if (empty($url)) {
             return IndexController::class;
         }
