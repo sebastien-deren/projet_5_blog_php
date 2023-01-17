@@ -10,9 +10,12 @@ use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
 use Blog\Controller\PostController;
 use Blog\Controller\Blog\BlogListController;
+use Blog\Controller\Blog\BlogListController;
+use Blog\Controller\User\RegisterController;
 use Blog\Controller\User\ConnectionController;
-use Blog\Controller\Admin\CreatePostController;
+use Blog\Controller\Admin\PostCreaterController;
 use Blog\Controller\Admin\CommentAdminController;
+
 use Blog\Controller\Admin\PostCreatePostController;
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
@@ -51,3 +54,4 @@ $router->addPath('admin/createpost',PostCreatePostController::class,Method::POST
 $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);
+$router->addPath('register',RegisterController::class);

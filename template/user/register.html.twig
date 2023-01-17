@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig'  %}
+{% block title "register" %}
+
+{% block content %}
+
+	<div class="container-lg border border-white rounded">
+		<h2 class="text-lg-center mt-3">Inscrivez vous ici:</h2>
+		<form action ="" method="post" class="form-post mt-3 ms-2 me-2 ms-lg-3 me-lg-3">
+			<div class="form-post row mb-3 mt-3 ">
+				<label class="form-label col-lg-3" for="username">Entrer votre username:</label>
+				<input class="form-control col-lg" type="text" name="login" id="username" >
+			</div>
+			<div class="form-post row mb-3">
+				<label for="password" class="form-label col-lg-3">Entrez votre mot de passe</label>
+				<input class="form-control col-lg" type="password" name="password" id="password" >
+			</div>
+			<div class="form-post row mb-3">
+				<label for="passwordverify" class="form-label col-lg-3">Confirmez votre mot de passe</label>
+				<input class="form-control col-lg" type="password" name="passwordverify" id="passwordverify" >
+			</div>
+			<div class="form-post row mb-3">
+				<label for="mail" class="form-label col-lg-3">Entrez votre email</label>
+				<input class="form-control col-lg" type="mail" name="mail" id="mail" >
+			</div>
+			<div class="form-post row mb-3">
+				<label for="firstname" class="form-label col-lg-3">Entrez votre prénom</label>
+				<input class="form-control col-lg" type="text" name="firstname" id="firstname">
+			</div>
+			<div class="form-post row mb-3">
+				<label for="lastname" class="form-label col-lg-3">Entrez votre Nom</label>
+				<input class="form-control col-lg" type="text" name="lastname" id="lastname">
+			</div>
+			<fieldset class=" form-post">
+				<legend>
+					choississez votre rôle:
+				</legend>
+				<div class="form-check">
+					<input class="form-check-input " type="radio" name="role" id="user" value="user" checked>
+					<label for="user" class="form-check-label">
+						Utilisateur
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input " type="radio" name="role" id="admin" value="admin">
+					<label for"admin" class="form-check-label">
+						Administrateur
+					</label>
+				</div>
+			</fieldset>
+			<div class="form-input mb-3 d-flex justify-content-center">
+				<button class=" btn btn-primary" type="submit">s'enregistrer</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}

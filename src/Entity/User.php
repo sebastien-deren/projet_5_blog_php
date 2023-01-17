@@ -23,7 +23,7 @@ class User{
     private int $id;
     #[Column()]
     private string $password;
-    #[Column(unique:true, length:45)]
+    #[Column(unique:true, length:60)]
     private string $login;
     #[Column(type: Types::STRING, length:30)]
     private string $firstname;
@@ -44,7 +44,7 @@ class User{
     }
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = password_hash($password,\PASSWORD_DEFAULT);
 
         return $this;
     }
