@@ -15,8 +15,9 @@ use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\PostCreaterController;
 use Blog\Controller\User\DeconnectionController;
 use Blog\Controller\User\PostRegisterController;
-use Blog\Controller\Blog\BlogListController;
-
+use Blog\Controller\Admin\PostCreatePostController;
+use Blog\Controller\Admin\PostCreaterController;
+use Blog\Controller\Admin\CommentAdminController;
 
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
