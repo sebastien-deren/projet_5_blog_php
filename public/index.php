@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once(dirname(__FILE__) . '/../bootstrap.php');
 //$user = $entityManager->find('\Blog\Entity\User',2);
 try{

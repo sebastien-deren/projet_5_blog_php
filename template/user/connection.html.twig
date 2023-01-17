@@ -1,0 +1,29 @@
+{% extends "layout.html.twig"%}
+{% block title "Connection" %}
+{% block content %}
+	<div class="container-lg border border-light rounded">
+		{% if error %}
+			<h2>{{error.code}}</h2>
+			<h3>
+				{{error.message}}</h3>
+		{% endif %}
+		<h1>vous êtes bien sur la page de Connection</h1>
+		<form action="" method="post" class="mt-3 ms-2">
+
+			<div class="mb-3">
+				<label for="username" class="form-label">Username</label>
+				<input type="text" class="form-control" name="login" id="username" aria-describedby="helpId" placeholder="" required>
+				<small id="helpId" class="form-text text-muted">votre pseudo sur notre site, ou votre email</small>
+			</div>
+			<div class="mb-3">
+				<label for="password" class="form-label">Password</label>
+				<input type="password" class="form-control" name="password" id="password" placeholder="" required>
+			</div>
+            <button type="submit" class="btn btn-primary">login</button>
+
+			<p>
+				<a href="FORGOT_PASSWORDURL">Forgot your password?</a>
+			</p>
+		</form>
+	</div>
+{% endblock %}

@@ -43,7 +43,7 @@ $twig->addExtension(new \Twig\Extension\DebugExtension);
 
 /* creation of our router*/
 $router = new Router();
-$router->addPath('connection', ConnectionController::class);
+$router->addPath('connecter', ConnectionController::class);
 $router->addPath('admin/createpost', PostCreaterController::class);
 $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
