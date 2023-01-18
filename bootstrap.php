@@ -9,10 +9,11 @@ use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
 use Blog\Controller\PostController;
 use Blog\Controller\User\ConnectionController;
-use Blog\Controller\Admin\PostCreaterController;
-use Blog\Controller\Admin\CommentAdminController;
-use Blog\Controller\Blog\BlogListController;
 
+use Blog\Controller\Admin\CommentAdminController;
+use Blog\Controller\Admin\CreatePostController;
+use Blog\Controller\Blog\BlogListController;
+use Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand;
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
@@ -44,7 +45,7 @@ $twig->addExtension(new \Twig\Extension\DebugExtension);
 /* creation of our router*/
 $router = new Router();
 $router->addPath('connection', ConnectionController::class);
-$router->addPath('admin/createpost', PostCreaterController::class);
+$router->addPath('admin/createpost', CreatePostController::class);
 $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);
