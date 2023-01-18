@@ -61,12 +61,22 @@ use Blog\DTO\User\RegisterDTO;
 use Blog\Exception\UniqueKeyViolationException;
 use Blog\Service\Interface\Creater;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
+use Blog\DTO\User\UserCreateDTO;
+use Blog\DTO\User\UserLoginDTO;
+use Blog\DTO\User\UserRegisterDTO;
+use Blog\DTO\User\UserUpdateDTO;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ObjectRepository;
+use Exception;
 
 class UserService implements Creater //, Updater, Deleter
 {
     private User $user;
-    public function __construct(private EntityManagerInterface $entity)
+    private ObjectRepository|EntityRepository $repoUser;
+    public function __construct(private EntityManager $entityManager)
     {
+        $this->repoUser = $this->entityManager->getRepository(User::class);
     }
     public function create(AbstractDTO $registerDTO)
     {
