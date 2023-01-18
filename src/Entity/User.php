@@ -63,9 +63,9 @@ class User
             $this->lastname = $lastname;
         }
         }
-    public function getPassword()
+    public function checkPassword($password)
     {
-        return $this->password;
+        return \password_verify($password,$this->password);
     }
     public function setPassword($password)
     {
