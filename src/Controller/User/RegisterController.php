@@ -2,26 +2,27 @@
 
 namespace Blog\Controller\User;
 
+use Blog\Service\UserService;
 use Blog\Controller\Controller;
 use Blog\Exception\FormException;
-use Blog\Model\UserConstructor;
+use Blog\Model\Form\RegisterFormModel;
 
 class RegisterController extends Controller
 {
     public function render()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userService = new UserService($this->entityManager);
+            $registerModel = new RegisterFormModel;
             try {
-                $user = new UserConstructor($_POST);
-                $user = $user->getUser();
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-                echo $this->twig->render('@user/connection.html.twig');
+                $user = $registerModel->ArrrayToObjectUserRegister($_POST);
+                $userService->registerUser($user);
+                //TODO change it to /connection when connection issue is done
+                header("location: /");
             } catch (FormException $e) {
                 //TODO make a reusable template to display error in different pages
                 echo $this->twig->render('@user/register.html.twig', ['error' => $e]);
             }
-
         } else {
             echo $this->twig->render('@user/register.html.twig');
         }
