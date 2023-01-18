@@ -3,40 +3,31 @@
 namespace Blog\Service;
 
 use Blog\Entity\User;
-use Blog\DTO\AbstractDTO;
-use Blog\DTO\User\RegisterDTO;
-use Blog\Exception\UniqueKeyViolationException;
-use Blog\Service\Interface\Creater;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
+use Blog\DTO\User\UserCreateDTO;
+use Blog\DTO\User\UserRegisterDTO;
+use Blog\DTO\User\UserUpdateDTO;
+use UserLoginDTO;
 
-class UserService implements Creater //, Updater, Deleter
+class UserService
 {
     private User $user;
-    public function __construct(private EntityManagerInterface $entity)
+    public function __construct(private EntityManager $entity)
     {
     }
-    public function create(AbstractDTO $registerDTO)
+    public function registerUser(UserRegisterDTO $userToRegister)
     {
-        if(!($registerDTO instanceof RegisterDTO)){
-            throw new \Exception("Internal Server Error",500);
-        }
-        $this->uniqueKeyChecker([
-            "mail"=>$registerDTO->mail,
-            "login"=>$registerDTO->login
-        ]);
-        $this->user = new User($registerDTO);
+        $this->createUser($userToRegister->userCreate);
+        $this->updateUser($userToRegister->userUpdate);
         $this->entity->persist($this->user);
         $this->entity->flush();
     }
-    private function uniqueKeyChecker(array $KeyToCheck){
-        $uniqueKeyViolationMsg="";
-        foreach($KeyToCheck as $columnName => $columnValue){
-            if ($this->entity->getRepository(User::class)->findOneBy([$columnName=>$columnValue])){
-                $uniqueKeyViolationMsg= $uniqueKeyViolationMsg . " le ".$columnName." est déjà utilisé.";
-            }
-        }
-        if("" !==$uniqueKeyViolationMsg){
-            throw new UniqueKeyViolationException($uniqueKeyViolationMsg);
-        }
+    private function createUser(UserCreateDTO $userToCreate){
+        $this->user = new User($userToCreate->login, $userToCreate->password, $userToCreate->mail,$userToCreate->role);
     }
+    public function updateUser(UserUpdateDTO $userToUpdate)
+    {
+        $this->user->updateUser($userToUpdate->firstName,$userToUpdate->lastName);
+    }
+
 }
