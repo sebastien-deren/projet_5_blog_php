@@ -2,14 +2,15 @@
 declare(strict_types=1);
 namespace Blog\Entity;
 
+use Blog\Enum\CommentStatus;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\GeneratedValue;
 
 #[Entity()]
 class Comment{
@@ -27,6 +28,8 @@ class Comment{
     #[ManyToOne(targetEntity:Post::class,inversedBy:'comment')]
     #[JoinColumn(name:'post_id',referencedColumnName:'id')]
     private Post|null $post =null;
+    #[Column(type: Types::STRING)]
+    private string $validity;
 
     public function __construct()
     {
@@ -56,5 +59,20 @@ class Comment{
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Get the value of validity
+     */ 
+    public function getValidity()
+    {
+        return CommentStatus::from($this->validity);
+    }
+
+    public function setValidity(CommentStatus $validity)
+    {
+        $this->validity = $validity->value;
+
+        return $this;
     }
 }

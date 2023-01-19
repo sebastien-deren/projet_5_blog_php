@@ -23,17 +23,17 @@ class User{
     private int $id;
     #[Column()]
     private string $password;
-    #[Column(unique:true, length:45)]
+    #[Column(unique:true, length:255)]
     private string $login;
-    #[Column(type: Types::STRING, length:30)]
+    #[Column(type: Types::STRING, length:255, nullable:true)]
     private string $firstname;
-    #[Column(type: Types::STRING, length:30)]
+    #[Column(type: Types::STRING, length:60, nullable:true)]
     private string $lastname;
-    #[Column(type: Types::STRING, length:40)]
+    #[Column(type: Types::STRING, length:100)]
     private string $mail;
     #[OneToMany(mappedBy:'user',targetEntity: Comment::class)]
     private Collection $comment;
-    #[Column()]
+    #[Column(type: Types::STRING ,nullable:true)]
     private int $role;
     #[OneToMany(mappedBy:'user',targetEntity: Post::class)]
     private Collection $post;
