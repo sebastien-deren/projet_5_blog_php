@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Blog\Service;
 
 use Exception;
@@ -13,7 +13,7 @@ use Doctrine\Instantiator\Exception\UnexpectedValueException;
 class CommentService extends Service
 {
 
-    public function moderateComments(CommentModerationListDTO $commentList)
+    public function moderateComments(CommentModerationListDTO $commentList):int
     {
         $commentRepo = $this->entityManager->getRepository(Comment::class);
         foreach ($commentList->commentsToModerate as $comment) {
@@ -36,7 +36,7 @@ class CommentService extends Service
         }
         return $commentList;
     }
-    public function createCommentDTO(Comment $comment)
+    public function createCommentDTO(Comment $comment):CommentDTO
     {
         $commentDTO = new CommentDTO;
         $commentDTO->content = $comment->getContent();
