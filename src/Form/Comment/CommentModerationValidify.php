@@ -23,7 +23,7 @@ class CommentModerationValidify
     private function putObjectCommentInArray(array $idComments, CommentStatus $valid)
     {
         foreach ($idComments as $idComment) {
-            $CommentDTO = new CommentModerationDTO($idComment,$valid);
+            $CommentDTO = new CommentModerationDTO(\intval($idComment),$valid);
             $this->commentList->addcomment($CommentDTO);
         }
     }

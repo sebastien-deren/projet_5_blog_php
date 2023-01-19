@@ -8,7 +8,9 @@ use Blog\Entity\Comment;
 use Doctrine\ORM\NoResultException;
 use Blog\DTO\CommentModerationListDTO;
 use Blog\Enum\CommentStatus;
+use Doctrine\Common\Cache\Psr6\InvalidArgument;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
+use InvalidArgumentException;
 
 class CommentService extends Service
 {
@@ -18,7 +20,8 @@ class CommentService extends Service
         $commentRepo = $this->entityManager->getRepository(Comment::class);
         foreach ($commentList->commentsToModerate as $comment) {
             $commentEntity = $commentRepo->find($comment->id);
-            $commentList->validity == CommentStatus::Deleted ? $this->entityManager->remove($commentEntity) : $commentEntity->setValidity($commentList->validity);
+            $commentEntity->getValidity()===CommentStatus::Pending?:throw new InvalidArgumentException("le commentaire à déjà été modéré");
+            $commentEntity->setValidity($commentList->validity);
         }
         $this->entityManager->flush();
         return count($commentList->commentsToModerate);
@@ -29,7 +32,7 @@ class CommentService extends Service
 
         $commentUnModeratedArray = $commentRepo->findBy(["validity" => CommentStatus::Pending->value], ["date" => "DESC"],);
         if (empty($commentUnModeratedArray)) {
-            throw new UnexpectedValueException("no comment to moderate");
+            throw new InvalidArgumentException("no comment to moderate");
         }
         foreach ($commentUnModeratedArray as $commentUnModerated) {
             $commentList[] = $this->createCommentDTO($commentUnModerated);
