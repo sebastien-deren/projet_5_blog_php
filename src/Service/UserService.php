@@ -3,31 +3,36 @@
 namespace Blog\Service;
 
 use Blog\Entity\User;
-use Doctrine\ORM\EntityManager;
+use Blog\DTO\AbstractDTO;
 use Blog\DTO\User\UserCreateDTO;
-use Blog\DTO\User\UserRegisterDTO;
 use Blog\DTO\User\UserUpdateDTO;
-use UserLoginDTO;
+use Blog\DTO\User\UserRegisterDTO;
+use Blog\Service\Interface\Creater;
+use Doctrine\ORM\EntityManagerInterface;
 
-class UserService
+class UserService implements Creater //, Updater, Deleter
 {
     private User $user;
-    public function __construct(private EntityManager $entity)
+    public function __construct(private EntityManagerInterface $entity)
     {
     }
-    public function registerUser(UserRegisterDTO $userToRegister)
+    public function create(AbstractDTO $objectToCreate)
     {
-        $this->createUser($userToRegister->userCreate);
-        $this->updateUser($userToRegister->userUpdate);
+        $this->createUser($objectToCreate);
+    }
+    public function createUser(UserCreateDTO $userToCreate)
+    {
+        $this->register($userToCreate->userRegisterDTO);
+        $this->updateUser($userToCreate->userUpdateDTO);
         $this->entity->persist($this->user);
         $this->entity->flush();
     }
-    private function createUser(UserCreateDTO $userToCreate){
-        $this->user = new User($userToCreate->login, $userToCreate->password, $userToCreate->mail,$userToCreate->role);
+    private function register(UserRegisterDTO $userToCreate)
+    {
+        $this->user = new User($userToCreate->login, $userToCreate->password, $userToCreate->mail, $userToCreate->role);
     }
     public function updateUser(UserUpdateDTO $userToUpdate)
     {
-        $this->user->updateUser($userToUpdate->firstName,$userToUpdate->lastName);
+        $this->user->updateUser($userToUpdate->firstName, $userToUpdate->lastName);
     }
-
 }

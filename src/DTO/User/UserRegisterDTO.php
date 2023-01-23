@@ -1,10 +1,11 @@
 <?php
 namespace Blog\DTO\User;
+
+use Blog\Enum\RoleEnum;
+
 class UserRegisterDTO{
-    public UserCreateDTO $userCreate;
-    public UserUpdateDTO|null $userUpdate;
-    public function __construct()
-    {
-        $this->userCreate =new UserCreateDTO();
-    }
+    public string $login;
+    public string $password;
+    public string $mail;
+    public RoleEnum $role;
 }
