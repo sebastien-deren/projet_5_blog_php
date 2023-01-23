@@ -1,11 +1,11 @@
 <?php
+
 namespace Blog\DTO\User;
 
-use Blog\Enum\RoleEnum;
+use Blog\DTO\AbstractDTO;
 
-class UserCreateDTO{
-    public string $login;
-    public string $password;
-    public string $mail;
-    public RoleEnum $role;
+class UserCreateDTO extends AbstractDTO{
+    public function __construct(public UserRegisterDTO $userRegisterDTO, public UserUpdateDTO $userUpdateDTO)
+    {
+    }
 }

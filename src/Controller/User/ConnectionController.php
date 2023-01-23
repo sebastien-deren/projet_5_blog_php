@@ -2,10 +2,9 @@
 
 namespace Blog\Controller\User;
 
-use Blog\Controller\AbstractController;
 use Blog\Controller\Interface\Controller;
 
-class ConnectionController extends AbstractController
+class ConnectionController extends Controller
 {
 
     public function execute()
