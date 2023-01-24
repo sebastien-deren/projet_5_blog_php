@@ -3,10 +3,18 @@
 namespace Blog\Service;
 
 use Blog\Entity\Post;
+use Blog\DTO\Post\PostDTO;
+use Blog\DTO\Post\ListPostDTO;
 use Blog\DTO\Post\createPostDTO;
+use Blog\Service\Interface\Getter;
+use Doctrine\ORM\EntityManagerInterface;
 
-class PostService extends Service
+class PostService implements Getter
 {
+    public function __construct(private EntityManagerInterface $entityManager)
+    {
+        
+    }
     public function CreatePost(CreatePostDTO $postToCreate): int
     {
         //to work again with new UserService
@@ -20,5 +28,24 @@ class PostService extends Service
         $this->entityManager->persist($post);
         $this->entityManager->flush();
         return $post->getId();
+    }
+    public function getAll():ListPostDTO{
+        $postRepository = $this->entityManager->getRepository(Post::class);
+        $posts = $postRepository->findAll();
+        $postList = new ListPostDTO;
+        foreach($posts as $post){
+            $postDTO = new PostDTO;
+            $postDTO->id = $post->getId();
+            $postDTO->title = $post->getTitle();
+            $postDTO->excerpt =$post->getExcerpt();
+            $postDTO->author =$post->getUser()->getFullName();
+            $postDTO->date = $post->getDate()->format("Y-m-d H:i:s");
+            $postList->listPost[] = $postDTO;
+        }
+        return $postList;
+    }
+    public function getByID()
+    {
+        
     }
 }
