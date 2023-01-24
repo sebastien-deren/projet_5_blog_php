@@ -6,7 +6,7 @@ try{
 
     $controllername =$router->getController($_GET['url']);
     $controller = new $controllername($twig,$entityManager);
-    $controller->render();
+    $controller->execute();
     }
 
     catch(Exception $e){

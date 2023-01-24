@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 namespace Blog\Router;
-
-use Blog\Controller\Controller;
 use Blog\Controller\IndexController;
 use Blog\Exception\RouterException;
 

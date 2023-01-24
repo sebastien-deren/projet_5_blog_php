@@ -1,0 +1,34 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+	<div class="container-lg">
+		<div class="row">
+			<h2 class="text-center">{{ post.title}}</h2>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h2>{{post.author }}
+				</h2>
+			</div>
+			<div class="col">
+				<h4>{{post.date}}</h4>
+				<h3>{{post.excerpt}}</h3>
+			</div>
+		</div>
+		<div>
+			<p>{{post.content}}</p>
+		</div>
+		<div>
+			<h3>Commentaires</h3>
+			{% if post.comments is empty  %}
+				<p>
+					pas de Commentaires Soyez le premier à commenter!!!</p>
+			{% endif %}
+
+			{% for comment in post.comments %}
+				<H4>{{comment.author}}</h4>
+				<h6>{{comment.date}}</h6>
+				<p>{{comment.content}}</p>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

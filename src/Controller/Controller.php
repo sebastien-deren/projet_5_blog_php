@@ -12,12 +12,6 @@ abstract class Controller implements ControllerInterface{
     {
         
     }
-    public function getModel(EntityManager $entityManager){
-
-    }
-    public function render(){
-        echo 'coucou';
-        
-    }
+    abstract public function execute();
 
 }

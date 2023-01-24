@@ -7,6 +7,5 @@ use Twig\Template;
 
 interface ControllerInterface  
 {
-    public function getModel(EntityManager $entityManager);
-    public function render();
+    public function execute();
 }

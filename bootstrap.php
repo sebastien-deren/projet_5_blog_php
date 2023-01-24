@@ -7,14 +7,11 @@ use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
-use Blog\Controller\PostController;
-use Blog\Controller\User\ConnectionController;
-
-use Blog\Controller\Admin\CommentAdminController;
-use Blog\Controller\Admin\CreatePostController;
+use Blog\Controller\Blog\PostController;
 use Blog\Controller\Blog\BlogListController;
-use Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand;
-
+use Blog\Controller\User\ConnectionController;
+use Blog\Controller\Admin\CreatePostController;
+use Blog\Controller\Admin\CommentAdminController;
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 /*creation of our entity manager*/
