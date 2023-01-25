@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blog\Entity;
 
+use Blog\DTO\User\RegisterDTO;
 use Blog\Enum\RoleEnum;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
@@ -28,46 +29,34 @@ class User
     private string $password;
     #[Column(unique: true, length: 60)]
     private string $login;
-    #[Column(type: Types::STRING, length: 60,nullable: true)]
+    #[Column(type: Types::STRING, length: 60, nullable: true)]
     private string $firstname;
-    #[Column(type: Types::STRING, length: 60, nullable:true)]
+    #[Column(type: Types::STRING, length: 60, nullable: true)]
     private string $lastname;
-    #[Column(unique:true, type: Types::STRING, length: 125)]
+    #[Column(unique: true, type: Types::STRING, length: 125)]
     private string $mail;
     #[OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comment;
-    #[Column(type: Types::STRING,length:10)]
+    #[Column(type: Types::STRING, length: 10)]
     private string $role;
     #[OneToMany(mappedBy: 'user', targetEntity: Post::class)]
     private Collection $post;
 
-    public function __construct(string $login, string $password, string $mail,RoleEnum $role)
+    public function __construct(RegisterDTO $registerDTO)
     {
-        if (!\filter_var($mail, \FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('email is not a valid email!');
-        }
-        $this->mail = $mail;
-        if (\strchr($login, " ")) {
-            throw new \InvalidArgumentException("your login cannot contain spaces");
-        }
-        $this->login = $login;
-        $this->password = password_hash($password, \PASSWORD_DEFAULT);
-        $this->role = $role->value;
+        $this->setLogin($registerDTO->login);
+        $this->setMail($registerDTO->mail);
+        $this->setPassword($registerDTO->password);
+        $this->setRole($registerDTO->role);
+        $this->setFirstname($registerDTO->firstName);
+        $this->setLastname($registerDTO->lastName);
+
     }
-    public function updateUser(string $firstname, string $lastname)
-    {
-        if ($firstname !== \null) {
-            $this->firstname = $firstname;
-        }
-        if ($lastname !== \null) {
-            $this->lastname = $lastname;
-        }
-        }
     public function getPassword()
     {
         return $this->password;
     }
-    public function setPassword($password)
+    public function setPassword(string $password):User
     {
         $this->password = password_hash($password, \PASSWORD_DEFAULT);
 
@@ -77,8 +66,11 @@ class User
     {
         return $this->login;
     }
-    public function setLogin($login)
+    public function setLogin(string $login):User
     {
+        if (\strchr($login, " ")) {
+            throw new \InvalidArgumentException("your login cannot contain spaces");
+        }
         $this->login = $login;
 
         return $this;
@@ -88,9 +80,11 @@ class User
         return $this->firstname;
     }
 
-    public function setFirstname($firstname)
+    public function setFirstname(string $firstname):User
     {
-        $this->firstname = $firstname;
+        if (null !== $firstname) {
+            $this->firstname = $firstname;
+        }
 
         return $this;
     }
@@ -98,9 +92,11 @@ class User
     {
         return $this->lastname;
     }
-    public function setLastname($lastname)
+    public function setLastname(string $lastname):User
     {
-        $this->lastname = $lastname;
+        if (null !== $lastname) {
+            $this->lastname = $lastname;
+        }
 
         return $this;
     }
@@ -108,8 +104,11 @@ class User
     {
         return $this->mail;
     }
-    public function setMail($mail)
+    public function setMail(string $mail):User
     {
+        if (!\filter_var($mail, \FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException('email is not a valid email!');
+        }
         $this->mail = $mail;
 
         return $this;
@@ -118,13 +117,13 @@ class User
     {
         return $this->id;
     }
-    public function getRole():RoleEnum
+    public function getRole(): RoleEnum
     {
-      return RoleEnum::tryfrom($this->role)?:throw new \Exception("your role is not configured what did you do you fool!");
+        return RoleEnum::tryfrom($this->role) ?: throw new \Exception("your role is not configured");
     }
-    public function setRole($role)
+    public function setRole(RoleEnum $role):User
     {
-        $this->role = $role;
+        $this->role = $role->value;
 
         return $this;
     }

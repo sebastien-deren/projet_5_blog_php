@@ -2,14 +2,11 @@
 
 namespace Blog\Controller\User;
 
+use Blog\Form\RegisterForm;
 use Blog\Service\UserService;
-use Blog\Form\UserRegisterForm;
-use Blog\DTO\User\UserCreateDTO;
-use Blog\DTO\User\UserUpdateDTO;
+use Blog\DTO\User\RegisterDTO;
 use Blog\Exception\FormException;
-use Blog\DTO\User\UserRegisterDTO;
 use Blog\Controller\AbstractController;
-use Blog\Controller\Form\CreaterController;
 use Blog\Controller\Interface\ReceivingPost;
 
 class RegisterController extends AbstractController implements ReceivingPost
@@ -17,16 +14,9 @@ class RegisterController extends AbstractController implements ReceivingPost
     public function execute()
     {
         try {
-            $handler = new CreaterController(
-                new UserService($this->entityManager),
-                new UserRegisterForm(
-                    new UserCreateDTO(
-                        new UserRegisterDTO,
-                        new UserUpdateDTO
-                    )
-                )
-            );
-            $handler->handleform($_POST);
+            $registerDTO = $this->validateFormIntoDTO($_POST);
+            $this->CreateUser($registerDTO);
+
             //TODO change it to /connection when connection issue is done
             header("location: /");
         } catch (FormException $e) {
@@ -36,6 +26,16 @@ class RegisterController extends AbstractController implements ReceivingPost
     }
     public function render()
     {
-        echo $this->twig->render('@user/register.html.twig',["javascript"=>"pahtToJs"]);
+        echo $this->twig->render('@user/register.html.twig');
+    }
+    private function validateFormIntoDTO($data): RegisterDTO
+    {
+        $formValidifier = new RegisterForm(new RegisterDTO);
+        return $formValidifier->validify($data);
+    }
+    private function createUser(RegisterDTO $registerDTO)
+    {
+        $userService = new UserService($this->entityManager);
+        $userService->create($registerDTO);
     }
 }
