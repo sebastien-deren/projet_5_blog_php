@@ -28,15 +28,15 @@ class User
     private string $password;
     #[Column(unique: true, length: 60)]
     private string $login;
-    #[Column(type: Types::STRING, length: 30,nullable: true)]
+    #[Column(type: Types::STRING, length: 60,nullable: true)]
     private string $firstname;
-    #[Column(type: Types::STRING, length: 30, nullable:true)]
+    #[Column(type: Types::STRING, length: 60, nullable:true)]
     private string $lastname;
-    #[Column(type: Types::STRING, length: 40)]
+    #[Column(unique:true, type: Types::STRING, length: 125)]
     private string $mail;
     #[OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comment;
-    #[Column(type: Types::STRING,length:10, nullable:true)]
+    #[Column(type: Types::STRING,length:10)]
     private string $role;
     #[OneToMany(mappedBy: 'user', targetEntity: Post::class)]
     private Collection $post;

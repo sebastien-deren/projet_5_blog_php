@@ -36,6 +36,6 @@ class RegisterController extends AbstractController implements ReceivingPost
     }
     public function render()
     {
-        echo $this->twig->render('@user/register.html.twig');
+        echo $this->twig->render('@user/register.html.twig',["javascript"=>"pahtToJs"]);
     }
 }
