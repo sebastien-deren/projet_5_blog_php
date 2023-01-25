@@ -25,7 +25,7 @@ class UserRegisterForm implements FormValidifier
         $this->userDTO->userRegisterDTO->mail = \htmlspecialchars($data['mail']);
         $this->userDTO->userRegisterDTO->password = $data["password"];
         $this->userDTO->userRegisterDTO->login = \htmlspecialchars($data["login"]);
-        $this->userDTO->userRegisterDTO->role = RoleEnum::From($data['role']);
+        $this->userDTO->userRegisterDTO->role = RoleEnum::USER;
     }
     private function arrayToObjectUpdate(array $data)
     {
@@ -49,12 +49,6 @@ class UserRegisterForm implements FormValidifier
         }
         if (empty($data['mail'])) {
             throw new \InvalidArgumentException('le mail n\'ai pas rempli');
-        }
-        if (empty($data['role'])) {
-            throw new \InvalidArgumentException('le role n\'ai pas rempli');
-        }
-        if (!RoleEnum::tryFrom($data['role'])) {
-            throw new \InvalidArgumentException("le role ne convient pas");
         }
     }
 }
