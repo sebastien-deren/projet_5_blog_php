@@ -4,32 +4,34 @@ namespace Blog\Form;
 
 use Blog\DTO\User\RegisterDTO;
 use Blog\Enum\RoleEnum;
+use Blog\Form\Interface\FormValidifier;
 
-class RegisterForm extends FormValidifier
+class RegisterForm implements FormValidifier
 {
-    public function __construct(RegisterDTO $RegisterDTO)
-    {
-        parent::__construct($RegisterDTO);
+
+    public function __construct(
+        private RegisterDTO $RegisterDTO
+    ) {
     }
-    protected function createDTO(array $data)
+    public function validify(array $data): RegisterDTO
     {
-        //we'd prefer to not encapsulate our function but if not this will trigger our linter
-        if ($this->DTO instanceof RegisterDTO) {
-            $this->DTO->mail = \htmlspecialchars($data['mail']);
-            $this->DTO->password = $data["password"];
-            $this->DTO->login = \htmlspecialchars($data["login"]);
-            /*here we can update this by checking if the connected user is admin 
+        $this->checkingRequired($data);
+        $this->createRegisterDTO($data);
+        return $this->RegisterDTO;
+    }
+    private function createRegisterDTO(array $data)
+    {
+        $this->RegisterDTO->mail = \htmlspecialchars($data['mail']);
+        $this->RegisterDTO->password = $data["password"];
+        $this->RegisterDTO->login = \htmlspecialchars($data["login"]);
+        /*here we can update this by checking if the connected user is admin 
         and let him assign another role to a new "user".
         */
-            $this->DTO->role = RoleEnum::USER;
-            $this->DTO->firstName = \htmlspecialchars($data['firstname']);
-            $this->DTO->lastName = \htmlspecialchars($data['lastname']);
-        }
-        else{
-            throw new \Exception("We need a Register DTO, received".$this->DTO::class,2);
-        }
+        $this->RegisterDTO->role = RoleEnum::USER;
+        $this->RegisterDTO->firstName = \htmlspecialchars($data['firstname']);
+        $this->RegisterDTO->lastName = \htmlspecialchars($data['lastname']);
     }
-    protected function checkingRequired(array $data)
+    private function checkingRequired($data)
     {
         if (empty($data["login"])) {
             throw new \UnexpectedValueException('le nom d\'utilisateur n\'ai pas rempli');
