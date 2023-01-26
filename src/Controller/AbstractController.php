@@ -6,7 +6,7 @@ use Blog\Controller\ControllerInterface;
 use Twig\Environment;
 
 abstract class AbstractController implements ControllerInterface{
-    protected array $argument;
+    protected array $argument=[];
     public function __construct(protected Environment $twig, protected EntityManager $entityManager)
     {
         
