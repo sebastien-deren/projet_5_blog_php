@@ -6,6 +6,7 @@ use Blog\Controller\Interface\FormHandler;
 use Blog\Controller\Interface\ReceivingPost;
 
 session_start();
+
 require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 /**
@@ -16,6 +17,12 @@ require_once(dirname(__FILE__) . '/../bootstrap.php');
  * This try catch is here to display all our exception thrown in our code and not catch before.
  * 
  */
+use Blog\Service\UserService;
+
+if(isset($_SESSION['id'])){
+    $userService =new UserService($entityManager);
+    $twig->addGlobal('user',$userService->display($_SESSION['id']));
+}
 try{
     echo $router->getController()->execute();
 }
