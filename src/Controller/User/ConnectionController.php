@@ -32,13 +32,13 @@ class ConnectionController extends AbstractController
             $_SESSION['id'] = $userId;
             \header("location: /");
         } catch (Exception $e) {
-            echo $e->getMessage();
+            $this->argument['error'] = $e;
             $this->display();
         }
     }
     private function display()
     {
-        echo $this->twig->render('@user/connection.html.twig');
+        echo $this->twig->render('@user/connection.html.twig',$this->argument);
     }
     private function checkLogin($login, $password) {
         if (\strchr($login, '@')) {
