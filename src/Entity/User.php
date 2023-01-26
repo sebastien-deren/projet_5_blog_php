@@ -34,7 +34,7 @@ class User{
     #[OneToMany(mappedBy:'user',targetEntity: Comment::class)]
     private Collection $comment;
     #[Column(type: Types::STRING ,nullable:true)]
-    private int $role;
+    private string $role;
     #[OneToMany(mappedBy:'user',targetEntity: Post::class)]
     private Collection $post;
     

@@ -1,14 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Blog\Controller\Admin;
 
+use Blog\Enum\CommentStatus;
+use Blog\Service\PostService;
+use InvalidArgumentException;
 use Blog\Controller\Controller;
 use Blog\Service\CommentService;
-use Blog\Form\Comment\CommentModerationValidify;
-use Doctrine\Instantiator\Exception\UnexpectedValueException;
-use InvalidArgumentException;
-use Symfony\Component\Console\Exception\MissingInputException;
+use Blog\DTO\CommentModerationListDTO;
+use Blog\Form\Comment\CommentModerationForm;
 
 class CommentModerationController extends Controller
 {
@@ -18,18 +20,20 @@ class CommentModerationController extends Controller
 
         $this->commentService = new CommentService($this->entityManager);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $commentsToModerate = new CommentModerationValidify;
             try {
-                $commentArray = $commentsToModerate->arrayToObjectCommentList($_POST);
+                $status = CommentStatus::tryfrom($_POST['input']) ?: throw new \Exception("Ce status n'est pas défini: ".$_POST['input']);
+                $commentsToModerate = new CommentModerationForm(new CommentModerationListDTO($status));
+                $commentArray = $commentsToModerate->validify($_POST['id']);
                 $numberOfModification = $this->commentService->moderateComments($commentArray);
-                $this->argument["information"] = $numberOfModification . " commentaire(s) ont bien été " . $_POST["input"] . " !";
+                $this->argument["information"] = $numberOfModification . " commentaire(s) ont bien été " . $status->value . " !";
             } catch (InvalidArgumentException $e) {
                 $this->argument['information'] = $e->getMessage();
             }
         }
-        try{
-        $this->argument['comments'] = $this->commentService->getCommentNotModerate();
-        }catch(InvalidArgumentException $e){
+        try {
+            $postService = new PostService($this->entityManager);
+            $this->argument['posts']= $postService->getPostListWithComment(CommentStatus::Pending);
+        } catch (InvalidArgumentException $e) {
             $this->argument['information'] = $e->getMessage();
         }
         echo $this->twig->render('@admin/commentModeration.html.twig', $this->argument);

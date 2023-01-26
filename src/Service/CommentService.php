@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Blog\Service;
 
 use Exception;
@@ -15,18 +17,18 @@ use InvalidArgumentException;
 class CommentService extends Service
 {
 
-    public function moderateComments(CommentModerationListDTO $commentList):int
+    public function moderateComments(CommentModerationListDTO $commentList): int
     {
         $commentRepo = $this->entityManager->getRepository(Comment::class);
         foreach ($commentList->commentsToModerate as $comment) {
             $commentEntity = $commentRepo->find($comment->id);
-            $commentEntity->getValidity()===CommentStatus::Pending?:throw new InvalidArgumentException("le commentaire à déjà été modéré");
+            $commentEntity->getValidity() === CommentStatus::Pending ?: throw new InvalidArgumentException("le commentaire à déjà été modéré");
             $commentEntity->setValidity($commentList->validity);
         }
         $this->entityManager->flush();
         return count($commentList->commentsToModerate);
     }
-    public function getCommentNotModerate(): array
+    public function getCommentToModerate(): array
     {
         $commentRepo = $this->entityManager->getRepository(Comment::class);
 
@@ -39,7 +41,7 @@ class CommentService extends Service
         }
         return $commentList;
     }
-    public function createCommentDTO(Comment $comment):CommentDTO
+    public static function createCommentDTO(Comment $comment): CommentDTO
     {
         $commentDTO = new CommentDTO;
         $commentDTO->content = $comment->getContent();
@@ -47,5 +49,19 @@ class CommentService extends Service
         $commentDTO->date = \date_format($comment->getDate(), "Y-m-d H:i:s");
         $commentDTO->id = $comment->getId();
         return $commentDTO;
+    }
+    public static function getCommentsByValidity($collectionComment, CommentStatus $status): ?array
+    {
+        if (empty($collectionComment)) {
+            return null;
+        }
+        $comments =[];
+        foreach ($collectionComment as $comment) {
+            if ($comment->getValidity() === $status) {
+
+                $comments[] = CommentService::createCommentDTO($comment);
+            }
+        }
+        return $comments;
     }
 }

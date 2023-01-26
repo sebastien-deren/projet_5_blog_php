@@ -6,6 +6,8 @@ use DateTime;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
 use Blog\Entity\ContentAbstract;
+use Blog\Enum\CommentStatus;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -13,6 +15,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 
 #[Entity()]
 class Post extends ContentAbstract{
@@ -73,4 +76,11 @@ class Post extends ContentAbstract{
         $this->excerpt = $field['exerpt'];
         $this->date = new \DateTime();
     }
+    /*public function getCommentByStatus(CommentStatus $status):ArrayCollection
+    {
+        $criteria = Criteria::create()
+        ->andWhere( Criteria::expr()->eq("validity",$status->value))
+        ->orderBy(['date'=>'DESC']);
+        return $this->comment->matching($criteria);
+    }*/
 }

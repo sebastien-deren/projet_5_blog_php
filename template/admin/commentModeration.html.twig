@@ -5,6 +5,10 @@
         <h3>{{information}}</h3>
         {% endif %}
 		<form method="post" accept-charset="UTF-8">
+        {%for post in posts %}
+        {% if post.comments %}
+        <p> {{post.content}} {{post.authorName}} {{post.date}}</p>
+    
 				<table class="table table-info table-striped">
 					<thead>
 						<tr class="">
@@ -14,7 +18,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for comment in comments %}
+						{% for comment in post.comments %}
 							<tr class="">
 								<td scope="row " class="text-center col-1">
 									<input type="checkbox" class="form-checkbox" name="id[]" value="{{comment.id}}">
@@ -26,8 +30,8 @@
 						{% endfor %}
 					</tbody>
 				</table>
-
-
+    {% endif %}
+    {% endfor %}
 			<input class="btn-warning btn" type="submit" name="input" value="deleted">
 			<input class="btn btn-warning"type="submit" name="input" value="approved">
 		</form>
