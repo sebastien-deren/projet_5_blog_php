@@ -1,8 +1,13 @@
 <?php
-
 session_start();
+
 require_once(dirname(__FILE__) . '/../bootstrap.php');
-//$user = $entityManager->find('\Blog\Entity\User',2);
+use Blog\Service\UserService;
+
+if(isset($_SESSION['id'])){
+    $userService =new UserService($entityManager);
+    $twig->addGlobal('user',$userService->display($_SESSION['id']));
+}
 try{
 
     $controllername =$router->getController($_GET['url']);

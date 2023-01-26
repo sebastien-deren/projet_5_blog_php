@@ -6,8 +6,9 @@ use Blog\Service\UserService;
 use Blog\Controller\Controller;
 use Blog\Exception\FormException;
 use Blog\Model\Form\RegisterFormModel;
+use Blog\Controller\AbstractController;
 
-class RegisterController extends Controller
+class RegisterController extends AbstractController
 {
     public function render()
     {

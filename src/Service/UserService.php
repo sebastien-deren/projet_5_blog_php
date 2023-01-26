@@ -2,17 +2,21 @@
 
 namespace Blog\Service;
 
+use Exception;
 use Blog\Entity\User;
+use Blog\DTO\User\LoginDTO;
+use Blog\DTO\User\UserLoginDTO;
 use Doctrine\ORM\EntityManager;
 use Blog\DTO\User\UserCreateDTO;
-use Blog\DTO\User\UserLoginDTO;
-use Blog\DTO\User\UserRegisterDTO;
 use Blog\DTO\User\UserUpdateDTO;
+use Blog\DTO\User\UserRegisterDTO;
+use Blog\Service\Interface\Logger;
 use Doctrine\ORM\EntityRepository;
+use Blog\DTO\User\UserToDisplayDTO;
+use Blog\Service\Interface\Displayer;
 use Doctrine\Persistence\ObjectRepository;
-use Exception;
 
-class UserService
+class UserService implements Logger, Displayer 
 {
     private User $user;
     private ObjectRepository|EntityRepository $repoUser;
@@ -34,10 +38,20 @@ class UserService
     {
         $this->user->updateUser($userToUpdate->firstName,$userToUpdate->lastName);
     }
-    public function loginUser(UserLoginDTO $userToLog):int{
+    public function log(LoginDTO $userToLog):int{
         $loginType = \filter_var($userToLog->login,\FILTER_VALIDATE_EMAIL)?"mail":"login";
         $user = $this->repoUser->findOneBy([$loginType =>$userToLog->login]);
         $user->checkPassword($userToLog->password)?:throw new Exception("password/login is not correct");
         return $user->getId();
+    }
+    public function display(int $id):UserToDisplayDTO
+    {
+        $userDTO = new UserToDisplayDTO;
+        $user = $this->entityManager->find(User::class,$id);
+        $userDTO->firstname = $user->getFirstname();
+        $userDTO->lastname = $user->getLastname();
+        $userDTO->role =$user->getRole();
+        return $userDTO;
+
     }
 }

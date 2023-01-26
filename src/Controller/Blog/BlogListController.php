@@ -2,11 +2,12 @@
 
 namespace Blog\Controller\Blog;
 
-use Blog\Controller\Controller;
-use Blog\Entity\Post;
 use Exception;
+use Blog\Entity\Post;
+use Blog\Controller\Controller;
+use Blog\Controller\AbstractController;
 
-class BlogListController extends Controller
+class BlogListController extends AbstractController
 {
     public function render()
     {

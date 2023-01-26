@@ -12,6 +12,7 @@ use Blog\Controller\Blog\BlogListController;
 use Blog\Controller\User\RegisterController;
 use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\PostCreaterController;
+use Blog\Controller\User\DeconnectionController;
 use Blog\Controller\Admin\CommentAdminController;
 
 
@@ -50,3 +51,4 @@ $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);
 $router->addPath('register',RegisterController::class);
+$router->addPath('deconnection',DeconnectionController::class);

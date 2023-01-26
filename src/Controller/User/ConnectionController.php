@@ -3,14 +3,17 @@
 namespace Blog\Controller\User;
 
 use Exception;
+use Blog\Form\LoginForm;
+use Blog\DTO\User\LoginDTO;
 use Blog\Service\UserService;
 use Blog\Controller\Controller;
 use Doctrine\ORM\EntityRepository;
 use Blog\Model\Form\LoginFormModel;
+use Blog\Controller\AbstractController;
 use Doctrine\Persistence\ObjectRepository;
 
 
-class ConnectionController extends Controller
+class ConnectionController extends AbstractController
 {
     private ObjectRepository|EntityRepository $repoUser;
 
@@ -21,24 +24,17 @@ class ConnectionController extends Controller
             $this->display();
             return;
         }
-        $formLogin = new LoginFormModel;
+        $formLogin = new LoginForm(new LoginDTO);
         $userService = new UserService($this->entityManager);
         try {
-            $userToLog = $formLogin->arrayToObjectUserLogin($_POST);
-            $userId = $userService->loginUser($userToLog);
-            $_SESSION['id']=$userId;
-            \var_dump($_SESSION);
-            echo $this->twig->render('@user/index.html.twig');
+            $userToLog = $formLogin->validify($_POST);
+            $userId = $userService->log($userToLog);
+            $_SESSION['id'] = $userId;
+            \header("location: /");
         } catch (Exception $e) {
             echo $e->getMessage();
             $this->display();
         }
-        
-
-        /*
-            we have a servor error when using header location we'll have to look into apache conf files. 
-        \header("location : /");
-        */
     }
     private function display()
     {

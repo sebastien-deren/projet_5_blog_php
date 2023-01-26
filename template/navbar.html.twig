@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg  navbar-dark bg-primary mb-3 ">
 	<div class="container-fluid">
-		{% if name %}
+		{% if user %}
 			<a href="/compte" class="navbar-brand">
-				{{name.firstname}}
-				{{name.lastname}}</a>
+				{{user.firstname}}
+				{{user.lastname}}</a>
 		{% else %}
 			<div class="navbar-brand mt-2 mb-2">
 				<a class="btn bg-secondary nav-item" href="/connecter">Se connecter</a>
@@ -21,6 +21,9 @@
 					<a href="/blog" class="nav-link">Blog</a>
 					<a href="/admin/createpost" class="nav-link">createpost</a>
 					<a href="/cont" class="nav-link">Contact</a>
+                    {% if user %}
+                    <a href="/deconnection" class="nav-link">Déconnection</a>
+                    {% endif %}
 				</div>
 			</div>
 		</div>
