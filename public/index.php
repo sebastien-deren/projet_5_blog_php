@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use Blog\Controller\Interface\FormHandler;
 use Blog\Controller\Interface\ReceivingPost;

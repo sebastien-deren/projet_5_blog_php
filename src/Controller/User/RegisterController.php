@@ -26,7 +26,9 @@ class RegisterController extends AbstractController implements ReceivingPost
     }
     public function render()
     {
-        echo $this->twig->render('@user/register.html.twig');
+        $this->addFieldSession(['token'=> \md5(\uniqid(\mt_rand(),true))]);
+        $this->argument['csrfToken']=$_SESSION['token'];
+        echo $this->twig->render('@user/register.html.twig',$this->argument);
     }
     private function validateFormIntoDTO($data): RegisterDTO
     {
