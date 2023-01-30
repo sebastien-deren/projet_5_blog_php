@@ -1,5 +1,4 @@
 <?php
-
 namespace Blog\Controller\User;
 
 use Blog\Form\RegisterForm;
@@ -9,9 +8,9 @@ use Blog\Exception\FormException;
 use Blog\Controller\AbstractController;
 use Blog\Controller\Interface\ReceivingPost;
 
-class RegisterController extends AbstractController implements ReceivingPost
-{
-    //delete it when our new router is merged
+class PostRegisterController extends AbstractController implements ReceivingPost{
+    //TO be deleted when our new router is approved
+    public function render(){}
     public function execute()
     {
         try {
@@ -24,13 +23,6 @@ class RegisterController extends AbstractController implements ReceivingPost
             //TODO make a reusable template to display error in different pages
             echo ['@user/register.html.twig', ['error' => $e]];
         }
-    }
-    //TODO rename it when our new router is merged
-    public function render()
-    {
-        $this->addFieldSession(['token'=> \md5(\uniqid(\mt_rand(),true))]);
-        $this->argument['csrfToken']=$_SESSION['token'];
-        echo $this->twig->render('@user/register.html.twig',$this->argument);
     }
     private function validateFormIntoDTO($data): RegisterDTO
     {

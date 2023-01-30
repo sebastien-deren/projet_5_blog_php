@@ -55,3 +55,4 @@ $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);
 $router->addPath('register',RegisterController::class);
+//$router->addPath('register',PostRegisterController::class,Method::POST);

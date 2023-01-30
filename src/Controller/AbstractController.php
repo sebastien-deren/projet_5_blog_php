@@ -31,11 +31,10 @@ abstract class AbstractController implements Controller
             return;
         }
     }
+    //maybe by composition
     protected function addFieldSession(array $data){
         $_SESSION['ipAddress']=$_SERVER['REMOTE_ADDR'];
         $_SESSION['userAgent']=$_SERVER['HTTP_USER_AGENT'];
-        foreach($data as $key => $value){
-            $_SESSION[$key]=$value;
-        }
+        $_SESSION =\array_merge($data,$_SESSION);
     }
 }
