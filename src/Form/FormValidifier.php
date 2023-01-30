@@ -20,7 +20,6 @@ abstract class FormValidifier implements InterfaceFormValidifier
 
     protected function TokenValidation($userToken)
     {
-        echo "<br>".$userToken;
         if (!$userToken || $userToken !== $_SESSION['token']) {
             throw new \ErrorException("Method not allowed", 405);
         }
