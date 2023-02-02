@@ -1,13 +1,13 @@
 <?php
+
 namespace Blog\Controller;
 
-use Twig\Environment;
-use Blog\Controller\Controller;
 
 
-class IndexController extends Controller{
+class IndexController extends AbstractController{
 
-    public function render(){
-        echo $this->twig->render('@user/index.html.twig');
+    public function execute(): string
+    {
+       return $this->twig->render('@user/index.html.twig');
     }
 }
