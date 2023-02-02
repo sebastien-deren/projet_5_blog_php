@@ -14,8 +14,9 @@ use Blog\Controller\User\RegisterController;
 use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\PostCreaterController;
 use Blog\Controller\User\DeconnectionController;
-use Blog\Controller\Admin\CommentAdminController;
+use Blog\Controller\User\PostRegisterController;
 use Blog\Controller\Blog\BlogListController;
+
 
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
@@ -54,5 +55,6 @@ $router->addPath('admin/createpost',PostCreatePostController::class,Method::POST
 $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);
-$router->addPath('register',RegisterController::class);
 $router->addPath('deconnection',DeconnectionController::class);
+$router->addPath('register',RegisterController::class);
+$router->addPath('register',PostRegisterController::class,Method::POST);

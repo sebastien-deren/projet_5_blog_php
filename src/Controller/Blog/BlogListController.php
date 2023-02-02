@@ -2,7 +2,7 @@
 
 namespace Blog\Controller\Blog;
 
-use Exception;
+
 use Blog\Entity\Post;
 use Blog\Controller\Controller;
 use Blog\Controller\AbstractController;
@@ -13,7 +13,7 @@ class BlogListController extends AbstractController
     {
         $template = $this->twig->load('@blog/list.html.twig');
         if (!isset($template)) {
-            throw new Exception("WTF");
+            throw new \Exception("WTF");
         }
 
         $posts = $this->getPosts();
