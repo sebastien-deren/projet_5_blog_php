@@ -4,8 +4,9 @@ namespace Blog\Controller\Admin;
 
 use Blog\Entity\Post;
 use Blog\Controller\Controller;
+use Blog\Controller\AbstractController;
 
-class PostCreatePostController extends Controller
+class PostCreatePostController extends AbstractController
 {
     public function execute():string
     {

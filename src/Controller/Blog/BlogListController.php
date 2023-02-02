@@ -2,21 +2,20 @@
 
 namespace Blog\Controller\Blog;
 
-use Blog\Controller\Controller;
-use Blog\Entity\Post;
-use Blog\Service\PostService;
-use Exception;
 
-class BlogListController extends Controller
+use Blog\Entity\Post;
+use Blog\Controller\Controller;
+use Blog\Controller\AbstractController;
+use Blog\Service\PostService;
+
+class BlogListController extends AbstractController
 {
     public function execute():string
     {
         $template = $this->twig->load('@blog/list.html.twig');
-        if (!isset($template)) {
-            throw new Exception("WTF");
-        }
 
-        $posts = $this->getPosts();
+        $postService =new PostService($this->entityManager);
+        $posts = $postService->getAll();
         return $template->render(["posts" => $posts]);
         }
 }
