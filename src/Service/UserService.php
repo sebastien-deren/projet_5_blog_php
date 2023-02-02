@@ -2,7 +2,6 @@
 
 namespace Blog\Service;
 
-
 use Exception;
 use Blog\Entity\User;
 use Blog\DTO\AbstractDTO;
@@ -37,16 +36,13 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
             "login"=>$registerDTO->login
         ]);
         $this->user = new User($registerDTO);
-
-        $this->entityManager->persist($this->user);
-        $this->entityManager->flush();
+        $this->entity->persist($this->user);
+        $this->entity->flush();
     }
-
     private function uniqueKeyChecker(array $KeyToCheck){
         $uniqueKeyViolationMsg="";
         foreach($KeyToCheck as $columnName => $columnValue){
-            if ($this->entityManager->getRepository(User::class)->findOneBy([$columnName=>$columnValue])){
-
+            if ($this->entity->getRepository(User::class)->findOneBy([$columnName=>$columnValue])){
                 $uniqueKeyViolationMsg= $uniqueKeyViolationMsg . " le ".$columnName." est déjà utilisé.";
             }
         }

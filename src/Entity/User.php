@@ -43,6 +43,8 @@ class User
     private Collection $post;
 
     public function __construct(RegisterDTO $registerDTO)
+<<<<<<< HEAD
+=======
     {
         $this->setLogin($registerDTO->login);
         $this->setMail($registerDTO->mail);
@@ -52,6 +54,18 @@ class User
         $this->setLastname($registerDTO->lastName);
 
     }
+    public function getPassword()
+>>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03
+    {
+        $this->setLogin($registerDTO->login);
+        $this->setMail($registerDTO->mail);
+        $this->setPassword($registerDTO->password);
+        $this->setRole($registerDTO->role);
+        $this->setFirstname($registerDTO->firstName);
+        $this->setLastname($registerDTO->lastName);
+
+    }
+<<<<<<< HEAD
 
     public function checkPassword(string $password)
     {
@@ -59,6 +73,10 @@ class User
     }
     public function setPassword(string $password):User
     {
+=======
+    public function setPassword(string $password):User
+    {
+>>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03
         $this->password = password_hash($password, \PASSWORD_DEFAULT);
 
         return $this;
@@ -129,4 +147,7 @@ class User
         return $this;
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03

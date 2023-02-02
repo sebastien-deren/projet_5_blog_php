@@ -1,8 +1,7 @@
 <?php
 session_start();
-
+use Blog\Service\UserService;
 use Blog\Controller\ErrorController;
-
 
 require_once(dirname(__FILE__) . '/../bootstrap.php');
 
@@ -15,7 +14,6 @@ require_once(dirname(__FILE__) . '/../bootstrap.php');
  * 
  */
 
-use Blog\Service\UserService;
 
 if(isset($_SESSION['id'])){
     $userService =new UserService($entityManager);
