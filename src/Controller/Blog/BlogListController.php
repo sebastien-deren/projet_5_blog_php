@@ -9,11 +9,14 @@ use Exception;
 
 class BlogListController extends Controller
 {
-    public function render()
+    public function execute():string
     {
         $template = $this->twig->load('@blog/list.html.twig');
-        $postService = new PostService($this->entityManager);
-        $posts = $postService->getAll();
-        echo $template->render(["posts" => $posts]);
+        if (!isset($template)) {
+            throw new Exception("WTF");
+        }
+
+        $posts = $this->getPosts();
+        return $template->render(["posts" => $posts]);
         }
 }
