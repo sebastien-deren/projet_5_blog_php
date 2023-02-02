@@ -2,15 +2,11 @@
 
 namespace Blog\Controller\Admin;
 
-use Exception;
-use CreaterPost;
-use Blog\Entity\Post;
-use Twig\Environment;
-use Blog\Controller\Controller;
-use Blog\Entity\User;
-use Doctrine\ORM\EntityManager;
 
-class CreatePostController extends Controller
+use Doctrine\ORM\EntityManager;
+use Blog\Controller\AbstractController;
+
+class CreatePostController extends AbstractController
 {
     private EntityManager $entity;
 
