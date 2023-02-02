@@ -11,26 +11,12 @@ use Blog\Controller\Interface\ReceivingPost;
 
 class RegisterController extends AbstractController implements ReceivingPost
 {
-    //delete it when our new router is merged
+
     public function execute()
     {
-        try {
-            $registerDTO = $this->validateFormIntoDTO($_POST);
-            $this->CreateUser($registerDTO);
-
-            //TODO change it to /connection when connection issue is done
-            header("location: /");
-        } catch (FormException $e) {
-            //TODO make a reusable template to display error in different pages
-            echo ['@user/register.html.twig', ['error' => $e]];
-        }
-    }
-    //TODO rename it when our new router is merged
-    public function render()
-    {
-        $this->addFieldSession(['token'=> \md5(\uniqid(\mt_rand(),true))]);
-        $this->argument['csrfToken']=$_SESSION['token'];
-        echo $this->twig->render('@user/register.html.twig',$this->argument);
+        $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
+        $this->argument['csrfToken'] = $_SESSION['token'];
+        echo $this->twig->render('@user/register.html.twig', $this->argument);
     }
     private function validateFormIntoDTO($data): RegisterDTO
     {

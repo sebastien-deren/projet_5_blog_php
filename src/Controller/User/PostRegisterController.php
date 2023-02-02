@@ -1,4 +1,5 @@
 <?php
+
 namespace Blog\Controller\User;
 
 use Blog\Form\RegisterForm;
@@ -7,22 +8,25 @@ use Blog\DTO\User\RegisterDTO;
 use Blog\Exception\FormException;
 use Blog\Controller\AbstractController;
 use Blog\Controller\Interface\ReceivingPost;
+use Blog\Exception\UniqueKeyViolationException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Exception;
 
-class PostRegisterController extends AbstractController implements ReceivingPost{
-    //TO be deleted when our new router is approved
-    public function render(){}
+class PostRegisterController extends AbstractController implements ReceivingPost
+{
+
     public function execute()
     {
-        try {
+        try{
             $registerDTO = $this->validateFormIntoDTO($_POST);
+            
             $this->CreateUser($registerDTO);
-
-            //TODO change it to /connection when connection issue is done
-            header("location: /");
-        } catch (FormException $e) {
-            //TODO make a reusable template to display error in different pages
-            echo ['@user/register.html.twig', ['error' => $e]];
         }
+        catch(\Exception $e){
+            throw new Exception($e->getMessage(),$e->getCode());
+        }
+        
+        header("location: /connection");
     }
     private function validateFormIntoDTO($data): RegisterDTO
     {

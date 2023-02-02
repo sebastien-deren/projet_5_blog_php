@@ -4,7 +4,7 @@ namespace Blog\Controller;
 
 
 
-class IndexController extends Controller{
+class IndexController extends AbstractController{
 
     public function execute(): string
     {

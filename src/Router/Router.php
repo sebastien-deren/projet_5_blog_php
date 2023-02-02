@@ -11,8 +11,8 @@ use Blog\Controller\Controller;
 use Blog\Exception\RouterException;
 use Blog\Controller\ErrorController;
 use Blog\Controller\IndexController;
-use Blog\Controller\ControllerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Blog\Controller\Interface\ControllerInterface;
 
 class Router
 {
