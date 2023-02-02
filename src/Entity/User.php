@@ -36,7 +36,6 @@ class User
     #[Column(unique: true, type: Types::STRING, length: 125)]
     private string $mail;
     #[OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
-    #[OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comment;
     #[Column(type: Types::STRING, length: 10)]
     private string $role;
@@ -53,6 +52,7 @@ class User
         $this->setLastname($registerDTO->lastName);
 
     }
+
     public function checkPassword(string $password)
     {
         return \password_verify($password,$this->password);

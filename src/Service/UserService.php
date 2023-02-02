@@ -2,6 +2,7 @@
 
 namespace Blog\Service;
 
+
 use Exception;
 use Blog\Entity\User;
 use Blog\DTO\AbstractDTO;
@@ -24,6 +25,7 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
     public function __construct(private EntityManager $entityManager)
     {
         $this->repoUser = $this->entityManager->getRepository(User::class);
+
     }
     public function create(AbstractDTO $registerDTO)
     {
@@ -35,6 +37,7 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
             "login"=>$registerDTO->login
         ]);
         $this->user = new User($registerDTO);
+
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
     }
@@ -43,6 +46,7 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
         $uniqueKeyViolationMsg="";
         foreach($KeyToCheck as $columnName => $columnValue){
             if ($this->entityManager->getRepository(User::class)->findOneBy([$columnName=>$columnValue])){
+
                 $uniqueKeyViolationMsg= $uniqueKeyViolationMsg . " le ".$columnName." est déjà utilisé.";
             }
         }
@@ -50,6 +54,7 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
             throw new UniqueKeyViolationException($uniqueKeyViolationMsg);
         }
     }
+
 
     public function log(LoginDTO $userToLog):int{
         $loginType = \filter_var($userToLog->login,\FILTER_VALIDATE_EMAIL)?"mail":"login";
@@ -67,4 +72,5 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
         return $userDTO;
 
     }
+
 }

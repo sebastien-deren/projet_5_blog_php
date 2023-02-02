@@ -2,6 +2,7 @@
 
 namespace Blog\Controller\User;
 
+
 use Exception;
 use Blog\Form\LoginForm;
 use Blog\DTO\User\LoginDTO;
@@ -50,5 +51,6 @@ class ConnectionController extends AbstractController
             throw new Exception("le mot de passe ou l'utilisateur à mal été tapé");
         }
         $_SESSION['id'] = $user->getId();
+
     }
 }

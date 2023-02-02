@@ -12,7 +12,9 @@ use Blog\Exception\UniqueKeyViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
 
+
 class PostRegisterController extends AbstractController{
+{
     public function execute()
     {
         try{
