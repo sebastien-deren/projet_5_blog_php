@@ -5,7 +5,10 @@
 				{{name.firstname}}
 				{{name.lastname}}</a>
 		{% else %}
-			<a class="btn bg-secondary mt-2 mb-2 navbar-brand" href="/connecter">Se connecter</a>
+			<div class="navbar-brand mt-2 mb-2">
+				<a class="btn bg-secondary nav-item" href="/connecter">Se connecter</a>
+				<a class="btn bg-secondary nav-item " href="/register">S'enregistrer</a>
+			</div>
 		{% endif %}
 
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

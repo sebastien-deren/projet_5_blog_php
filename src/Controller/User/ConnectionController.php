@@ -1,14 +1,15 @@
 <?php
+
 namespace Blog\Controller\User;
 
-use Twig\Environment;
-use Blog\Controller\Controller;
+use Blog\Controller\AbstractController;
+use Blog\Controller\Interface\Controller;
 
-class ConnectionController extends Controller{
+class ConnectionController extends AbstractController
+{
 
-    public function createView(?int $id)
+    public function execute()
     {
-        # code...
+        return "on arrive sur la page de connection";
     }
-    
 }
