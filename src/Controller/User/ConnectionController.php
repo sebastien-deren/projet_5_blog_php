@@ -20,37 +20,11 @@ class ConnectionController extends AbstractController
 
     public function execute()
     {
-
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $this->display();
-            return;
-        }
-        $formLogin = new LoginForm(new LoginDTO);
-        $userService = new UserService($this->entityManager);
-        try {
-            $userToLog = $formLogin->validify($_POST);
-            $userId = $userService->log($userToLog);
-            $_SESSION['id'] = $userId;
+        if(isset($_SESSION['id'])){
             \header("location: /");
-        } catch (Exception $e) {
-            $this->argument['error'] = $e;
-            $this->display();
         }
-    }
-    private function display()
-    {
-        echo $this->twig->render('@user/connection.html.twig',$this->argument);
-    }
-    private function checkLogin($login, $password) {
-        if (\strchr($login, '@')) {
-            $user = $this->repoUser->findOneBy(["mail" => $login]);
-        } else {
-            $user = $this->repoUser->findOneBy(["login" => $login]);
-        }
-        if (null == $user || !\password_verify($password, $user->getPassword())) {
-            throw new Exception("le mot de passe ou l'utilisateur à mal été tapé");
-        }
-        $_SESSION['id'] = $user->getId();
-
+        $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
+        $this->argument['csrfToken'] = $_SESSION['token'];
+        return $this->twig->render('@user/connection.html.twig',$this->argument);
     }
 }

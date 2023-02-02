@@ -1,9 +1,12 @@
 <?php
 namespace Blog\DTO\User;
 
-class LoginDTO{
+use Blog\Enum\FieldType;
+use Blog\DTO\AbstractDTO;
+
+class LoginDTO extends AbstractDTO{
     public string $login;
     public string $password;
-    public string $logintype;
+    public FieldType $logintype;
 
 }

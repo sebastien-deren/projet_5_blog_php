@@ -19,14 +19,4 @@ class RegisterController extends AbstractController
         $this->argument['csrfToken'] = $_SESSION['token'];
         echo $this->twig->render('@user/register.html.twig', $this->argument);
     }
-    private function validateFormIntoDTO($data): RegisterDTO
-    {
-        $formValidifier = new RegisterForm(new RegisterDTO);
-        return $formValidifier->validify($data);
-    }
-    private function createUser(RegisterDTO $registerDTO)
-    {
-        $userService = new UserService($this->entityManager);
-        $userService->create($registerDTO);
-    }
 }

@@ -6,6 +6,7 @@ namespace Blog\Entity;
 
 use Blog\DTO\User\RegisterDTO;
 use Blog\Enum\RoleEnum;
+use Blog\Form\ValidData;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
@@ -43,8 +44,6 @@ class User
     private Collection $post;
 
     public function __construct(RegisterDTO $registerDTO)
-<<<<<<< HEAD
-=======
     {
         $this->setLogin($registerDTO->login);
         $this->setMail($registerDTO->mail);
@@ -54,18 +53,6 @@ class User
         $this->setLastname($registerDTO->lastName);
 
     }
-    public function getPassword()
->>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03
-    {
-        $this->setLogin($registerDTO->login);
-        $this->setMail($registerDTO->mail);
-        $this->setPassword($registerDTO->password);
-        $this->setRole($registerDTO->role);
-        $this->setFirstname($registerDTO->firstName);
-        $this->setLastname($registerDTO->lastName);
-
-    }
-<<<<<<< HEAD
 
     public function checkPassword(string $password)
     {
@@ -73,10 +60,6 @@ class User
     }
     public function setPassword(string $password):User
     {
-=======
-    public function setPassword(string $password):User
-    {
->>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03
         $this->password = password_hash($password, \PASSWORD_DEFAULT);
 
         return $this;
@@ -87,7 +70,7 @@ class User
     }
     public function setLogin(string $login):User
     {
-        if (\strchr($login, " ")) {
+        if (!ValidData::login($login)) {
             throw new \InvalidArgumentException("your login cannot contain spaces");
         }
         $this->login = $login;
@@ -125,7 +108,7 @@ class User
     }
     public function setMail(string $mail):User
     {
-        if (!\filter_var($mail, \FILTER_VALIDATE_EMAIL)) {
+        if (!ValidData::mail($mail)) {
             throw new \InvalidArgumentException('email is not a valid email!');
         }
         $this->mail = $mail;
@@ -147,7 +130,3 @@ class User
         return $this;
     }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03

@@ -5,16 +5,11 @@ namespace Blog\Controller\User;
 use Blog\Form\RegisterForm;
 use Blog\Service\UserService;
 use Blog\DTO\User\RegisterDTO;
-use Blog\Exception\FormException;
 use Blog\Controller\AbstractController;
-use Blog\Controller\Interface\ReceivingPost;
-use Blog\Exception\UniqueKeyViolationException;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
 
 
 class PostRegisterController extends AbstractController{
-{
     public function execute()
     {
         try{
