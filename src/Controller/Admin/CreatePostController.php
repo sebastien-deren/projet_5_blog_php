@@ -2,6 +2,7 @@
 
 namespace Blog\Controller\Admin;
 
+<<<<<<< HEAD
 use Exception;
 
 
@@ -37,6 +38,23 @@ class CreatePostController extends Controller
         } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo $template->render();
         }
+=======
+
+use Doctrine\ORM\EntityManager;
+use Blog\Controller\AbstractController;
+
+class CreatePostController extends AbstractController
+{
+    private EntityManager $entity;
+
+
+
+
+    public function execute():string
+    {
+        $template =$this->twig->load('@admin/createPost.html.twig');
+        return $template->render();
+>>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03
         //return $this->twig->load("@admin/createPost.html.twig");
     }
 }

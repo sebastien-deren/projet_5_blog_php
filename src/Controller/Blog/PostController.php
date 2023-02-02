@@ -14,4 +14,3 @@ public function execute(){
     $this->twig->display('@blog/post.html.twig',['post'=>$post]);
 
 }
-}

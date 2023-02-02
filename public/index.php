@@ -1,16 +1,24 @@
 <?php
+session_start();
+
+use Blog\Controller\ErrorController;
+use Blog\Controller\Interface\FormHandler;
+use Blog\Controller\Interface\ReceivingPost;
 
 require_once(dirname(__FILE__) . '/../bootstrap.php');
-//$user = $entityManager->find('\Blog\Entity\User',2);
+
+/**
+ * we will find the controller linked to our route 
+ * then we will call the execute method who will call the different method necessary to our page
+ * finally the method will return a string who is our twig rendering pages and index will display it
+ * 
+ * This try catch is here to display all our exception thrown in our code and not catch before.
+ * 
+ */
 try{
-
-    $controllername =$router->getController($_GET['url']);
-    $controller = new $controllername($twig,$entityManager);
-    $controller->execute();
-    }
-
-    catch(Exception $e){
-
-        $render= $twig->load('@user/index.html.twig');
-        $render->display(["error"=> $e]);
-    }
+    echo $router->getController()->execute();
+}
+catch(\Exception $e){
+    $controllerErreur = new ErrorController($twig,$entityManager,$e);
+    echo $controllerErreur->execute();
+}

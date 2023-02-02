@@ -5,9 +5,9 @@ namespace Blog\Controller\Blog;
 use Blog\Controller\Controller;
 use Blog\Entity\Post;
 use Blog\Service\PostService;
-use Exception;
+use Blog\Controller\AbstractController;
 
-class BlogListController extends Controller
+class BlogListController extends AbstractController
 {
     public function execute()
     {
