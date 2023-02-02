@@ -10,12 +10,10 @@ use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
 use Blog\Controller\PostController;
 use Blog\Controller\Blog\BlogListController;
-use Blog\Controller\Blog\BlogListController;
 use Blog\Controller\User\RegisterController;
 use Blog\Controller\User\ConnectionController;
-use Blog\Controller\Admin\PostCreaterController;
-use Blog\Controller\Admin\CommentAdminController;
-
+use Blog\Controller\Admin\CreatePostController;
+use Blog\Controller\User\PostRegisterController;
 use Blog\Controller\Admin\PostCreatePostController;
 
 
@@ -56,4 +54,4 @@ $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);
 $router->addPath('register',RegisterController::class);
-//$router->addPath('register',PostRegisterController::class,Method::POST);
+$router->addPath('register',PostRegisterController::class,Method::POST);

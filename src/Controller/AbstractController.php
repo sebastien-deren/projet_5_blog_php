@@ -6,8 +6,9 @@ namespace Blog\Controller;
 use Twig\Environment;
 use Doctrine\ORM\EntityManager;
 use Blog\Controller\Interface\Controller;
+use Blog\Controller\Interface\ControllerInterface;
 
-abstract class AbstractController implements Controller
+abstract class AbstractController implements ControllerInterface
 {
     protected array $argument;
     public function __construct(protected Environment $twig, protected EntityManager $entityManager)
@@ -17,7 +18,7 @@ abstract class AbstractController implements Controller
         }
         
     }
-    abstract public function render();
+    abstract public function execute();
     protected function protectSession():void{
         
         if($_SERVER['REMOTE_ADDR'] !== $_SESSION['ipAddress']){
