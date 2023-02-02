@@ -9,7 +9,7 @@ use Blog\DTO\User\RegisterDTO;
 use Blog\Controller\AbstractController;
 use Blog\Controller\Interface\ReceivingPost;
 
-class RegisterController extends AbstractController implements ReceivingPost
+class RegisterController extends AbstractController
 {
 
     public function execute()
@@ -18,6 +18,7 @@ class RegisterController extends AbstractController implements ReceivingPost
         $this->argument['csrfToken'] = $_SESSION['token'];
         echo $this->twig->render('@user/register.html.twig', $this->argument);
     }
+    /*
     private function validateFormIntoDTO($data): RegisterDTO
     {
         $formValidifier = new RegisterForm(new RegisterDTO);
@@ -27,5 +28,5 @@ class RegisterController extends AbstractController implements ReceivingPost
     {
         $userService = new UserService($this->entityManager);
         $userService->create($registerDTO);
-    }
+    }*/
 }

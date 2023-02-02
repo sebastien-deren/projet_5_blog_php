@@ -3,9 +3,10 @@
 namespace Blog\Controller;
 
 
-use Doctrine\ORM\EntityManager;
-
 use Twig\Environment;
+
+use Doctrine\ORM\EntityManager;
+use Blog\Controller\Interface\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface{
     protected array $argument=[];

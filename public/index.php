@@ -2,10 +2,7 @@
 session_start();
 
 use Blog\Controller\ErrorController;
-use Blog\Controller\Interface\FormHandler;
-use Blog\Controller\Interface\ReceivingPost;
 
-session_start();
 
 require_once(dirname(__FILE__) . '/../bootstrap.php');
 

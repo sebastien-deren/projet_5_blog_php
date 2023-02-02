@@ -53,7 +53,7 @@ class User
         $this->setLastname($registerDTO->lastName);
 
     }
-    public function getPassword()
+    public function checkPassword(string $password)
     {
         return \password_verify($password,$this->password);
     }
