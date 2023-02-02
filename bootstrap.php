@@ -1,6 +1,7 @@
 <?php
 
 
+use Blog\Enum\Method;
 use Twig\Environment;
 use Blog\Router\Router;
 use Doctrine\ORM\ORMSetup;
@@ -14,6 +15,7 @@ use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\PostCreaterController;
 use Blog\Controller\User\DeconnectionController;
 use Blog\Controller\Admin\CommentAdminController;
+use Blog\Controller\Blog\BlogListController;
 
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
@@ -44,9 +46,11 @@ $twig->addExtension(new \Twig\Extension\DebugExtension);
 
 
 /* creation of our router*/
-$router = new Router();
+$method = Method::tryFrom($_SERVER['REQUEST_METHOD']);
+$router = new Router($_GET['url'],$method,$twig,$entityManager);
 $router->addPath('connection', ConnectionController::class);
-$router->addPath('admin/createpost', PostCreaterController::class);
+$router->addPath('admin/createpost', CreatePostController::class);
+$router->addPath('admin/createpost',PostCreatePostController::class,Method::POST);
 $router->addPath('admin/comment', CommentAdminController::class);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);

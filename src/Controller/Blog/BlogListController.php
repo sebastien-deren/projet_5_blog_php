@@ -9,7 +9,7 @@ use Blog\Controller\AbstractController;
 
 class BlogListController extends AbstractController
 {
-    public function render()
+    public function execute():string
     {
         $template = $this->twig->load('@blog/list.html.twig');
         if (!isset($template)) {
@@ -17,7 +17,7 @@ class BlogListController extends AbstractController
         }
 
         $posts = $this->getPosts();
-        echo $template->render(["posts" => $posts]);
+        return $template->render(["posts" => $posts]);
         }
     private function getPosts()
     {

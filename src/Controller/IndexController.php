@@ -5,7 +5,8 @@ namespace Blog\Controller;
 
 class IndexController extends AbstractController{
 
-    public function render(){
-        echo $this->twig->render('@user/index.html.twig');
+    public function execute(): string
+    {
+       return $this->twig->render('@user/index.html.twig');
     }
 }
