@@ -48,8 +48,8 @@ $twig->addExtension(new \Twig\Extension\DebugExtension);
 
 
 /* creation of our router*/
-$method = Method::tryFrom($_SERVER['REQUEST_METHOD']);
-$router = new Router($_GET['url'],$method,$twig,$entityManager);
+$method = Method::tryFrom($_SERVER['REQUEST_METHOD'])??Method::GET;
+$router = new Router($_GET['url']??"/",$method,$twig,$entityManager);
 $router->addPath('connection', ConnectionController::class);
 $router->addPath('admin/createpost', CreatePostController::class);
 $router->addPath('admin/createpost',PostCreatePostController::class,Method::POST);
