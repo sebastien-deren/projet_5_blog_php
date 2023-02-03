@@ -28,6 +28,7 @@ class PostService extends Service
     }
     private function getPostsDTO($posts): array
     {
+        $postList =[];
         foreach ($posts as $post) {
 
             $postList[] = $this->createPostDTO($post);
