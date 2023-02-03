@@ -30,7 +30,7 @@ class PostRegisterController extends AbstractController{
     }
     private function createUser(RegisterDTO $registerDTO)
     {
-        $userService = new UserService($this->entityManager);
+        $userService = UserService::getService($this->entityManager);
         $userService->create($registerDTO);
     }
 }

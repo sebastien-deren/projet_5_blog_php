@@ -36,6 +36,7 @@ $connection = DriverManager::getConnection($dbParams, $config);
 $entityManager = new EntityManager($connection, $config);
 
 
+
 /*creation of our twig renderer*/
 $dir_template = dirname(__FILE__) . '/template';
 $loader = new FilesystemLoader($dir_template);

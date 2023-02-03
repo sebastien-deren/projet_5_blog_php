@@ -21,11 +21,19 @@ use Blog\Exception\UniqueKeyViolationException;
 
 class UserService implements Creater, Logger, Displayer //Updater, Deleter
 {
+    private static ?UserService $_userService =null;
     private User $user;
     private ObjectRepository|EntityRepository $repoUser;
-    public function __construct(private EntityManager $entityManager)
+    //pass it to private when refactoring register
+    private function __construct(private EntityManager $entityManager)
     {
         $this->repoUser = $this->entityManager->getRepository(User::class);
+    }
+    public static function getService($entityManager){
+        if (is_null(self::$_userService)){
+            self::$_userService = new UserService($entityManager);
+        }
+        return self::$_userService;
     }
     public function create(AbstractDTO $registerDTO)
     {
@@ -73,5 +81,8 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
         $userDTO->login = $user->getlogin();
         $userDTO->role = $user->getRole();
         return $userDTO;
+    }
+    public function getRole($id){
+        return $this->entityManager->find(User::class,$id)->getRole();
     }
 }

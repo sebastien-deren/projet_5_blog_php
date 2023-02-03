@@ -15,7 +15,7 @@ class PostConnectionController extends AbstractController
 
 
         $formLogin = new LoginForm(new LoginDTO);
-        $userService = new UserService($this->entityManager);
+        $userService = UserService::getService($this->entityManager);
         $userToLog = $formLogin->validify($_POST);
         $userId = $userService->log($userToLog);
         $_SESSION['id'] = $userId;
