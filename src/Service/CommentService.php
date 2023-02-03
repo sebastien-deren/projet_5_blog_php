@@ -32,6 +32,7 @@ class CommentService extends Service
         if (empty($commentUnModeratedArray)) {
             throw new \InvalidArgumentException("no comment to moderate");
         }
+        $commentList= [];
         foreach ($commentUnModeratedArray as $commentUnModerated) {
             $commentList[] = $this->createCommentDTO($commentUnModerated);
         }
