@@ -5,6 +5,7 @@
         <h3>{{information}}</h3>
         {% endif %}
 		<form method="post" accept-charset="UTF-8">
+        <input type="hidden" name="token" value="{{ csrfToken }}">
         {%for post in posts %}
         {% if post.comments %}
         <p> {{post.content}} {{post.authorName}} {{post.date}}</p>
@@ -32,8 +33,8 @@
 				</table>
     {% endif %}
     {% endfor %}
-			<input class="btn-warning btn" type="submit" name="input" value="deleted">
-			<input class="btn btn-warning"type="submit" name="input" value="approved">
+			<input class="btn-warning btn" type="submit" name="deleted" value="supprimer">
+			<input class="btn btn-warning"type="submit" name="approved" value="approuver">
 		</form>
 	</div>
 {% endblock %}

@@ -4,29 +4,25 @@ declare(strict_types=1);
 
 namespace Blog\Service;
 
-use Exception;
-use Blog\DTO\CommentDTO;
 use Blog\Entity\Comment;
-use Doctrine\ORM\NoResultException;
-use Blog\DTO\CommentModerationListDTO;
 use Blog\Enum\CommentStatus;
-use Doctrine\Common\Cache\Psr6\InvalidArgument;
-use Doctrine\Instantiator\Exception\UnexpectedValueException;
-use InvalidArgumentException;
+use Blog\DTO\Comment\CommentDTO;
+use Blog\DTO\Comment\CommentModerationListDTO;
+
 
 class CommentService extends Service
 {
 
-    public function moderateComments(CommentModerationListDTO $commentList): int
+    public function moderateComments(CommentModerationListDTO $commentList): array
     {
         $commentRepo = $this->entityManager->getRepository(Comment::class);
         foreach ($commentList->commentsToModerate as $comment) {
             $commentEntity = $commentRepo->find($comment->id);
-            $commentEntity->getValidity() === CommentStatus::Pending ?: throw new InvalidArgumentException("le commentaire à déjà été modéré");
+            $commentEntity->getValidity() === CommentStatus::Pending ?: throw new \InvalidArgumentException("le commentaire à déjà été modéré");
             $commentEntity->setValidity($commentList->validity);
         }
         $this->entityManager->flush();
-        return count($commentList->commentsToModerate);
+        return ["number"=>count($commentList->commentsToModerate),"method"=> $commentList->validity->value];
     }
     public function getCommentToModerate(): array
     {
@@ -34,7 +30,7 @@ class CommentService extends Service
 
         $commentUnModeratedArray = $commentRepo->findBy(["validity" => CommentStatus::Pending->value], ["date" => "DESC"],);
         if (empty($commentUnModeratedArray)) {
-            throw new InvalidArgumentException("no comment to moderate");
+            throw new \InvalidArgumentException("no comment to moderate");
         }
         foreach ($commentUnModeratedArray as $commentUnModerated) {
             $commentList[] = $this->createCommentDTO($commentUnModerated);

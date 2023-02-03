@@ -27,15 +27,6 @@ class User
     private int $id;
     #[Column()]
     private string $password;
-<<<<<<< HEAD
-    #[Column(unique:true, length:255)]
-    private string $login;
-    #[Column(type: Types::STRING, length:255, nullable:true)]
-    private string $firstname;
-    #[Column(type: Types::STRING, length:60, nullable:true)]
-    private string $lastname;
-    #[Column(type: Types::STRING, length:100)]
-=======
     #[Column(unique: true, length: 60)]
     private string $login;
     #[Column(type: Types::STRING, length: 60, nullable: true)]
@@ -43,19 +34,12 @@ class User
     #[Column(type: Types::STRING, length: 60, nullable: true)]
     private string $lastname;
     #[Column(unique: true, type: Types::STRING, length: 125)]
->>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03
     private string $mail;
     #[OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comment;
-<<<<<<< HEAD
-    #[Column(type: Types::STRING ,nullable:true)]
-    private string $role;
-    #[OneToMany(mappedBy:'user',targetEntity: Post::class)]
-=======
     #[Column(type: Types::STRING, length: 10)]
     private string $role;
     #[OneToMany(mappedBy: 'user', targetEntity: Post::class)]
->>>>>>> ce892771683db92c70b3a9836030ec5ba39b6c03
     private Collection $post;
 
     public function __construct(RegisterDTO $registerDTO)

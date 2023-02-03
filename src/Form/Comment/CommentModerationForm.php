@@ -1,31 +1,37 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Blog\Form\Comment;
 
-use Blog\DTO\CommentModerationDTO;
-use Blog\DTO\CommentModerationListDTO;
-use Blog\Enum\CommentStatus;
+use Blog\DTO\AbstractDTO;
 use Exception;
+use Blog\Enum\CommentStatus;
+use Blog\DTO\Comment\CommentModerationDTO;
+use Blog\DTO\Comment\CommentModerationListDTO;
+use Blog\Form\FormValidifier;
 use Symfony\Component\Console\Exception\MissingInputException;
 
-class CommentModerationForm
+class CommentModerationForm extends FormValidifier
 {
-    public function __construct(private CommentModerationListDTO $commentList)
+
+    protected function createDTO(array $data)
     {
-        
-    }
-    public function validify($data): CommentModerationListDTO
-    {
-        isset($data) ?: throw new MissingInputException("veuillez selectionner au moins un commentaire a modérer");
-        $this->createCommentListDTO($data);
-        return $this->commentList;
-    }
-    private function createCommentListDTO(array $idComments)
-    {
-        foreach ($idComments as $idComment) {
-            $CommentDTO = new CommentModerationDTO(\intval($idComment));
-            $this->commentList->addcomment($CommentDTO);
+        if ($this->DTO instanceof CommentModerationListDTO) {
+            foreach ($data['id'] as $idComment) {
+                $CommentDTO = new CommentModerationDTO(\intval($idComment));
+                $this->DTO->commentsToModerate[] = $CommentDTO;
+            }
         }
+    }
+    protected function checkingRequired(array $data)
+    {
+        isset($data['id']) ?: throw new MissingInputException("veuillez selectionner au moins un commentaire a modérer");
+        foreach (CommentStatus::cases() as $case) {
+            if (\array_key_exists($case->value, $data)) {
+                $this->DTO->validity = $case;
+            }
+        }
+        $this->DTO->validity ?? throw new \Exception("you cannot moderate comment like this");
     }
 }

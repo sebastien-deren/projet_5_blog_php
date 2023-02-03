@@ -15,7 +15,7 @@ use Exception;
 class PostRegisterController extends AbstractController implements ReceivingPost
 {
 
-    public function execute()
+    public function execute():?string
     {
         try{
             $registerDTO = $this->validateFormIntoDTO($_POST);
@@ -27,6 +27,8 @@ class PostRegisterController extends AbstractController implements ReceivingPost
         }
         
         header("location: /connection");
+        return '';
+
     }
     private function validateFormIntoDTO($data): RegisterDTO
     {

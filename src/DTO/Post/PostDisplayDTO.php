@@ -1,5 +1,5 @@
 <?php
-namespace Blog\DTO;
+namespace Blog\DTO\Post;
 class PostDisplayDTO{
     public string $authorName;
     public string $title;

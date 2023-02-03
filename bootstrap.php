@@ -15,6 +15,8 @@ use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\CreatePostController;
 use Blog\Controller\User\PostRegisterController;
 use Blog\Controller\Admin\PostCreatePostController;
+use Blog\Controller\Admin\CommentModerationController;
+use Blog\Controller\Admin\PostCommentModerationController;
 
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
@@ -51,7 +53,8 @@ $router = new Router($_GET['url'],$method,$twig,$entityManager);
 $router->addPath('connection', ConnectionController::class);
 $router->addPath('admin/createpost', CreatePostController::class);
 $router->addPath('admin/createpost',PostCreatePostController::class,Method::POST);
-$router->addPath('admin/comment', CommentAdminController::class);
+$router->addPath('admin/comment', CommentModerationController::class);
+$router->addPath('admin/comment',PostCommentModerationController::class,Method::POST);
 $router->addPath('blog/post',PostController::class);
 $router->addPath('blog',BlogListController::class);
 $router->addPath('register',RegisterController::class);

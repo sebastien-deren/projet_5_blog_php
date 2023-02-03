@@ -2,14 +2,15 @@
 
 namespace Blog\Service;
 
-use Blog\DTO\PostDisplayDTO;
-use Blog\Entity\Comment;
 use Blog\Entity\Post;
+use Blog\Entity\Comment;
 use Blog\Enum\CommentStatus;
+use Blog\Service\CommentService;
+use Blog\DTO\Post\PostDisplayDTO;
 
 class PostService extends Service
 {
-    private CommentStatus $commentStatus;
+    private CommentStatus $commentStatus = CommentStatus::Approved;
     public function getPostListWithComment(CommentStatus $commentStatus): array
     {
         $this->commentStatus = $commentStatus;
@@ -36,8 +37,7 @@ class PostService extends Service
     private function createPostDTO($post):PostDisplayDTO
     {
         $postDTO = new PostDisplayDTO;
-        $collectionComment = $post->getComment();
-        $postDTO->comments = CommentService::getCommentsByValidity($collectionComment,$this->commentStatus);
+        $postDTO->comments = CommentService::getCommentsByValidity($post->getComment(),$this->commentStatus);
         $postDTO->authorName = $post->getUser()->getFirstname() . " " . $post->getUser()->getLastname();
         $postDTO->title = $post->getTitle();
         $postDTO->date = \date_format($post->getDate(), "Y-m-d h:i:s");

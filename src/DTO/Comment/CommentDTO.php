@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Blog\DTO;
+namespace Blog\DTO\Comment;
 
 class CommentDTO{
     public string $content;
