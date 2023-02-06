@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Blog\Form;
+
+use Blog\DTO\Comment\CreateComment;
+use Blog\Form\NewFormValidifier;
+use Exception;
+
+class CommentForm extends NewFormValidifier
+{
+    protected function checkingRequired()
+    {
+        /*        if(!isset($_SESSION['id'])){
+            throw new Exception("you must be connected to post a comment");
+        }*/
+    }
+    protected function createDTO()
+    {
+        if (!($this->DTO instanceof CreateComment)) {
+            throw new Exception();
+        }
+        $this->DTO->content = $this->data['content'];
+        $this->DTO->postId = intval($this->data['idPost']);
+    }
+}
