@@ -12,6 +12,8 @@ class CreatePostController extends AdminController
 
     public function execute()
     {
+        $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
+        $this->argument['csrfToken'] = $_SESSION['token'];
         $template = $this->twig->load('@admin/createPost.html.twig');
         return $template->render($this->argument);
 

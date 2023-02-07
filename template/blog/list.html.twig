@@ -6,15 +6,15 @@
 
 			<div class="row">
 				<div class="col">
-					<h2 class="text-center">{{post.title()}}</h2>
+					<h2 class="text-center">{{post.title()|e}}</h2>
 				</div>
 				<div class="col">
 					<h2>{{post.user.firstname}}
 						{{post.user.lastname}}</h2>
 				</div>
-				<h3>{{post.excerpt()}}</h3>
+				<h3>{{post.excerpt()|e}}</h3>
 
-				<p>{{post.content()}}</p>
+				<p>{{post.content()|e }}</p>
 			</div>
 
 		{% endfor %}
