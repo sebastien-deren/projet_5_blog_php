@@ -5,12 +5,11 @@ namespace Blog\Controller;
 
 use Twig\Environment;
 use Doctrine\ORM\EntityManager;
-use Blog\Controller\Interface\Controller;
 use Blog\Controller\Interface\ControllerInterface;
 
-abstract class AbstractController implements ControllerInterface
-{
-    protected array $argument;
+abstract class AbstractController implements ControllerInterface{
+    protected array $argument=[];
+
     public function __construct(protected Environment $twig, protected EntityManager $entityManager)
     {
         if(!empty($_SESSION)){

@@ -6,6 +6,7 @@ namespace Blog\Entity;
 
 use Blog\DTO\User\RegisterDTO;
 use Blog\Enum\RoleEnum;
+use Blog\Form\ValidData;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
@@ -52,9 +53,10 @@ class User
         $this->setLastname($registerDTO->lastName);
 
     }
-    public function getPassword()
+
+    public function checkPassword(string $password)
     {
-        return $this->password;
+        return \password_verify($password,$this->password);
     }
     public function setPassword(string $password):User
     {
@@ -68,7 +70,7 @@ class User
     }
     public function setLogin(string $login):User
     {
-        if (\strchr($login, " ")) {
+        if (!ValidData::login($login)) {
             throw new \InvalidArgumentException("your login cannot contain spaces");
         }
         $this->login = $login;
@@ -106,7 +108,7 @@ class User
     }
     public function setMail(string $mail):User
     {
-        if (!\filter_var($mail, \FILTER_VALIDATE_EMAIL)) {
+        if (!ValidData::mail($mail)) {
             throw new \InvalidArgumentException('email is not a valid email!');
         }
         $this->mail = $mail;
