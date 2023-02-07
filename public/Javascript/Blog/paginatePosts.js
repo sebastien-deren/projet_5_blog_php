@@ -4,21 +4,16 @@ function displayPost(posts) {
     return;
   }
   posts.forEach(({ id, title, excerpt, date, author }) => {
-    const html = ` 
-    <article class="card">			
-    <a href="/blog/post?id=${id}">
-    <div class="row">
-        <div class="col">
-            <h2 class="text-center">${title}</h2>
+    const html=`<div class="card mb-4" id="top">
+        <a href="#!"><img class="card-img-top" src="assets/post.jpg" alt="..." /></a>
+        <div class="card-body">
+            <div class="small text-muted">${date}</div>
+            <h2 class="card-title">${title}</h2>
+            <h3 class="card-subtitle">${author}</h3>
+            <p class="card-text">${excerpt}</p>
+            <a class="btn btn-primary" href="/blog/post?id=${id}">Read more →</a>
         </div>
-        <div class="col">
-            <h2>${author}
-            </h2>
-            <h4>${date}<h4></div>
-                <h3>${excerpt}</h3>
-            </div>
-        </a>
-        </article>`;
+    </div>`
     sectionFiches.insertAdjacentHTML("beforeend", html);
   });
 }
@@ -30,13 +25,12 @@ function displayPagination(postNumber, postPerPages) {
   sectionPages.innerHTML = "";
   sectionPages.insertAdjacentHTML(
     "beforeend",
-    `<ul class="pagination">
-    <li class="page-item" ><button class="page-link page" data-page="previous" href="#">Previous</a></li>`
+    `<li class="page-item" ><a class="page-link page" data-page="previous" href="#">Previous</a></li>`
   );
   for (i = 0; i < postNumber / postPerPages; i++) {
     sectionPages.insertAdjacentHTML(
       "beforeend",
-      `<li class="page-item"><button class="page-link page" data-page="${i}"href="#">${
+      `<li class="page-item"><a class="page-link page" data-page="${i}"href="#top">${
         i + 1
       }</a></li>`
     );
