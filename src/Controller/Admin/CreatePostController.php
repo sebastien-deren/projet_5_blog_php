@@ -2,11 +2,10 @@
 
 namespace Blog\Controller\Admin;
 
-
 use Doctrine\ORM\EntityManager;
-use Blog\Controller\AbstractController;
+use Blog\Controller\Admin\AdminController;
 
-class CreatePostController extends AbstractController
+class CreatePostController extends AdminController
 {
     private EntityManager $entity;
 
