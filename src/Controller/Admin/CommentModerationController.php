@@ -9,7 +9,7 @@ use Blog\Service\PostService;
 use Blog\Controller\Traits\Token;
 use Blog\Controller\AbstractController;
 
-class CommentModerationController extends AbstractController
+class CommentModerationController extends AdminController
 {
     use Token;
     public function execute():string
