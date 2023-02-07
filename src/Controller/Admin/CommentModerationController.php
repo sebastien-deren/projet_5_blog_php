@@ -17,7 +17,7 @@ class CommentModerationController extends AdminController
         try {
             $this->argument['csrfToken'] = $this->create();
             $postService = new PostService($this->entityManager);
-            $this->argument['posts'] = $postService->getPostListWithComment(CommentStatus::Pending);
+            $this->argument['posts'] = $postService->getPostsCommentsPending();
         } catch (\InvalidArgumentException $e) {
             $this->argument['information'] = $e->getMessage();
         }

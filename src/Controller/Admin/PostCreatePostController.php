@@ -21,7 +21,7 @@ class PostCreatePostController extends AbstractController
         $userId = !empty($_SESSION['id']) ? $_SESSION['id'] : 2;
         $user = $this->entityManager->find('\Blog\Entity\User', $userId);
 
-        $post = new Post($user);
+        $post = new Post($user,);
         $post->addpost($fields);
         $this->entityManager->persist($post);
         $this->entityManager->flush();

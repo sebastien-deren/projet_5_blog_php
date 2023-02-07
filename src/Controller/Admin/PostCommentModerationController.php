@@ -15,7 +15,7 @@ class PostCommentModerationController extends CommentModerationController
         try {
             $commentsValidifier = new CommentModerationForm(new CommentModerationListDTO);
             $commentArray =$commentsValidifier->validify($_POST);
-            $commentService = new CommentService($this->entityManager);
+            $commentService = CommentService::getService($this->entityManager);
             $modification = $commentService->moderateComments($commentArray);
 
             $this->argument["information"] = $modification['number'] . " commentaire(s) ont bien été " . $modification['method'] . " !";
