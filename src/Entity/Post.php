@@ -81,6 +81,7 @@ class Post extends ContentAbstract
         $criteria = new Criteria();
         $expr = new Comparison("Id",Comparison::NEQ,"0");//validity EQ $status->value
         $criteria->where($expr);
+        $criteria->orderBy(["date"=>"DESC"]);
         return (new ArrayCollection($this->comment->toArray()))->matching($criteria);
     }
 }
