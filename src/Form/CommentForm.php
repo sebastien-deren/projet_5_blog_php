@@ -12,9 +12,12 @@ class CommentForm extends NewFormValidifier
 {
     protected function checkingRequired()
     {
-        /*        if(!isset($_SESSION['id'])){
+          if(!isset($_SESSION['id'])){
             throw new Exception("you must be connected to post a comment");
-        }*/
+        }
+        if(empty($this->data['content'])){
+            throw new Exception("you must write a comment before sending it");
+        }
     }
     protected function createDTO()
     {

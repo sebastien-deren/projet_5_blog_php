@@ -29,15 +29,19 @@
 				<h6>{{comment.date}}</h6>
 				<p>{{comment.content}}</p>
 			{% endfor %}
-            <form action="" method="post">
-            <input type="hidden" name="token" value="{{ csrfToken }}">
-            <input type="hidden" name="idPost" value="{{post.id}}">
-            <div class="mb-3">
-              <label for="content" class="form-label">commenter</label>
-              <textarea class="form-control" name="content" id="content" rows="3"></textarea>
-            </div>
-            <input type="submit">
-            </form>
+			{% if user %}
+
+				<form action="" method="post" onsubmit="comment(event)">
+					<input type="hidden" name="token" value="{{ csrfToken }}">
+					<input type="hidden" name="idPost" value="{{post.id}}">
+					<div class="mb-3">
+						<label for="content" class="form-label">commenter</label>
+						<textarea class="form-control" name="content" id="content" rows="3"></textarea>
+					</div>
+					<input type="submit">
+				</form>
+			{% endif %}
 		</div>
 	</div>
+	<script src="./Javascript/Form/comment.js"></script>
 {% endblock %}
