@@ -13,7 +13,6 @@ class PostCreatePostController extends CreatePostController
 
         $formvalidifier = new CreatePostForm(new CreatePostDTO);
         $post = $formvalidifier->validify($_POST);
-        $post->user= $this->entityManager->find('\Blog\Entity\User', $_SESSION["id"])??throw new \Exception("id not set");
 
         $postService = new PostService($this->entityManager);
         $postService->CreatePost($post);
