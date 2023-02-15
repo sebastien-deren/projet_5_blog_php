@@ -48,16 +48,7 @@ class CommentService
         $this->entityManager->flush();
         return ["number"=>count($commentList->commentsToModerate),"method"=> $commentList->validity->value];
     }
-    public function getCommentDTO(Comment $comment): CommentDTO
-    {
-        $commentDTO = new CommentDTO;
 
-        $commentDTO->content = $comment->getContent();
-        $commentDTO->author = $comment->getUser()->getFirstname() . " " . $comment->getUser()->getLastname();
-        $commentDTO->date = \date_format($comment->getDate(), "Y-m-d H:i:s");
-        $commentDTO->id = $comment->getId();
-        return $commentDTO;
-    }
     public function create(CreateComment $objecttoCreate)  
     {
         $user =$this->entityManager->find(User::class,$_SESSION['id']??11);
@@ -74,21 +65,15 @@ class CommentService
         $this->entityManager->persist($comment);
         $this->entityManager->flush();
     }
-    public static function getInCollection(ArrayCollection $comments){
-
-        $arrayCommentsDTO = [];
-        foreach ($comments as $comment) {
-            $arrayCommentsDTO[] =self::createDTO($comment);
-        }
-        return $arrayCommentsDTO;
-        
-    }
-    
-    private static function createDTO(Comment $comment){
+    /**
+     * @return CommentDTO
+     */
+    public static function createDTO(Comment $comment):CommentDTO{
         $commentDTO = new CommentDTO;
         $commentDTO->content = $comment->getContent();
         $commentDTO->author = $comment->getUser()->getFullName();
         $commentDTO->date = $comment->getDate()->format("Y-m-d H:i:s");
+        $commentDTO->id = $comment->getId();
         return $commentDTO;
     }
 }
