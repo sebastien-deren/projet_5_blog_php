@@ -2,8 +2,6 @@
 
 namespace Blog\Controller\Blog;
 
-use Blog\Controller\Controller;
-use Blog\Entity\Post;
 use Blog\Service\PostService;
 use Blog\Controller\AbstractController;
 
@@ -11,8 +9,9 @@ class BlogListController extends AbstractController
 {
     public function execute()
     {
+        $template = $this->twig->load('@blog/list.html.twig');
         $postService = new PostService($this->entityManager);
-        $posts = $postService->getAll();
-        echo $this->twig->render('@blog/list.html.twig',["posts" => $posts]);
-        }
+        $this->argument['posts'] = $postService->getAll();
+        return $template->render($this->argument);
+    }
 }

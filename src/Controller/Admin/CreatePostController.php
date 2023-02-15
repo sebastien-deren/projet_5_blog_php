@@ -2,19 +2,20 @@
 
 namespace Blog\Controller\Admin;
 
-use Doctrine\ORM\EntityManager;
+use Blog\Form\CreatePostForm;
+use Blog\Service\PostService;
 use Blog\Controller\Admin\AdminController;
 
 class CreatePostController extends AdminController
 {
-    private EntityManager $entity;
 
 
-
-
-    public function execute():string
+    public function execute()
     {
-        $template =$this->twig->load('@admin/createPost.html.twig');
-        return $template->render();
+        $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
+        $this->argument['csrfToken'] = $_SESSION['token'];
+        $template = $this->twig->load('@admin/createPost.html.twig');
+        return $template->render($this->argument);
+
     }
 }
