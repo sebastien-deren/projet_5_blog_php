@@ -13,7 +13,7 @@ use Blog\Service\Interface\Creater;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class CommentService implements Getter, Creater{
+class CommentService implements Getter{
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
@@ -24,14 +24,8 @@ class CommentService implements Getter, Creater{
     {
         
     }
-    public function create(AbstractDTO $objecttoCreate)  
+    public function create(CreateComment $objecttoCreate)  
     {
-        if(!($objecttoCreate instanceof CreateComment)){
-            throw new Exception("nope");
-        }
-        /*if(!isset($_SESSION['id'])){
-            throw new Exception("you must be connected to write a comment");
-        }*/
         $user =$this->entityManager->find(User::class,$_SESSION['id']??11);
         $blogPost= $this->entityManager->find(Post::class,$objecttoCreate->postId);
         if(!$user || !$blogPost){
