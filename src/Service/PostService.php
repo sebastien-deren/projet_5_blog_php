@@ -45,7 +45,7 @@ class PostService
     {
         $postrepository = $this->entityManager->getRepository(Post::class);
         $posts = null === $param ? $postrepository->findAll() : $postrepository->find($param);
-        $constructor = fn ($a) =>  new PostDTO($a);
+        $constructor = fn (Post $post) =>  new PostDTO($post);
         return  \array_map($constructor(...), $posts);
     }
     /**
@@ -54,7 +54,7 @@ class PostService
     public function getPostsCommentsPending(): array
     {
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
-        $createSingleDTO = fn ($a) => new SinglePostDTO($a,$this->getComment($a,CommentStatus::Pending));
+        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post,$this->getComment($post,CommentStatus::Pending));
         return \array_map($createSingleDTO(...), $posts);
     }
     /**
