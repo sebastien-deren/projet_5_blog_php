@@ -6,11 +6,11 @@ use Blog\Form\Interface\FormValidifier as InterfaceFormValidifier;
 
 abstract class FormValidifier implements InterfaceFormValidifier
 {
-    public function __construct(protected AbstractDTO $DTO)
+    public function __construct(protected object $DTO)
     {
         
     }
-    public function validify(array $data):AbstractDTO
+    public function validify(array $data)
     {
 
         $this->TokenValidation($data['token']);

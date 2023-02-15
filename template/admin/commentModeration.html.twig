@@ -10,10 +10,11 @@
 				{% set commmentModeration = 1 %}
 				<form method="post" accept-charset="UTF-8">
 					<input type="hidden" name="token" value="{{ csrfToken }}">
-					<p>
-						{{post.content}}
-						{{post.authorName}}
-						{{post.date}}</p>
+					<h3>
+						Article : {{post.title}}</h3 >
+                        <p>
+						By : {{post.author}} 
+						Le : {{post.date}}</p>
 
 					<table class="table table-info table-striped">
 						<thead>
@@ -29,7 +30,7 @@
 									<td scope="row " class="text-center col-1">
 										<input type="checkbox" class="form-checkbox" name="id[]" value="{{comment.id}}">
 									</td>
-									<td class="col-3">{{ comment.authorName }}
+									<td class="col-3">{{ comment.author }}
 									</td>
 									<td>{{comment.content}}</td>
 								</tr>

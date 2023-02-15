@@ -4,7 +4,7 @@ namespace Blog\DTO\Comment;
 
 class CommentDTO{
     public string $content;
-    public string $authorName;
+    public string $author;
     public string $date;
     public int $id;
 }

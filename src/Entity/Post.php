@@ -41,9 +41,13 @@ class Post extends ContentAbstract
     #[OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comment;
 
-    public function __construct($user)
+    public function __construct($user, $content, $title, $excerpt)
     {
         $this->user = $user;
+        $this->content = $content;
+        $this->title = $title;
+        $this->excerpt = $excerpt;
+        $this->date = new \DateTime();
     }
     public function getId()
     {
@@ -73,12 +77,12 @@ class Post extends ContentAbstract
     {
         return $this->title;
     }
-    public function addpost($field)
-    {
-        $this->content = $field['content'];
-        $this->title = $field['title'];
-        $this->excerpt = $field['exerpt'];
-        $this->date = new \DateTime();
+    public function getCommentByStatus($status){
+        $criteria = new Criteria();
+        $expr = new Comparison("Id",Comparison::NEQ,"0");//validity EQ $status->value
+        $criteria->where($expr);
+        $criteria->orderBy(["date"=>"DESC"]);
+        return (new ArrayCollection($this->comment->toArray()))->matching($criteria);
     }
     public function getCommentPending()
     { 
