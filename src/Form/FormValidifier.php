@@ -12,6 +12,7 @@ abstract class FormValidifier implements InterfaceFormValidifier
     }
     public function validify(array $data)
     {
+
         $this->TokenValidation($data['token']);
         $this->checkingRequired($data);
         $this->createDTO($data);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blog\Entity;
 
 use DateTime;
+use Blog\Enum\CommentStatus;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
 use Blog\Entity\ContentAbstract;
@@ -76,12 +77,22 @@ class Post extends ContentAbstract
     {
         return $this->title;
     }
-
     public function getCommentByStatus($status){
         $criteria = new Criteria();
         $expr = new Comparison("Id",Comparison::NEQ,"0");//validity EQ $status->value
         $criteria->where($expr);
         $criteria->orderBy(["date"=>"DESC"]);
         return (new ArrayCollection($this->comment->toArray()))->matching($criteria);
+    }
+    public function getCommentPending()
+    { 
+        $criteria = new Criteria();
+        /*Doctrine use the Status getter to make the comparison 
+        since our getStatus return an Enum we must compare Enum and not string!
+        */
+        $expr = new Comparison("validity",Comparison::IS, CommentStatus::Pending);
+        $criteria->where($expr);
+        $criteria->orderBy(['date' => 'DESC']);
+        return (new arrayCollection($this->comment->toArray()))->matching($criteria);
     }
 }

@@ -10,15 +10,18 @@ use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
 use Blog\Controller\Blog\ArticleController;
 use Blog\Controller\Blog\BlogListController;
+use Blog\Controller\User\RegisterController;
 use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\CreatePostController;
-use Blog\Controller\User\RegisterController;
-use Blog\Controller\User\PostRegisterController;
-use Blog\Controller\Admin\CommentAdminController;
-use Blog\Controller\Admin\PostCreatePostController;
 use Blog\Controller\Blog\PostArticleController;
 use Blog\Controller\User\DeconnectionController;
+use Blog\Controller\User\PostRegisterController;
+use Blog\Controller\Admin\CommentAdminController;
 use Blog\Controller\User\PostConnectionController;
+
+use Blog\Controller\Admin\PostCreatePostController;
+use Blog\Controller\Admin\CommentModerationController;
+use Blog\Controller\Admin\PostCommentModerationController;
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
@@ -41,6 +44,7 @@ $entityManager = new EntityManager($connection, $config);
 /*creation of our twig renderer*/
 $dir_template = dirname(__FILE__) . '/template';
 $loader = new FilesystemLoader($dir_template);
+$loader->addPath($dir_template. "/composant", "composant");
 $loader->addPath($dir_template . "/admin", "admin");
 $loader->addPath($dir_template . "/user", "user");
 $loader->addPath($dir_template . "/blog", "blog");
@@ -49,8 +53,10 @@ $twig->addExtension(new \Twig\Extension\DebugExtension);
 
 
 /* creation of our router*/
+
 $method = Method::tryFrom($_SERVER['REQUEST_METHOD'])??Method::GET;
-$router = new Router($_GET['url']??"/", $method, $twig, $entityManager);
+$router = new Router($_GET['url']??"/",$method,$twig,$entityManager);
+
 
 /*connection Route */
 $router->addPath('connection', ConnectionController::class);
@@ -63,7 +69,8 @@ $router->addPath('admin/createpost', CreatePostController::class);
 $router->addPath('admin/createpost',PostCreatePostController::class,Method::POST);
 
 //comment moderation route
-$router->addPath('admin/comment', CommentAdminController::class);
+$router->addPath('admin/comment', CommentModerationController::class);
+$router->addPath('admin/comment',PostCommentModerationController::class,Method::POST);
 
 //display messages Route
 $router->addPath('blog/post',ArticleController::class);

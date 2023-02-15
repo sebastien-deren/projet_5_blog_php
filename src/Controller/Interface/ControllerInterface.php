@@ -2,5 +2,5 @@
 namespace Blog\Controller\Interface;
 interface ControllerInterface
 {
-    public function execute();
+    public function execute():?string;
 }

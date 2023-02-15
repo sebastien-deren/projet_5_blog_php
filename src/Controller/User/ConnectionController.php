@@ -18,7 +18,7 @@ class ConnectionController extends AbstractController
 {
     private ObjectRepository|EntityRepository $repoUser;
 
-    public function execute()
+    public function execute() :?string
     {
         if(isset($_SESSION['id'])){
             \header("location: /");

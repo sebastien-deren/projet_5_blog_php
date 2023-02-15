@@ -1,10 +1,7 @@
 {% extends "layout.html.twig"%}
 {% block title "accueil" %}
 {% block content %}
-{% if error %}
-    <h2>{{error.code}}</h2>
-    <h3> {{error.message}}</h3>
-{% endif %}
-<h1>vous êtes bien sur la page index</h1>
-
+	<div class="container-lg">
+		<h1>vous êtes bien sur la page index</h1>
+	</div>
 {% endblock %}

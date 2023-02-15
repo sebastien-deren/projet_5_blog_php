@@ -8,7 +8,7 @@ use Blog\DTO\Post\CreatePostDTO;
 
 class PostCreatePostController extends CreatePostController
 {
-    public function execute():?string
+    public function execute():string
     {
 
         $formvalidifier = new CreatePostForm(new CreatePostDTO);

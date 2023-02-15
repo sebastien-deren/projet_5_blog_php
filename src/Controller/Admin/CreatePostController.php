@@ -10,7 +10,7 @@ class CreatePostController extends AdminController
 {
 
 
-    public function execute()
+    public function execute():string
     {
         $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
         $this->argument['csrfToken'] = $_SESSION['token'];

@@ -7,7 +7,7 @@ use Blog\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-    public function execute()
+    public function execute():string
     {
         $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
         $this->argument['csrfToken'] = $_SESSION['token'];
@@ -15,6 +15,6 @@ class ArticleController extends AbstractController
         \is_numeric($postId) ?: throw new \InvalidArgumentException('not an id');
         $postService = new PostService($this->entityManager);
         $this->argument['post'] = $postService->getBy(["id"=>$postId]);
-        $this->twig->display('@blog/post.html.twig', $this->argument);
+        return $this->twig->render('@blog/post.html.twig', $this->argument);
     }
 }

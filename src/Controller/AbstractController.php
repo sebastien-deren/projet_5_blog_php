@@ -17,7 +17,7 @@ abstract class AbstractController implements ControllerInterface{
         }
         
     }
-    abstract public function execute();
+    abstract public function execute():?string;
     protected function protectSession():void{
         
         if($_SERVER['REMOTE_ADDR'] !== $_SESSION['ipAddress']){
@@ -25,7 +25,7 @@ abstract class AbstractController implements ControllerInterface{
             \session_destroy();
             return;
         }
-        if($_SERVER['HTTP_USER_AGENT']!=$_SESSION['userAgent']){
+        if($_SERVER['HTTP_USER_AGENT']!==$_SESSION['userAgent']){
             \session_unset();
             \session_destroy();
             return;

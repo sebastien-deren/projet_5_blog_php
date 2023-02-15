@@ -7,7 +7,7 @@ use Blog\Controller\AbstractController;
 
 class BlogListController extends AbstractController
 {
-    public function execute()
+    public function execute():string
     {
         $template = $this->twig->load('@blog/list.html.twig');
         $postService = new PostService($this->entityManager);
