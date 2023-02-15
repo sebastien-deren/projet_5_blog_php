@@ -2,32 +2,23 @@
 
 namespace Blog\Controller\Admin;
 
-use Blog\Entity\Post;
-use Blog\Controller\Controller;
-use Blog\Controller\AbstractController;
+use Blog\Form\CreatePostForm;
+use Blog\Service\PostService;
+use Blog\DTO\Post\CreatePostDTO;
 
-class PostCreatePostController extends AbstractController
+class PostCreatePostController extends CreatePostController
 {
-    public function execute():string
+    public function execute():?string
     {
 
+        $formvalidifier = new CreatePostForm(new CreatePostDTO);
+        $post = $formvalidifier->validify($_POST);
 
-        $e = new \Exception("le formulaire est mal rempli");
-        $fields = [];
+        $postService = new PostService($this->entityManager);
+        $postService->CreatePost($post);
 
-        foreach ($_POST as $fieldKey => $fieldValue) {
-            $fields[$fieldKey] = !empty(\htmlspecialchars($fieldValue)) ? $fieldValue : throw $e;
-        }
-        $userId = !empty($_SESSION['id']) ? $_SESSION['id'] : 2;
-        $user = $this->entityManager->find('\Blog\Entity\User', $userId);
-
-        $post = new Post($user);
-        $post->addpost($fields);
-        $this->entityManager->persist($post);
-        $this->entityManager->flush();
-        return  $this->twig->render('@admin/createPost.html.twig',[
-            "post" => $post,
-            "message" => 'post envoyé dans la base de donnée'
-        ]);
+        $this->argument['post'] = $post;
+        $this->argument['message']= "post envoyé dans la base de donnée";
+        return parent::execute();
     }
 }
