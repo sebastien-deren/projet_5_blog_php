@@ -102,6 +102,9 @@ class User
 
         return $this;
     }
+    public function getFullName(){
+        return $this->firstname." ".$this->lastname;
+    }
     public function getMail()
     {
         return $this->mail;

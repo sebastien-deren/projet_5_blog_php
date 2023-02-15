@@ -1,22 +1,15 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+	<div class="postList" data-posts="{{posts.listPost|json_encode}}"></div>
 	<div class="container-lg">
-		{% for post in posts %}
 
-			<div class="row">
-				<div class="col">
-					<h2 class="text-center">{{post.title()|e}}</h2>
-				</div>
-				<div class="col">
-					<h2>{{post.user.firstname}}
-						{{post.user.lastname}}</h2>
-				</div>
-				<h3>{{post.excerpt()|e}}</h3>
-
-				<p>{{post.content()|e }}</p>
-			</div>
-
-		{% endfor %}
+		<div class="jsContainer"></div>
+		<!--<input id="postPerPage" name="post per page" 
+        type="range" min="2" max="30" value="5"step="2">-->
+		<nav aria-label="Page navigation example">
+			<ul class="pagination"></ul>
+		</nav>
 	</div>
+	<script src="Javascript/Blog/paginatePosts.js"></script>
 {% endblock %}
