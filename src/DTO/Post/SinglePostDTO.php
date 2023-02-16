@@ -8,5 +8,6 @@ class SinglePostDTO extends PostDTO{
      *  */ 
     public array $comments;
     public string $content;
+    public int $authorId;
 
 }

@@ -3,26 +3,28 @@
 	<div class="container-lg">
 
 		<form method="post" action="" class="row">
+        <input type ="hidden" name="token"value="{{csrfToken}}">
+        <input type ="hidden" name="id"value ="{{post.id}}">
 			<div class="row">
-				<h2 class="text-center col-8"><input type="text" value="{{post.title}}"></h2>
+				<h2 class="text-center col-8"><input type="text" name="title" value="{{post.title}}"></h2>
 				<h4 class="col-4">{{post.date}}</h4>
 			</div>
 			<div class="form-check">
-				<input class="form-check-input" type="radio" name="author" id="{{post.author}}">
+				<input class="form-check-input" type="radio" name="author" id="{{post.author}}" value="{{post.authorId}}">
 				<label class="form-check-label" for="{{post.author}}">
 					{{post.author}}
 				</label>
 			</div>
 			<div class="form-check">
-				<input class="form-check-input" type="radio" name="author" id="{{user.login}}" checked>
+				<input class="form-check-input" type="radio" name="author" id="{{user.login}}" value="{{user.id}}" checked>
 				<label class="form-check-label" for="{{user.login}}">
 					{{user.firstname}}
 					{{user.lastname}}
 				</label>
 			</div>
 
-			<input value="{{post.excerpt}}" type="text">
-			<textarea rows="10">{{post.content}}</textarea>
+			<input value="{{post.excerpt}}"  name ="excerpt"type="text">
+			<textarea rows="10" name="content">{{post.content}}</textarea>
             <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>

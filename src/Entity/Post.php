@@ -37,7 +37,7 @@ class Post extends ContentAbstract
     private \DateTime $date;
     #[ManyToOne(targetEntity: User::class, inversedBy: 'post')]
     #[JoinColumn(name: 'user_id', referencedColumnName: 'id')]
-    private User|null  $user = null;
+    private User $user;
     #[OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comment;
 
@@ -94,5 +94,56 @@ class Post extends ContentAbstract
         $criteria->where($expr);
         $criteria->orderBy(['date' => 'DESC']);
         return (new arrayCollection($this->comment->toArray()))->matching($criteria);
+    }
+
+    /**
+     * Set the value of excerpt
+     *
+     * @return  self
+     */ 
+    public function setExcerpt($excerpt)
+    {
+        $this->excerpt = $excerpt;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of content
+     *
+     * @return  self
+     */ 
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of date
+     *
+     * @return  self
+     */ 
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of user
+     *
+     * @return  self
+     */ 
+    public function setUser($user)
+    {
+        if($user==null){
+            return $this;
+        }
+        $this->user = $user;
+
+        return $this;
     }
 }

@@ -2,16 +2,17 @@
 
 namespace Blog\Service;
 
-use Blog\Enum\CommentStatus;
-use Blog\Service\CommentService;
-use Blog\DTO\Post\PostDisplayDTO;
 use Blog\Entity\Post;
+use Blog\Entity\User;
 use Blog\Entity\Comment;
 use Blog\DTO\Post\PostDTO;
+use Blog\Enum\CommentStatus;
 use Blog\DTO\Post\ListPostDTO;
 use Blog\DTO\Comment\CommentDTO;
 use Blog\DTO\Post\createPostDTO;
 use Blog\DTO\Post\SinglePostDTO;
+use Blog\Service\CommentService;
+use Blog\DTO\Post\PostDisplayDTO;
 use Blog\Service\Interface\Getter;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\Collection;
@@ -80,22 +81,39 @@ class PostService implements Getter
     }
     private function getCommentToModerate($post): ?PostDisplayDTO
     {
-        $getComment=CommentService::getService($this->entityManager)->getCommentDTO(...); 
+        $getComment = CommentService::getService($this->entityManager)->getCommentDTO(...);
         $commentList = $post->getCommentPending()->toArray();
         $commentsToModerate = \array_map($getComment, $commentList);
         if ([] === $commentsToModerate) {
             return null;
         }
         return $this->getPostDTO($post, $commentsToModerate);
-
     }
-    private function getPostDTO(Post $post,array $comments =[]){
+    private function getPostDTO(Post $post, array $comments = [])
+    {
         $postDTO = new PostDisplayDTO;
         $postDTO->comments = $comments;
         $postDTO->author = $post->getUser()->getFirstname() . " " . $post->getUser()->getLastname();
+        $postDTO->authorId = $post->getUser()->getId();
         $postDTO->title = $post->getTitle();
         $postDTO->date = \date_format($post->getDate(), "Y-m-d h:i:s");
         return $postDTO;
     }
-    
+    public function updatePost(SinglePostDTO $postUpdate)
+    {
+        $postStocked = $this->entityManager->find(Post::class, $postUpdate->id);
+        if ($postUpdate->title !== $postStocked->getTitle()) {
+            $postStocked->setTitle($postUpdate->title);
+        }
+        if ($postUpdate->content !== $postStocked->getcontent()) {
+            $postStocked->getContent($postUpdate->content);
+        }
+        if ($postUpdate->authorId !== $postStocked->getUser()->getId()) {
+            $postStocked->setUser($this->entityManager->find(User::class, $postUpdate->authorId));
+        }
+        if ($postUpdate->excerpt !== $postStocked->getExcerpt()) {
+            $postStocked->setExcerpt($postUpdate->excerpt);
+        }
+        return $this->entityManager->flush();
+    }
 }

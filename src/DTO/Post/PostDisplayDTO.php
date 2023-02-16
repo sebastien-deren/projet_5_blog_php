@@ -5,4 +5,6 @@ class PostDisplayDTO{
     public string $title;
     public string $date;
     public array $comments;
+    public int $authorId;
+    
 }

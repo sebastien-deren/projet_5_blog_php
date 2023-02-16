@@ -21,8 +21,6 @@ abstract class NewFormValidifier
 
     protected function TokenValidation()
     {
-        var_dump($_SESSION['token']);
-        var_dump($this->data['token']);
         if (!$this->data['token'] || ($this->data['token'] !== $_SESSION['token'])) {
             throw new \Exception("Method not allowed", 405);
         }
