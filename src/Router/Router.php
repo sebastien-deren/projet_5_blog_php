@@ -9,8 +9,8 @@ use Blog\Enum\Method;
 use Twig\Environment;
 use Blog\Exception\RouterException;
 use Blog\Controller\ErrorController;
-use Blog\Controller\IndexController;
 use Doctrine\ORM\EntityManagerInterface;
+use Blog\Controller\Homepage\IndexController;
 use Blog\Controller\Interface\ControllerInterface;
 
 
@@ -35,10 +35,6 @@ class Router
     {
         try {
             $this->url = \trim($this->url, '/');
-            if (empty($this->url)) {
-                return new IndexController($this->twig, $this->entityManager);
-            }
-
             $this->controller = $this->findController();
             return new $this->controller($this->twig, $this->entityManager);
         } catch (Exception $e) {

@@ -15,7 +15,7 @@ class CommentModerationController extends AdminController
     public function execute():string
     {
         try {
-            $this->argument['csrfToken'] = $this->create();
+            $this->argument['csrfToken'] = $this->createToken();
             $postService = new PostService($this->entityManager);
             $this->argument['posts'] = $postService->getPostsCommentsPending();
         } catch (\InvalidArgumentException $e) {
