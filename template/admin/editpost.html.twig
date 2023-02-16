@@ -1,0 +1,25 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+	<div class="postList" data-posts="{{posts.listPost|json_encode}}"></div>
+	<div class="container-lg">
+    {% for post in posts.listPost %}
+      <a href="/admin/post?id={{post.id}}" class="card">
+      <form >		
+      
+      <div class="row">
+          <div class="col">
+              <h2 class="text-center">{{post.title}}</h2>
+          </div>
+          <div class="col">
+              <h2>{{post.author}}
+              </h2>
+              <h4>{{post.date}}<h4></div>
+                  <h3>{{post.excerpt}}</h3>
+              </div>
+          </a>
+          </form>
+          </a>`
+        {% endfor %}
+	</div>
+{% endblock %}
