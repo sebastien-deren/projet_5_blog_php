@@ -13,13 +13,14 @@ use Blog\Exception\FormException;
 use Blog\Service\Interface\Logger;
 use Doctrine\ORM\EntityRepository;
 use Blog\DTO\User\UserToDisplayDTO;
+use Blog\Enum\RoleEnum;
 use Blog\Service\Interface\Creater;
 use Blog\Service\Interface\Displayer;
 use Doctrine\Persistence\ObjectRepository;
 use Blog\Exception\UniqueKeyViolationException;
 
 
-class UserService implements  Logger, Displayer //Updater, Deleter
+class UserService implements  Logger //Updater, Deleter
 {
     private static ?UserService $_userService =null;
     private User $user;
@@ -72,10 +73,13 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         }
         return $user->getId();
     }
-    public function display(int $id): UserToDisplayDTO
+    public function findUser(int $id){
+         $user = $this->entityManager->find(User::class, $id);
+         return $user;
+    }
+    public function display(User $user): UserToDisplayDTO
     {
         $userDTO = new UserToDisplayDTO;
-        $user = $this->entityManager->find(User::class, $id);
         $userDTO->firstname = $user->getFirstname();
         $userDTO->lastname = $user->getLastname();
         $userDTO->login = $user->getlogin();
@@ -86,5 +90,13 @@ class UserService implements  Logger, Displayer //Updater, Deleter
     }
     public function getRole($id){
         return $this->entityManager->find(User::class,$id)->getRole();
+    }
+    /**
+     * @return array<UserToDisplay>
+     * 
+     */
+    public function getAdmins():array{
+        $users = $this->repoUser->findBy(["role"=>RoleEnum::ADMIN]);
+        return \array_map($this->display(...),$users);
     }
 }

@@ -17,7 +17,7 @@ require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 if(isset($_SESSION['id'])){
     $userService =UserService::getService($entityManager);
-    $twig->addGlobal('user',$userService->display($_SESSION['id']));
+    $twig->addGlobal('user',$userService->display($userService->findUser($_SESSION['id'])));
 }
 
 try{

@@ -4,6 +4,7 @@ namespace Blog\Controller\Admin;
 
 use Blog\Service\PostService;
 use Blog\Controller\AbstractController;
+use Blog\Service\UserService;
 
 class EditController extends AdminController
 {
@@ -14,7 +15,9 @@ class EditController extends AdminController
         $postId = isset($_GET['id']) ? $_GET['id'] : throw new \InvalidArgumentException('pas de post');
         \is_numeric($postId) ?: throw new \InvalidArgumentException('not an id');
         $postService = new PostService($this->entityManager);
+        $userService= UserService::getService( $this->entityManager) ;
         $this->argument['post'] = $postService->getBy(["id"=>$postId]);
+        $this->argument['admins'] = $userService->getAdmins();
         return $this->twig->render('@admin/post.html.twig', $this->argument);
     }
 }
