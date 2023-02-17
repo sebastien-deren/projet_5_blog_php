@@ -71,6 +71,7 @@ class PostService implements Getter
         $singlePostDTO = new SinglePostDTO;
         $this->createPostDTO($post, $singlePostDTO);
         $singlePostDTO->content = $post->getContent();
+        $singlePostDTO->authorId =$post->getUser()->getId();
         $singlePostDTO->comments = CommentService::getInCollection($post->getCommentByStatus("valid"));
         return $singlePostDTO;
     }
