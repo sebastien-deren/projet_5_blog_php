@@ -10,6 +10,10 @@ use Exception;
 
 class CommentForm extends NewFormValidifier
 {
+    public function __construct(private CreateComment $DTO,$data)
+    {
+        parent::__construct($data);
+    }
     protected function checkingRequired()
     {
           if(!isset($_SESSION['id'])){

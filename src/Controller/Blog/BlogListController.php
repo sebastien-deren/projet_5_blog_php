@@ -3,7 +3,7 @@
 namespace Blog\Controller\Blog;
 
 use Blog\Service\PostService;
-use Blog\Controller\AbstractController;
+use Blog\Controller\Abstracts\AbstractController;
 
 class BlogListController extends AbstractController
 {

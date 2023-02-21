@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Controller;
+namespace Blog\Controller\Abstracts;
 
 
 use Twig\Environment;

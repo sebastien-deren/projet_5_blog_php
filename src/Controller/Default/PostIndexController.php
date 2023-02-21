@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Controller\Homepage;
+namespace Blog\Controller\Default;
 
 use Blog\DTO\Mail\MailDTO;
 use Blog\Form\MailValidifier;

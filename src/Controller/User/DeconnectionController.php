@@ -2,9 +2,8 @@
 
 namespace Blog\Controller\User;
 
-use Blog\Controller\Controller;
-use Blog\Controller\AbstractController;
-use Blog\Controller\ControllerInterface;
+use Blog\Controller\Abstracts\AbstractController;
+
 
 class DeconnectionController extends AbstractController
 {

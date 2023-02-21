@@ -1,8 +1,9 @@
 <?php
-namespace Blog\Controller;
+namespace Blog\Controller\Default;
 
 use Blog\Controller\Controller;
 use Blog\Controller\ControllerInterface;
+use Blog\Controller\Abstracts\AbstractController;
 
 class ErrorController extends AbstractController{
     public function __construct($twig,$entityManager,private \Exception $error)

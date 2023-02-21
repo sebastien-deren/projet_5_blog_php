@@ -1,11 +1,14 @@
 <?php
+
 namespace Blog\Controller\Traits;
 
-use Blog\Controller\Traits\Session;
-
-trait Token {
-    public function createToken():string{
-        $this->addElement(['token' => \md5(\uniqid(\strval(\mt_rand()), true))]);
-        return  $_SESSION['token'];
+trait Token
+{
+    public function createToken(): string
+    {
+        $csrfToken = \md5(\uniqid(\strval(\mt_rand()), true));
+        $this->addFieldSession(['token' => $csrfToken]);
+        $this->argument['csrfToken'] = $csrfToken;
+        return  $csrfToken;
     }
 }

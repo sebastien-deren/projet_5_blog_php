@@ -1,9 +1,9 @@
 <?php
 
-namespace Blog\Controller\Homepage;
+namespace Blog\Controller\Default;
 
 use Blog\Controller\Traits\Token;
-use Blog\Controller\AbstractController;
+use Blog\Controller\Abstracts\AbstractController;
 
 
 
@@ -13,7 +13,7 @@ class IndexController extends AbstractController
     use Token;
     public function execute(): string
     {
-        $this->argument['csrftoken'] = $this->createToken();
+        $this->createToken();
         return $this->twig->render('@user/index.html.twig', $this->argument);
     }
 }

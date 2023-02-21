@@ -2,18 +2,18 @@
 
 namespace Blog\Controller\Admin;
 
-use Blog\Form\CreatePostForm;
-use Blog\Service\PostService;
-use Blog\Controller\Admin\AdminController;
+
+use Blog\Controller\Traits\Token;
+use Blog\Controller\Abstracts\AdminController;
 
 class CreatePostController extends AdminController
 {
-
+    use Token;
 
     public function execute():string
     {
-        $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
-        $this->argument['csrfToken'] = $_SESSION['token'];
+        
+       $this->createToken();
         $template = $this->twig->load('@admin/createPost.html.twig');
         return $template->render($this->argument);
 

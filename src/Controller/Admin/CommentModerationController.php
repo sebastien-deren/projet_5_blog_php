@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Blog\Controller\Admin;
 
-use Blog\Enum\CommentStatus;
+
 use Blog\Service\PostService;
 use Blog\Controller\Traits\Token;
-use Blog\Controller\AbstractController;
+use Blog\Controller\Abstracts\AdminController;
 
 class CommentModerationController extends AdminController
 {
@@ -15,7 +15,7 @@ class CommentModerationController extends AdminController
     public function execute():string
     {
         try {
-            $this->argument['csrfToken'] = $this->createToken();
+            $this->createToken();
             $postService = new PostService($this->entityManager);
             $this->argument['posts'] = $postService->getPostsCommentsPending();
         } catch (\InvalidArgumentException $e) {

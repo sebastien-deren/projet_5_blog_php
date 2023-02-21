@@ -1,10 +1,10 @@
 <?php
-namespace Blog\Controller\Admin;
+namespace Blog\Controller\Abstracts;
 
+use Blog\Entity\User;
 use Blog\Enum\RoleEnum;
 use Blog\Service\UserService;
-use Blog\Controller\AbstractController;
-use Blog\Entity\User;
+use Blog\Controller\Abstracts\AbstractController;
 
 abstract class AdminController extends AbstractController{
     public function __construct($twig,$entityManager)

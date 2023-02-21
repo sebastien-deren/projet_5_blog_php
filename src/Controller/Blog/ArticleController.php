@@ -3,14 +3,15 @@
 namespace Blog\Controller\Blog;
 
 use Blog\Service\PostService;
-use Blog\Controller\AbstractController;
+use Blog\Controller\Traits\Token;
+use Blog\Controller\Abstracts\AbstractController;
 
 class ArticleController extends AbstractController
 {
+    use Token;
     public function execute():string
     {
-        $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
-        $this->argument['csrfToken'] = $_SESSION['token'];
+        $this->createToken();
         $postId = isset($_GET['id']) ? $_GET['id'] : throw new \InvalidArgumentException('pas de post');
         \is_numeric($postId) ?: throw new \InvalidArgumentException('not an id');
         $postService = new PostService($this->entityManager);

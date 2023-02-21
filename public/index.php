@@ -1,7 +1,7 @@
 <?php
 session_start();
 use Blog\Service\UserService;
-use Blog\Controller\ErrorController;
+use Blog\Controller\Default\ErrorController;
 
 require_once(dirname(__FILE__) . '/../bootstrap.php');
 
@@ -23,7 +23,7 @@ if(isset($_SESSION['id'])){
 try{
     echo $router->getController()->execute();
 }
-catch( \ErrorException $e){
+catch( \Exception $e){
         $controllerErreur = new ErrorController($twig,$entityManager,$e);
         echo $controllerErreur->execute();
 }
