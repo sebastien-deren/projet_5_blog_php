@@ -11,7 +11,7 @@ class BlogListController extends AbstractController
     {
         $template = $this->twig->load('@blog/list.html.twig');
         $postService = new PostService($this->entityManager);
-        $this->argument['posts'] = $postService->getBy();
+        $this->argument['posts'] = $postService->getAll();
         return $template->render($this->argument);
     }
 }

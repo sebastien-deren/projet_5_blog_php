@@ -41,10 +41,10 @@ class PostService
     /**
      * @return array<PostDTO>
      */
-    public function getBy(?array $param = null): array
+    public function getAll(): array
     {
         $postrepository = $this->entityManager->getRepository(Post::class);
-        $posts = null === $param ? $postrepository->findAll() : $postrepository->find($param);
+        $posts = $postrepository->findAll() ;
         $constructor = fn (Post $post) =>  new PostDTO($post);
         return  \array_map($constructor(...), $posts);
     }
