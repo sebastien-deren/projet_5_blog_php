@@ -6,7 +6,7 @@
 
 		<form class="container-fluid" method="post" accept-charset="UTF-8" action="">
 			<div class="row">
-				<input type="hidden" name="token" value="{{ csrftoken }}">
+				<input type="hidden" name="csrfToken" value="{{ csrftoken }}">
 				<div class="mb-3 col">
 					<label for="" class="form-label">Email</label>
 					<input type="email" class="form-control" name="mail" id="mail" aria-describedby="emailHelpId" value="{% if user %} {{user.email}} {% endif %} ">

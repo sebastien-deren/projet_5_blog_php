@@ -13,7 +13,7 @@ abstract class FormValidifier implements InterfaceFormValidifier
     public function validify(array $data)
     {
 
-        $this->TokenValidation($data['token']);
+        $this->TokenValidation($data['csrfToken']);
         $this->checkingRequired($data);
         $this->createDTO($data);
         return $this->DTO;
@@ -21,7 +21,7 @@ abstract class FormValidifier implements InterfaceFormValidifier
 
     protected function TokenValidation($userToken)
     {
-        if (!$userToken || $userToken !== $_SESSION['token']) {
+        if (!$userToken || $userToken !== $_SESSION['csrfToken']) {
             throw new \Exception("Method not allowed", 405);
         }
     }

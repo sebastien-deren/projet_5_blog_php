@@ -9,7 +9,7 @@
 			{% if post.comments %}
 				{% set commmentModeration = 1 %}
 				<form method="post" accept-charset="UTF-8">
-					<input type="hidden" name="token" value="{{ csrfToken }}">
+					<input type="hidden" name="csrfToken" value="{{ csrfToken }}">
 					<h3>
 						Article : {{post.title}}</h3 >
                         <p>

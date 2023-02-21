@@ -1,8 +1,6 @@
 <?php
 namespace Blog\Controller\Default;
 
-use Blog\Controller\Controller;
-use Blog\Controller\ControllerInterface;
 use Blog\Controller\Abstracts\AbstractController;
 
 class ErrorController extends AbstractController{
