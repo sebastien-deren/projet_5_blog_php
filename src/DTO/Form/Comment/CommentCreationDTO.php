@@ -1,9 +1,9 @@
 <?php
-namespace Blog\DTO\Comment;
+namespace Blog\DTO\Form\Comment;
 
 use Blog\DTO\AbstractDTO;
 
-class CreateComment extends AbstractDTO{
+class CommentCreationDTO{
     public string $content;
     public int $postId;
 }

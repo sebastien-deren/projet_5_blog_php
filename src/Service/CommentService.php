@@ -6,18 +6,15 @@ namespace Blog\Service;
 
 use Blog\Entity\Post;
 use Blog\Entity\User;
-use Blog\Service\Interface\Getter;
-use Blog\DTO\Comment\CreateComment;
-use Blog\Service\Interface\Creater;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Blog\Entity\Comment;
 use Blog\Enum\CommentStatus;
 use Doctrine\ORM\EntityManager;
-use Blog\DTO\Comment\CommentDTO;
 use Doctrine\ORM\EntityRepository;
+use Blog\DTO\Entitie\Comment\CommentDTO;
 use Doctrine\Persistence\ObjectRepository;
-use Blog\DTO\Comment\CommentModerationListDTO;
+use Blog\DTO\Form\Comment\CommentCreationDTO;
+use Doctrine\Common\Collections\ArrayCollection;
+use Blog\DTO\Form\Comment\CommentModerationListDTO;
 
 
 class CommentService
@@ -41,24 +38,15 @@ class CommentService
     {
         $commentRepo = $this->entityManager->getRepository(Comment::class);
         foreach ($commentList->commentsToModerate as $comment) {
-            $commentEntity = $commentRepo->find($comment->id);
+            $commentEntity = $commentRepo->find($comment)?: throw new \Exception("le commentaire n'existe pas");
             $commentEntity->getValidity() === CommentStatus::Pending ?: throw new \InvalidArgumentException("le commentaire à déjà été modéré");
             $commentEntity->setValidity($commentList->validity);
         }
         $this->entityManager->flush();
         return ["number"=>count($commentList->commentsToModerate),"method"=> $commentList->validity->value];
     }
-    public function getCommentDTO(Comment $comment): CommentDTO
-    {
-        $commentDTO = new CommentDTO;
 
-        $commentDTO->content = $comment->getContent();
-        $commentDTO->author = $comment->getUser()->getFirstname() . " " . $comment->getUser()->getLastname();
-        $commentDTO->date = \date_format($comment->getDate(), "Y-m-d H:i:s");
-        $commentDTO->id = $comment->getId();
-        return $commentDTO;
-    }
-    public function create(CreateComment $objecttoCreate)  
+    public function create(CommentCreationDTO $objecttoCreate)  
     {
         $user =$this->entityManager->find(User::class,$_SESSION['id']??11);
         $blogPost= $this->entityManager->find(Post::class,$objecttoCreate->postId);
@@ -76,19 +64,7 @@ class CommentService
     }
     public static function getInCollection(ArrayCollection $comments){
 
-        $arrayCommentsDTO = [];
-        foreach ($comments as $comment) {
-            $arrayCommentsDTO[] =self::createDTO($comment);
-        }
-        return $arrayCommentsDTO;
-        
-    }
-    
-    private static function createDTO(Comment $comment){
-        $commentDTO = new CommentDTO;
-        $commentDTO->content = $comment->getContent();
-        $commentDTO->author = $comment->getUser()->getFullName();
-        $commentDTO->date = $comment->getDate()->format("Y-m-d H:i:s");
-        return $commentDTO;
+        $creationDTO = fn($comment)=> new CommentDTO($comment);
+        return \array_map($creationDTO(...),$comments->toArray());
     }
 }

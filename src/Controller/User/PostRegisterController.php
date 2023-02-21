@@ -2,11 +2,12 @@
 
 namespace Blog\Controller\User;
 
-use Blog\Form\RegisterForm;
-use Blog\Service\UserService;
-use Blog\DTO\User\RegisterDTO;
-use Blog\Controller\AbstractController;
 use Exception;
+use Blog\Form\RegisterForm;
+
+use Blog\Service\UserService;
+use Blog\DTO\Form\User\RegisterDTO;
+use Blog\Controller\AbstractController;
 
 
 class PostRegisterController extends AbstractController{

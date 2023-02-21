@@ -4,14 +4,16 @@ namespace Blog\Controller\Admin;
 
 use Blog\Form\CreatePostForm;
 use Blog\Service\PostService;
-use Blog\DTO\Post\CreatePostDTO;
+use Blog\DTO\Form\Post\PostCreationDTO;
+
+
 
 class PostCreatePostController extends CreatePostController
 {
     public function execute():string
     {
 
-        $formvalidifier = new CreatePostForm(new CreatePostDTO);
+        $formvalidifier = new CreatePostForm(new PostCreationDTO);
         $post = $formvalidifier->validify($_POST);
 
         $postService = new PostService($this->entityManager);

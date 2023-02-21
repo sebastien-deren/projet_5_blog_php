@@ -2,8 +2,8 @@
 
 namespace Blog\Form;
 
-use Blog\DTO\User\RegisterDTO;
 use Blog\Enum\RoleEnum;
+use Blog\DTO\Form\User\RegisterDTO;
 
 class RegisterForm extends FormValidifier
 {

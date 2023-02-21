@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace Blog\Service;
 
+use Blog\DTO\Entitie\User\UserDTO;
 use Blog\Entity\User;
-use Blog\DTO\AbstractDTO;
-use Blog\DTO\User\LoginDTO;
-use Blog\DTO\User\RegisterDTO;
 use Doctrine\ORM\EntityManager;
+use Blog\DTO\Form\User\LoginDTO;
 use Blog\Exception\FormException;
 use Blog\Service\Interface\Logger;
 use Doctrine\ORM\EntityRepository;
-use Blog\DTO\User\UserToDisplayDTO;
-use Blog\Service\Interface\Creater;
+use Blog\DTO\Form\User\RegisterDTO;
 use Blog\Service\Interface\Displayer;
 use Doctrine\Persistence\ObjectRepository;
 use Blog\Exception\UniqueKeyViolationException;
 
 
-class UserService implements  Logger, Displayer //Updater, Deleter
+class UserService 
 {
     private static ?UserService $_userService =null;
     private User $user;
@@ -72,16 +70,10 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         }
         return $user->getId();
     }
-    public function display(int $id): UserToDisplayDTO
+    public function display(int $id): UserDTO
     {
-        $userDTO = new UserToDisplayDTO;
         $user = $this->entityManager->find(User::class, $id);
-        $userDTO->firstname = $user->getFirstname();
-        $userDTO->lastname = $user->getLastname();
-        $userDTO->login = $user->getlogin();
-        $userDTO->role = $user->getRole();
-        $userDTO->email =$user->getMail();
-        return $userDTO;
+        return new UserDTO($user);
     }
     public function getRole($id){
         return $this->entityManager->find(User::class,$id)->getRole();

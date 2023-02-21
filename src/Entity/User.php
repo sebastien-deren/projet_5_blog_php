@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Blog\Entity;
 
-use Blog\DTO\User\RegisterDTO;
 use Blog\Enum\RoleEnum;
 use Blog\Form\ValidData;
 use Doctrine\ORM\Mapping\Id;
@@ -13,6 +12,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Blog\DTO\Form\User\RegisterDTO;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\GeneratedValue;

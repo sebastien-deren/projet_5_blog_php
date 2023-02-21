@@ -3,8 +3,8 @@
 namespace Blog\Controller\User;
 
 use Blog\Form\LoginForm;
-use Blog\DTO\User\LoginDTO;
 use Blog\Service\UserService;
+use Blog\DTO\Form\User\LoginDTO;
 use Blog\Controller\AbstractController;
 
 class PostConnectionController extends AbstractController

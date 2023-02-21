@@ -2,10 +2,11 @@
 
 namespace Blog\Controller\Homepage;
 
-use Blog\DTO\Mail\MailDTO;
 use Blog\Form\MailValidifier;
 use Blog\Service\MailService;
+use Blog\DTO\Form\Mail\MailDTO;
 use Blog\Controller\Traits\Token;
+use Blog\Controller\Homepage\IndexController;
 
 class PostIndexController extends IndexController
 {

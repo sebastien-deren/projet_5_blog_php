@@ -1,11 +1,9 @@
 <?php
-
-namespace Blog\DTO\User;
-
+namespace Blog\DTO\Form\User;
 use Blog\Enum\RoleEnum;
 use Blog\DTO\AbstractDTO;
 
-class RegisterDTO extends AbstractDTO{
+class RegisterDTO{
         public string $login;
         public string $password;
         public string $mail;

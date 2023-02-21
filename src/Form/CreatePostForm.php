@@ -3,7 +3,7 @@
 namespace Blog\Form;
 
 
-use Blog\DTO\Post\CreatePostDTO;
+use Blog\DTO\Form\Post\PostCreationDTO;
 
 class CreatePostForm extends FormValidifier
 {
@@ -21,7 +21,7 @@ class CreatePostForm extends FormValidifier
     }
     protected function createDTO(array $data)
     {       
-        if(!($this->DTO instanceof CreatePostDTO)){
+        if(!($this->DTO instanceof PostCreationDTO)){
             throw new \Exception("DTO type exception");
         }
         $this->DTO->content = ($data['content']);
