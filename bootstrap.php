@@ -11,14 +11,16 @@ use Twig\Loader\FilesystemLoader;
 use Blog\Controller\Blog\ArticleController;
 use Blog\Controller\Blog\BlogListController;
 use Blog\Controller\User\RegisterController;
+use Blog\Controller\Homepage\IndexController;
 use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\CreatePostController;
 use Blog\Controller\Blog\PostArticleController;
 use Blog\Controller\User\DeconnectionController;
 use Blog\Controller\User\PostRegisterController;
 use Blog\Controller\Admin\CommentAdminController;
-use Blog\Controller\User\PostConnectionController;
 
+use Blog\Controller\Homepage\PostIndexController;
+use Blog\Controller\User\PostConnectionController;
 use Blog\Controller\Admin\PostCreatePostController;
 use Blog\Controller\Admin\CommentModerationController;
 use Blog\Controller\Admin\PostCommentModerationController;
@@ -55,7 +57,7 @@ $twig->addExtension(new \Twig\Extension\DebugExtension);
 /* creation of our router*/
 
 $method = Method::tryFrom($_SERVER['REQUEST_METHOD'])??Method::GET;
-$router = new Router($_GET['url']??"/",$method,$twig,$entityManager);
+$router = new Router($_GET['url']??"",$method,$twig,$entityManager);
 
 
 /*connection Route */
@@ -81,3 +83,7 @@ $router->addPath('blog',BlogListController::class);
 $router->addPath('register',RegisterController::class);
 $router->addPath('register',PostRegisterController::class,Method::POST);
 
+//index route
+
+$router->addPath('', IndexController::class);
+$router->addPath('',PostIndexController::class,Method::POST);

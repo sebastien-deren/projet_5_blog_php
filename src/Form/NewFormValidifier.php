@@ -6,11 +6,12 @@ use Blog\Form\Interface\FormValidifier;
 
 abstract class NewFormValidifier
 {
-    public function __construct(protected AbstractDTO $DTO,protected array $data)
+    protected object $DTO;//i'd like to infer a type here like this object is of type <T> and then when declared boom it's the DTO i want
+    public function __construct(protected array $data)
     {
         
     }
-    public function validify():AbstractDTO
+    public function validify()
     {
         $this->TokenValidation();
         $this->checkingRequired();
@@ -20,10 +21,11 @@ abstract class NewFormValidifier
 
     protected function TokenValidation()
     {
-        if (!$this->data['token'] || $this->data['token'] !== $_SESSION['token']) {
+        if (!$this->data['token'] || ($this->data['token'] !== $_SESSION['token'])) {
             throw new \Exception("Method not allowed", 405);
         }
     }
     abstract protected function checkingRequired();
     abstract protected function createDTO();
+    
 }
