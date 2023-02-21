@@ -2,66 +2,58 @@
 
 namespace Blog\Service;
 
-use Blog\DTO\Entitie\Comment\CommentDTO;
 use Blog\Entity\Post;
+use Blog\Enum\CommentStatus;
 
 use Blog\Service\CommentService;
 use Blog\DTO\Entitie\Post\PostDTO;
 use Blog\Service\Interface\Getter;
 use Blog\DTO\Form\Post\PostCreationDTO;
+use Blog\DTO\Entitie\Comment\CommentDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Blog\DTO\Entitie\Post\CompletePostDTO;
 use Blog\DTO\Entitie\Post\PostModerationDTO;
 
 
-class PostService implements Getter
+class PostService
 {
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function CreatePost(PostCreationDTO $postToCreate): int
+    public function CreatePost(PostCreationDTO $postToCreate,int $userId): int
     {
-        $userId = empty($_SESSION['id']) ? 1 : $_SESSION['id'];
-        $user = $this->entityManager->find('\Blog\Entity\User', $userId);
-
+        $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);
         $this->entityManager->persist($post);
         $this->entityManager->flush();
         return $post->getId();
     }
     /**
+     * @return SinglePostDTO
+     */
+    public function getSingle($id): CompletePostDTO
+    {
+        $singlePost = $this->entityManager->find(Post::class, $id);
+        return new CompletePostDTO($singlePost,$this->getComment($singlePost,CommentStatus::Approved));
+    }
+    /**
      * @return array<PostDTO>
      */
     public function getAll(): array
     {
-        $postRepository = $this->entityManager->getRepository(Post::class);
-        $posts = $postRepository->findAll();
-        return $this->createPostListDTO($posts);
-    }
-    //this method will be rework in another feature
-    public function getBy(array $param): PostDTO|array
-    {
         $postrepository = $this->entityManager->getRepository(Post::class);
-        $post = $postrepository->find($param);
-        if ($post instanceof Post) {
-            $comments = CommentService::getInCollection($post->getCommentByStatus("valid"));
-            return new CompletePostDTo($post,$comments);
-        } else {
-            return $this->createPostListDTO($post);
-        }
-    }
-    private function createPostListDTO(array $posts): array
-    {
-        $postCreation = fn($post)=> new PostDto($post);
-        return array_map($postCreation(...),$posts);
+        $posts = $postrepository->findAll() ;
+        $constructor = fn (Post $post) =>  new PostDTO($post);
+        return  \array_map($constructor(...), $posts);
     }
     /**
-     * @return array<PostModerationDTO>
+     *  @return array<SinglePostDTO>
      */
     public function getPostsCommentsPending(): array
     {
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
-        return \array_map($this->getCommentToModerate(...), $posts);
+        $createSingleDTO = fn (Post $post) => new CompletePostDTO($post,$this->getComment($post,CommentStatus::Pending));
+        return \array_map($createSingleDTO(...), $posts);
     }
     private function getCommentToModerate($post): ?PostModerationDTO
     {
@@ -75,4 +67,20 @@ class PostService implements Getter
 
     }
     
+    /**
+     * @return array<CommentDTO>
+     */
+    private function getComment(Post $post, CommentStatus $status): array
+    {
+        $getComment = fn($comment)=> new CommentDTO($comment);
+        if (CommentStatus::Pending === $status) {
+            $commentList = $post->getCommentPending()->toArray();
+        } elseif (CommentStatus::Approved === $status) {
+            $commentList = $post->getCommentApproved()->toArray();
+        } else {
+            //if we want other comments for now:
+            throw new \Exception("not possible to retrieve this comments");
+        } 
+        return \array_map($getComment, $commentList);
+    }
 }

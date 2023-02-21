@@ -17,7 +17,7 @@ class PostCreatePostController extends CreatePostController
         $post = $formvalidifier->validify($_POST);
 
         $postService = new PostService($this->entityManager);
-        $postService->CreatePost($post);
+        $postService->CreatePost($post,$_SESSION['id']);
 
         $this->argument['post'] = $post;
         $this->argument['message']= "post envoyé dans la base de donnée";

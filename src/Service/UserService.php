@@ -76,6 +76,9 @@ class UserService
         return new UserDTO($user);
     }
     public function getRole($id){
-        return $this->entityManager->find(User::class,$id)->getRole();
+        return $this->getUser($id)->getRole();
+    }
+    public function getUser($id){
+        return $this->entityManager->find(User::class,$id);
     }
 }

@@ -76,12 +76,12 @@ class Post
     {
         return $this->title;
     }
-    public function getCommentByStatus($status){
+    public function getCommentApproved(){
         $criteria = new Criteria();
-        $expr = new Comparison("Id",Comparison::NEQ,"0");//validity EQ $status->value
+        $expr = new Comparison("validity",Comparison::IS, CommentStatus::Approved);
         $criteria->where($expr);
-        $criteria->orderBy(["date"=>"DESC"]);
-        return (new ArrayCollection($this->comment->toArray()))->matching($criteria);
+        $criteria->orderBy(['date' => 'DESC']);
+        return (new arrayCollection($this->comment->toArray()))->matching($criteria);
     }
     public function getCommentPending()
     { 

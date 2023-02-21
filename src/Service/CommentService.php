@@ -45,9 +45,11 @@ class CommentService
         $this->entityManager->flush();
         return ["number"=>count($commentList->commentsToModerate),"method"=> $commentList->validity->value];
     }
-
-    public function create(CommentCreationDTO $objecttoCreate)  
+    public function create(CommentCreationDTO $objecttoCreate, int $userId)  
     {
+        $commentDTO = new CommentDTO;
+
+    
         $user =$this->entityManager->find(User::class,$_SESSION['id']??11);
         $blogPost= $this->entityManager->find(Post::class,$objecttoCreate->postId);
         if(!$user || !$blogPost){
