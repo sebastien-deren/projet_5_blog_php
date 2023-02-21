@@ -84,6 +84,9 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         return $userDTO;
     }
     public function getRole($id){
-        return $this->entityManager->find(User::class,$id)->getRole();
+        return $this->getUser($id)->getRole();
+    }
+    public function getUser($id){
+        return $this->entityManager->find(User::class,$id);
     }
 }
