@@ -18,6 +18,7 @@ class MailValidifier extends NewFormValidifier{
         if(count($this->data)!== count(\array_filter($this->data))){
             throw new Error("des champs ont été laissé vide !");
         }
+        ValidData::mail($this->data['mail'])?:throw new \Exception("l'adresse mail n'est pas valide");
 
     }
     protected function createDTO()

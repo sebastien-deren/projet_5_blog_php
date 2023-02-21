@@ -13,7 +13,6 @@ class PostIndexController extends IndexController
     public function execute(): string
     {
         $formvalidifier = new MailValidifier(new MailDTO, $_POST);
-        \var_dump($_SESSION['token']);
         $mailDto = $formvalidifier->validify();
         $mailSend = (new MailService())->sendmail($mailDto);
         $this->argument['mail'] = $mailSend ? $mailDto : throw new \Exception("echec de l'envoi");
