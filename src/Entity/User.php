@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Blog\Entity;
 
-use Blog\DTO\User\RegisterDTO;
 use Blog\Enum\RoleEnum;
-use Blog\Form\ValidData;
 use Doctrine\ORM\Mapping\Id;
+use Blog\DTO\User\RegisterDTO;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Blog\Form\Abstracts\ValidData;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\GeneratedValue;

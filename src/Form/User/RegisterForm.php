@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Form;
+namespace Blog\Form\User;
 
 use Blog\Enum\RoleEnum;
 use Blog\DTO\User\RegisterDTO;
