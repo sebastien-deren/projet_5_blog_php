@@ -19,7 +19,7 @@ use Doctrine\Persistence\ObjectRepository;
 use Blog\Exception\UniqueKeyViolationException;
 
 
-class UserService implements  Logger, Displayer //Updater, Deleter
+class UserService 
 {
     private static ?UserService $_userService =null;
     private User $user;

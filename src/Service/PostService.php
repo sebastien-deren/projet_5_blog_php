@@ -16,7 +16,7 @@ use Blog\Service\Interface\Getter;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\Collection;
 
-class PostService implements Getter
+class PostService
 {
     public function __construct(private EntityManagerInterface $entityManager)
     {
@@ -37,15 +37,10 @@ class PostService implements Getter
         $posts = $postRepository->findAll();
         return $this->createPostListDTO($posts);
     }
-    public function getBy(array $param): PostDTO|ListPostDTO
+    public function getSingle($id): PostDTO
     {
-        $postrepository = $this->entityManager->getRepository(Post::class);
-        $post = $postrepository->find($param);
-        if ($post instanceof Post) {
-            return $this->createSinglePostDTO($post);
-        } else {
-            return $this->createPostListDTO($post);
-        }
+        $post = $this->entityManager->find(Post::class,$id);
+        return $this->createSinglePostDTO($post);
     }
     private function createPostListDTO(array $posts): ListPostDTO
     {
