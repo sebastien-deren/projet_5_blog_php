@@ -27,4 +27,5 @@ abstract class NewFormValidifier
     }
     abstract protected function checkingRequired();
     abstract protected function createDTO();
+    
 }
