@@ -1,12 +1,11 @@
 <?php
 namespace Blog\Form;
 
-use Blog\DTO\Post\PostDisplayDTO;
-use Blog\DTO\Post\SinglePostDTO;
+use Blog\DTO\Post\UpdatePostDTO;
 use Blog\Form\NewFormValidifier;
 
 class EditPostValidifier extends NewFormValidifier{
-    public function __construct(SinglePostDTO $Dto , $data)
+    public function __construct(UpdatePostDTO $Dto , $data)
     {
         $this->DTO =$Dto;
         parent::__construct($data);

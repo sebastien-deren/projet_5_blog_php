@@ -16,7 +16,7 @@ class EditController extends AdminController
         \is_numeric($postId) ?: throw new \InvalidArgumentException('not an id');
         $postService = new PostService($this->entityManager);
         $userService= UserService::getService( $this->entityManager) ;
-        $this->argument['post'] = $postService->getBy(["id"=>$postId]);
+        $this->argument['post'] = $postService->getSingle($postId);
         $this->argument['admins'] = $userService->getAdmins();
         return $this->twig->render('@admin/post.html.twig', $this->argument);
     }

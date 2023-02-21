@@ -102,12 +102,5 @@ class UserService implements  Logger //Updater, Deleter
         $users = $this->repoUser->findBy(["role"=>RoleEnum::ADMIN]);
         return \array_map($this->display(...),$users);
     }
-    /**
-     * @return array<UserToDisplay>
-     * 
-     */
-    public function getAdmins():array{
-        $users = $this->repoUser->findBy(["role"=>RoleEnum::ADMIN]);
-        return  \array_map($this->display(...),$users);
-    }
+
 }

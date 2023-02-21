@@ -4,25 +4,21 @@ namespace Blog\Service;
 
 use Blog\Entity\Post;
 use Blog\Entity\User;
-use Blog\Entity\Comment;
 use Blog\DTO\Post\PostDTO;
 use Blog\Enum\CommentStatus;
-use Blog\DTO\Post\ListPostDTO;
 use Blog\DTO\Comment\CommentDTO;
 use Blog\DTO\Post\createPostDTO;
 use Blog\DTO\Post\SinglePostDTO;
+use Blog\DTO\Post\UpdatePostDTO;
 use Blog\Service\CommentService;
-use Blog\DTO\Post\PostDisplayDTO;
-use Blog\Service\Interface\Getter;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Collections\Collection;
 
 class PostService
 {
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function CreatePost(CreatePostDTO $postToCreate,int $userId): int
+    public function CreatePost(CreatePostDTO $postToCreate, int $userId): int
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);
@@ -36,7 +32,7 @@ class PostService
     public function getSingle($id): SinglePostDTO
     {
         $singlePost = $this->entityManager->find(Post::class, $id);
-        return new SinglePostDTO($singlePost,$this->getComment($singlePost,CommentStatus::Approved));
+        return new SinglePostDTO($singlePost, $this->getComment($singlePost, CommentStatus::Approved));
     }
     /**
      * @return array<PostDTO>
@@ -44,41 +40,16 @@ class PostService
     public function getAll(): array
     {
         $postrepository = $this->entityManager->getRepository(Post::class);
-        $posts = $postrepository->findAll() ;
+        $posts = $postrepository->findAll();
         $constructor = fn (Post $post) =>  new PostDTO($post);
         return  \array_map($constructor(...), $posts);
     }
-    private function createPostListDTO(array $posts): ListPostDTO
-    {
-        $postList = new ListPostDTO;
-        foreach ($posts as $post) {
 
-            $postList->listPost[] = $this->createPostDTO($post, new PostDTO);
-        }
-        return $postList;
-    }
-    private function createPostDTO(Post $post, PostDTO|SinglePostDTO $postDTO): PostDTO|SinglePostDTO
-    {
-        $postDTO->id = $post->getId();
-        $postDTO->title = $post->getTitle();
-        $postDTO->excerpt = $post->getExcerpt();
-        $postDTO->author = $post->getUser()->getFullName();
-        $postDTO->date = $post->getDate()->format("Y-m-d H:i:s");
-        return $postDTO;
-    }
-    private function createSinglePostDTO(Post $post): SinglePostDTO
-    {
-        $singlePostDTO = new SinglePostDTO;
-        $this->createPostDTO($post, $singlePostDTO);
-        $singlePostDTO->content = $post->getContent();
-        $singlePostDTO->authorId =$post->getUser()->getId();
-        $singlePostDTO->comments = CommentService::getInCollection($post->getCommentByStatus("valid"));
-        return $singlePostDTO;
-    }
+
     public function getPostsCommentsPending(): array
     {
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
-        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post,$this->getComment($post,CommentStatus::Pending));
+        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post, $this->getComment($post, CommentStatus::Pending));
         return \array_map($createSingleDTO(...), $posts);
     }
     /**
@@ -86,25 +57,19 @@ class PostService
      */
     private function getComment(Post $post, CommentStatus $status): array
     {
-        $getComment = CommentService::getService($this->entityManager)->getCommentDTO(...);
-        $commentList = $post->getCommentPending()->toArray();
-        $commentsToModerate = \array_map($getComment, $commentList);
-        if ([] === $commentsToModerate) {
-            return null;
+        $getComment = CommentService::getService($this->entityManager)->createDTO(...);
+        if (CommentStatus::Pending === $status) {
+            $commentList = $post->getCommentPending()->toArray();
+        } elseif (CommentStatus::Approved === $status) {
+            $commentList = $post->getCommentApproved()->toArray();
+        } else {
+            //if we want other comments for now:
+            throw new \Exception("not possible to retrieve this comments");
         }
-        return $this->getPostDTO($post, $commentsToModerate);
+        return \array_map($getComment, $commentList);
     }
-    private function getPostDTO(Post $post, array $comments = [])
-    {
-        $postDTO = new PostDisplayDTO;
-        $postDTO->comments = $comments;
-        $postDTO->author = $post->getUser()->getFirstname() . " " . $post->getUser()->getLastname();
-        $postDTO->authorId = $post->getUser()->getId();
-        $postDTO->title = $post->getTitle();
-        $postDTO->date = \date_format($post->getDate(), "Y-m-d h:i:s");
-        return $postDTO;
-    }
-    public function updatePost(SinglePostDTO $postUpdate)
+
+    public function updatePost(UpdatePostDTO $postUpdate)
     {
         $postStocked = $this->entityManager->find(Post::class, $postUpdate->id);
         if ($postUpdate->title !== $postStocked->getTitle()) {
