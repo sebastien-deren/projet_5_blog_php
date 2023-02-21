@@ -21,10 +21,9 @@ class PostService
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function CreatePost(CreatePostDTO $postToCreate): int
+    public function CreatePost(CreatePostDTO $postToCreate,int $userId): int
     {
-        $userId = empty($_SESSION['id']) ? 1 : $_SESSION['id'];
-        $user = $this->entityManager->find('\Blog\Entity\User', $userId);
+        $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);
         $this->entityManager->persist($post);
         $this->entityManager->flush();

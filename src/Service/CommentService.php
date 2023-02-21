@@ -49,9 +49,9 @@ class CommentService
         return ["number"=>count($commentList->commentsToModerate),"method"=> $commentList->validity->value];
     }
 
-    public function create(CreateComment $objecttoCreate)  
+    public function create(CreateComment $objecttoCreate,int $userId)  
     {
-        $user =$this->entityManager->find(User::class,$_SESSION['id']??11);
+        $user =UserService::getService($this->entityManager)->getUser($userId);
         $blogPost= $this->entityManager->find(Post::class,$objecttoCreate->postId);
         if(!$user || !$blogPost){
             throw new \Exception("invalid user or post Id");
