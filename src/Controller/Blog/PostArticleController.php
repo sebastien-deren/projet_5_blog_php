@@ -13,7 +13,7 @@ class PostArticleController extends ArticleController{
     $dto = $formValidifier->validify();
     //here we need to merge comment moderation before rewriting all the commentService
     $commentservice = CommentService::getService($this->entityManager);
-    $commentservice->create($dto);
+    $commentservice->create($dto,$_SESSION['id']);
         return parent::execute();
     }
 

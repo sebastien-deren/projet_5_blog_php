@@ -10,16 +10,17 @@ use Exception;
 
 class CommentForm extends NewFormValidifier
 {
-    public function __construct(private CreateComment $DTO,$data)
+    public function __construct(CreateComment $DTO, array $data)
     {
+        $this->DTO = $DTO;
         parent::__construct($data);
     }
     protected function checkingRequired()
     {
-          if(!isset($_SESSION['id'])){
+        if (!isset($_SESSION['id'])) {
             throw new Exception("you must be connected to post a comment");
         }
-        if(empty($this->data['content'])){
+        if (empty($this->data['content'])) {
             throw new Exception("you must write a comment before sending it");
         }
     }
