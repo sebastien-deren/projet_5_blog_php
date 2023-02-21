@@ -80,6 +80,7 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         $userDTO->lastname = $user->getLastname();
         $userDTO->login = $user->getlogin();
         $userDTO->role = $user->getRole();
+        $userDTO->email =$user->getMail();
         return $userDTO;
     }
     public function getRole($id){
