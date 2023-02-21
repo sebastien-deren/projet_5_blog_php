@@ -2,10 +2,10 @@
 
 namespace Blog\Service;
 
-use Blog\Form\ValidData;
-
 use Blog\DTO\Mail\MailDTO;
+
 use PHPMailer\PHPMailer\SMTP;
+use Blog\Form\Abstracts\ValidData;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 

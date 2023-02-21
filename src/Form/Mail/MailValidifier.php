@@ -1,11 +1,12 @@
 <?php
-namespace Blog\Form;
+namespace Blog\Form\Mail;
 
-use Blog\DTO\Mail\MailDTO;
-use Blog\Form\NewFormValidifier;
 use Error;
+use Blog\DTO\Mail\MailDTO;
+use Blog\Form\Abstracts\ValidData;
+use Blog\Form\Abstracts\FormValidifier;
 
-class MailValidifier extends NewFormValidifier{
+class MailValidifier extends FormValidifier{
     public function __construct(MailDTO $mailDto,array $data )
     {
     $this->DTO = $mailDto;

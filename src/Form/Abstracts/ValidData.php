@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Form;
+namespace Blog\Form\Abstracts;
 
 use Blog\Enum\FieldType;
 

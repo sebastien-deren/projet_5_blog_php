@@ -2,8 +2,8 @@
 
 namespace Blog\Controller\User;
 
-use Blog\Form\LoginForm;
 use Blog\DTO\User\LoginDTO;
+use Blog\Form\User\LoginForm;
 use Blog\Service\UserService;
 use Blog\Controller\AbstractController;
 
@@ -14,9 +14,9 @@ class PostConnectionController extends AbstractController
     {
 
 
-        $formLogin = new LoginForm(new LoginDTO);
+        $formLogin = new LoginForm(new LoginDTO,$_POST);
         $userService = UserService::getService($this->entityManager);
-        $userToLog = $formLogin->validify($_POST);
+        $userToLog = $formLogin->validify();
         $userId = $userService->log($userToLog);
         $_SESSION['id'] = $userId;
         \header("location: /");

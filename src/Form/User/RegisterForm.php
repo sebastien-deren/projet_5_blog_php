@@ -1,0 +1,44 @@
+<?php
+
+namespace Blog\Form;
+
+use Blog\Enum\RoleEnum;
+use Blog\DTO\User\RegisterDTO;
+use Blog\Form\Abstracts\FormValidifier;
+
+class RegisterForm extends FormValidifier
+{
+    public function __construct(RegisterDTO $RegisterDTO, array $data)
+    {
+        $this->DTO = $RegisterDTO;
+        parent::__construct($data);
+    }
+    protected function createDTO()
+    {
+        //we'd prefer to not encapsulate our function but if not this will trigger our linter
+        $this->DTO->mail = \htmlspecialchars($this->data['mail']);
+        $this->DTO->password = $this->data["password"];
+        $this->DTO->login = \htmlspecialchars($this->data["login"]);
+        /*here we can update this by checking if the connected user is admin 
+        and let him assign another role to a new "user".
+        */
+        $this->DTO->role = RoleEnum::USER;
+        $this->DTO->firstName = \htmlspecialchars($this->data['firstname']);
+        $this->DTO->lastName = \htmlspecialchars($this->data['lastname']);
+    }
+    protected function checkingRequired()
+    {
+        if (empty($this->data["login"])) {
+            throw new \UnexpectedValueException('le nom d\'utilisateur n\'ai pas rempli');
+        }
+        if (empty($this->data["password"]) || empty($this->data["passwordverify"])) {
+            throw new \UnexpectedValueException("le mot de passe n\'ai pas rempli");
+        }
+        if (!($this->data["password"] === $this->data["passwordverify"])) {
+            throw new \UnexpectedValueException('deux mots de passe ne corresponde pas');
+        }
+        if (empty($this->data['mail'])) {
+            throw new \InvalidArgumentException('le mail n\'ai pas rempli');
+        }
+    }
+}

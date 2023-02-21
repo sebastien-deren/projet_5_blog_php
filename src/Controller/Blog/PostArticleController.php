@@ -2,11 +2,11 @@
 declare(strict_types=1);
 namespace Blog\Controller\Blog;
 
-use Blog\Form\CommentForm;
 use Blog\DTO\Comment\CommentDTO;
 use Blog\Service\CommentService;
-use Blog\Controller\AbstractController;
+use Blog\Form\Comment\CommentForm;
 use Blog\DTO\Comment\CreateComment;
+use Blog\Controller\AbstractController;
 
 class PostArticleController extends ArticleController{
     public function execute():string

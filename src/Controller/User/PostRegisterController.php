@@ -2,11 +2,11 @@
 
 namespace Blog\Controller\User;
 
-use Blog\Form\RegisterForm;
+use Exception;
 use Blog\Service\UserService;
 use Blog\DTO\User\RegisterDTO;
+use Blog\Form\User\RegisterForm;
 use Blog\Controller\AbstractController;
-use Exception;
 
 
 class PostRegisterController extends AbstractController{
@@ -27,8 +27,8 @@ class PostRegisterController extends AbstractController{
     }
     private function validateFormIntoDTO($data): RegisterDTO
     {
-        $formValidifier = new RegisterForm(new RegisterDTO);
-        return $formValidifier->validify($data);
+        $formValidifier = new RegisterForm(new RegisterDTO,$data);
+        return $formValidifier->validify();
     }
     private function createUser(RegisterDTO $registerDTO)
     {

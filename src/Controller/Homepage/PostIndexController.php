@@ -3,9 +3,9 @@
 namespace Blog\Controller\Homepage;
 
 use Blog\DTO\Mail\MailDTO;
-use Blog\Form\MailValidifier;
 use Blog\Service\MailService;
 use Blog\Controller\Traits\Token;
+use Blog\Form\Mail\MailValidifier;
 
 class PostIndexController extends IndexController
 {

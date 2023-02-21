@@ -1,17 +1,17 @@
 <?php
-namespace Blog\Form;
+namespace Blog\Form\Abstracts;
 
-use Blog\DTO\AbstractDTO;
-use Blog\Form\Interface\FormValidifier;
+use Blog\Form\Abstracts\Interface\FormValidifier as InterfaceFormValidifier;
 
-abstract class NewFormValidifier
+
+abstract class FormValidifier implements InterfaceFormValidifier
 {
     protected object $DTO;//i'd like to infer a type here like this object is of type <T> and then when declared boom it's the DTO i want
     public function __construct(protected array $data)
     {
         
     }
-    public function validify()
+    public function validify():object
     {
         $this->TokenValidation();
         $this->checkingRequired();
