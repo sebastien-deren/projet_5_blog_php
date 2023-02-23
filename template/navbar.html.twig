@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3 ">
+	<div class="container-lg">
 		{% if user %}
 			<a href="/compte" class="navbar-brand">
 				{% if user.firstname and user.lastname %}
@@ -31,12 +31,11 @@
                                 <a href="/admin/comment" class="dropdown-item">Comment moderation</a>
 							</li>
 						</ul>
-                    </li>
-                    {% endif %}
-					{% if user %}
-						<a href="/deconnection" class="nav-link">Déconnection</a>
-					{% endif %}
-				</div>
+					</li>
+				{% endif %}
+				{% if user %}
+					<a href="/deconnection" class="nav-link">Déconnection</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
