@@ -1,0 +1,42 @@
+@import "../../vendor/twbs/bootstrap/scss/functions";
+$border-radius-3xl: 10rem;
+
+@import "../../vendor/twbs/bootstrap/scss/variables";
+$custom-spacers: (
+  6: $spacer * 5,
+  7: $spacer * 7,
+  8: $spacer * 10,
+  9: $spacer * 12,
+  10: $spacer * 15,
+);
+$spacers: map-merge($spacers, $custom-spacers);
+
+$custom-text-size: (
+  0: $font-size-base * 5,
+);
+$font-sizes: map-merge($font-sizes, $custom-text-size);
+
+$custom-radius: (
+  4: $border-radius-xl,
+  5: $border-radius-2xl,
+  6: $border-radius-3xl,
+);
+@import "../../vendor/twbs/bootstrap/scss/maps";
+@import "../../vendor/twbs/bootstrap/scss/mixins";
+@import "../../vendor/twbs/bootstrap/scss/utilities";
+$utilities: map-merge(
+  $utilities,
+  (
+    "radius":
+      map-merge(
+        map-get($utilities, "rounded"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "rounded"), "values"),
+              $custom-radius
+            ),
+        )
+      ),
+  )
+);
