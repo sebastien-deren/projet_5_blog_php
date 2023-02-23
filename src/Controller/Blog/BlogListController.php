@@ -4,7 +4,6 @@ namespace Blog\Controller\Blog;
 
 use Blog\Service\PostService;
 use Blog\Controller\AbstractController;
-use Blog\Service\PostService;
 
 class BlogListController extends AbstractController
 {
