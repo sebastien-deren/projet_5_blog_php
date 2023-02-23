@@ -19,7 +19,7 @@ use Doctrine\Persistence\ObjectRepository;
 use Blog\Exception\UniqueKeyViolationException;
 
 
-class UserService implements Creater, Logger, Displayer //Updater, Deleter
+class UserService implements  Logger, Displayer //Updater, Deleter
 {
     private static ?UserService $_userService =null;
     private User $user;
@@ -35,7 +35,7 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
         }
         return self::$_userService;
     }
-    public function create(AbstractDTO $registerDTO)
+    public function create( $registerDTO)
     {
         if (!($registerDTO instanceof RegisterDTO)) {
             throw new \Exception("Internal Server Error", 500);
@@ -80,9 +80,13 @@ class UserService implements Creater, Logger, Displayer //Updater, Deleter
         $userDTO->lastname = $user->getLastname();
         $userDTO->login = $user->getlogin();
         $userDTO->role = $user->getRole();
+        $userDTO->email =$user->getMail();
         return $userDTO;
     }
     public function getRole($id){
-        return $this->entityManager->find(User::class,$id)->getRole();
+        return $this->getUser($id)->getRole();
+    }
+    public function getUser($id){
+        return $this->entityManager->find(User::class,$id);
     }
 }

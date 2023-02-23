@@ -3,5 +3,5 @@ namespace Blog\Service\Interface;
 
 interface Getter{
     public function getAll();
-    public function getByID();
+    public function getBy(array $params);
 }

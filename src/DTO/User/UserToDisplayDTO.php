@@ -7,6 +7,7 @@ class UserToDisplayDTO{
     public string $firstname;
     public string $lastname;
     public string $login;
+    public string $email;
     public RoleEnum $role;
     
 }

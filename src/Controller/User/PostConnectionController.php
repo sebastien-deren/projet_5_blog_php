@@ -10,7 +10,7 @@ use Blog\Controller\AbstractController;
 class PostConnectionController extends AbstractController
 {
 
-    public function execute()
+    public function execute():?string
     {
 
 
@@ -20,5 +20,6 @@ class PostConnectionController extends AbstractController
         $userId = $userService->log($userToLog);
         $_SESSION['id'] = $userId;
         \header("location: /");
+        return null;
     }
 }
