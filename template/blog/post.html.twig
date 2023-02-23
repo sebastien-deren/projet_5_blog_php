@@ -1,47 +1,67 @@
 {% extends "layout.html.twig" %}
 {% block content %}
 	<div class="container-lg">
-		<div class="row">
-			<h2 class="text-center">{{ post.title}}</h2>
-		</div>
-		<div class="row">
-			<div class="col">
-				<h2>{{post.author }}
-				</h2>
-			</div>
-			<div class="col">
-				<h4>{{post.date}}</h4>
-				<h3>{{post.excerpt}}</h3>
-			</div>
-		</div>
-		<div>
-			<p>{{post.content}}</p>
-		</div>
-		<div>
-			<h3>Commentaires</h3>
-			{% if post.comments is empty  %}
-				<p>
-					pas de Commentaires Soyez le premier à commenter!!!</p>
-			{% endif %}
+		<article>
+			<!-- Post header-->
+			<header
+				class="mb-4">
+				<!-- Post title-->
+				<h1 class="fw-bolder mb-1">{{ post.title}}</h1>
+				<!-- Post meta content-->
+				<div class="text-muted fst-italic mb-2">Posted
+					{{post.date}}
+					by
+					{{post.author }}</div>
+				<!-- Post categories-->
+				<div class="badge bg-secondary text-decoration-none">{{post.excerpt}}</div>
+			</header>
+			<!-- Preview image figure-->
+			<figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..."/></figure>
+			<!-- Post content-->
+			<section class="mb-5">
+				<p>{{post.content}}</p>
+			</section>
+		</article>
 
-			{% for comment in post.comments %}
-				<H4>{{comment.author}}</h4>
-				<h6>{{comment.date}}</h6>
-				<p>{{comment.content}}</p>
-			{% endfor %}
-			{% if user %}
 
-				<form action="" method="post" onsubmit="comment(event)">
-					<input type="hidden" name="token" value="{{ csrfToken }}">
-					<input type="hidden" name="idPost" value="{{post.id}}">
-					<div class="mb-3">
-						<label for="content" class="form-label">commenter</label>
-						<textarea class="form-control" name="content" id="content" rows="3"></textarea>
+		<section class="mb-5">
+
+			<div class="card bg-light">
+				<h3 class="text-center">Commentaires</h3>
+				<div
+					class="card-body">
+					<!-- Comment form-->
+
+					{% if user %}
+						<form class="mb-4 action=" " method=" post" onsubmit=" comment(event)"">
+							<input type="hidden" name="token" value="{{ csrfToken }}">
+							<input type="hidden" name="idPost" value="{{post.id}}">
+							<div class="mb-3">
+								<textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+							</div>
+							<input type="submit">
+						</form>
+					</form>
+				{% endif %}
+
+				{% if post.comments is empty  %}
+					<p>
+						pas de Commentaires Soyez le premier à commenter!!!</p>
+				{% endif %}
+
+				{% for comment in post.comments %}
+					<div class="d-flex">
+						<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."/></div>
+						<div class="ms-3">
+							<div class="fw-bold">{{comment.author}}</div>
+							{{comment.content}}
+							<div class="text-muted">{{comment.date}}</div>
+						</div>
 					</div>
-					<input type="submit">
-				</form>
-			{% endif %}
+				{% endfor %}
+			</div>
 		</div>
-	</div>
-	<script src="/Javascript/Form/comment.js"></script>
-{% endblock %}
+	</section>
+
+
+</div></div><script src="/Javascript/Form/comment.js"></script>{% endblock %}
