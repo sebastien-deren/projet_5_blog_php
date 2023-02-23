@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg  navbar-dark bg-primary mb-3 ">
-	<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3 ">
+	<div class="container-lg">
 		{% if user %}
 			<a href="/compte" class="navbar-brand">
 				{% if user.firstname and user.lastname %}
@@ -19,13 +19,11 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="container-lg ">
-			<div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
-				<div class="text-align-center navbar-nav  mb-2 mb-lg-0 ">
-					<a href="/" class="nav-link">Accueil</a>
-					<a href="/blog" class="nav-link">Blog</a>
-					<a href="/cont" class="nav-link">Contact</a>
-                    {% if user.role.value == "admin" %}
+		<div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
+			<div class="text-align-center navbar-nav  mb-2 mb-lg-0 ">
+				<a href="/" class="nav-link">Accueil</a>
+				<a href="/blog" class="nav-link">Blog</a>
+				{% if user.role.value == "admin" %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							Admin
@@ -36,12 +34,11 @@
                                 <a href="/admin/comment" class="dropdown-item">Comment moderation</a>
 							</li>
 						</ul>
-                    </li>
-                    {% endif %}
-					{% if user %}
-						<a href="/deconnection" class="nav-link">Déconnection</a>
-					{% endif %}
-				</div>
+					</li>
+				{% endif %}
+				{% if user %}
+					<a href="/deconnection" class="nav-link">Déconnection</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
