@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+	<div class="container-lg">
+		<div class="row">
+			<h2 class="text-center">{{ post.title}}</h2>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h2>{{post.author }}
+				</h2>
+			</div>
+			<div class="col">
+				<h4>{{post.date}}</h4>
+				<h3>{{post.excerpt}}</h3>
+			</div>
+		</div>
+		<div>
+			<p>{{post.content}}</p>
+		</div>
+		<div>
+			<h3>Commentaires</h3>
+			{% if post.comments is empty  %}
+				<p>
+					pas de Commentaires Soyez le premier à commenter!!!</p>
+			{% endif %}
+
+			{% for comment in post.comments %}
+				<H4>{{comment.author}}</h4>
+				<h6>{{comment.date}}</h6>
+				<p>{{comment.content}}</p>
+			{% endfor %}
+			{% if user %}
+
+				<form action="" method="post" onsubmit="comment(event)">
+					<input type="hidden" name="token" value="{{ csrfToken }}">
+					<input type="hidden" name="idPost" value="{{post.id}}">
+					<div class="mb-3">
+						<label for="content" class="form-label">commenter</label>
+						<textarea class="form-control" name="content" id="content" rows="3"></textarea>
+					</div>
+					<input type="submit">
+				</form>
+			{% endif %}
+		</div>
+	</div>
+	<script src="/Javascript/Form/comment.js"></script>
+{% endblock %}

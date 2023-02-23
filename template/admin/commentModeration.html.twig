@@ -1,0 +1,52 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+	<div class="container-lg">
+		{% if information %}
+			<h3>{{information}}</h3>
+		{% endif %}
+		{% set commmentModeration = 0 %}
+		{%for post in posts %}
+			{% if post.comments %}
+				{% set commmentModeration = 1 %}
+				<form method="post" accept-charset="UTF-8">
+					<input type="hidden" name="token" value="{{ csrfToken }}">
+					<h3>
+						Article : {{post.title}}</h3 >
+                        <p>
+						By : {{post.author}} 
+						Le : {{post.date}}</p>
+
+					<table class="table table-info table-striped">
+						<thead>
+							<tr class="">
+								<th scope="col" class="col-1 text-center">Select</th>
+								<th scope="col" class="col-3">author name</th>
+								<th scope="col">content</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for comment in post.comments %}
+								<tr class="">
+									<td scope="row " class="text-center col-1">
+										<input type="checkbox" class="form-checkbox" name="id[]" value="{{comment.id}}">
+									</td>
+									<td class="col-3">{{ comment.author }}
+									</td>
+									<td>{{comment.content}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<input class="btn-warning btn" type="submit" name="deleted" value="supprimer">
+					<input class="btn btn-warning" type="submit" name="approved" value="approuver">
+				</form>
+			{% endif %}
+		{% endfor %}
+		{% if commmentModeration == 0 %}
+			<h2>
+				il n'y a rien a modérer</h2>
+		{% endif %}
+
+
+	</div>
+{% endblock %}

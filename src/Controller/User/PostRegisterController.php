@@ -10,7 +10,7 @@ use Exception;
 
 
 class PostRegisterController extends AbstractController{
-    public function execute()
+    public function execute():?string
     {
         try{
             $registerDTO = $this->validateFormIntoDTO($_POST);
@@ -22,6 +22,8 @@ class PostRegisterController extends AbstractController{
         }
         
         header("location: /connection");
+        return null;
+
     }
     private function validateFormIntoDTO($data): RegisterDTO
     {
