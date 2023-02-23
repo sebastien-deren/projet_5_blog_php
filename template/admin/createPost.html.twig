@@ -10,24 +10,38 @@
 		<p>
 			voulez vous créer un nouveau post</p>
 	{% endif %}
-	<div class="container-lg border border-white rounded">
-		<h2 class="text-lg-center mt-3">Veuillez écrire votre blog post ici:</h2>
-		<form action="" method="post" class="form-post mt-3 ms-2 me-2 ms-lg-3 me-lg-3">
-			<input type="hidden" name="token" value="{{ csrfToken }}">
-			<div class="form-post row mb-3 mt-3 ">
-				<label class="form-label col-md-3" for="title">Entrer le titre:</label>
-				<input class="form-control col-md" type="text" name="title" id="title" required>
-			</div>
-			<div class="form-post row mb-3">
-				<label for="excerpt" class="form-label col-md-3">entrer un résumé du post</label>
-				<input class="form-control col-md" type="text" name="excerpt" id="excerpt" length="255">
-			</div>
-			<div class="form-post row mb-3 ">
-				<label class="form-label col-md-3" for"content">entrer le contenu du blog post</label>
-				<textarea class="form-control col-md" name="content" id="content_id" rows="10" required></textarea>
-			</div>
-			<div class="form-input mb-3"><input class=" position-relative start-50 btn btn-primary" type="submit" value="publier"></div>
-		</form>
-	</div>
 
-{% endblock %}
+
+	<div class="container">
+
+		<div class="card o-hidden border-0 shadow-lg my-5 rounded-4">
+			<div class="card-body p-0">
+				<div class="row">
+					<div class="col">
+						<div class="p-5">
+							<div class="text-center">
+								<h1 class="h4 text-gray-900 mb-4">Create a new Post!</h1>
+							</div>
+							<form action="" method="post" class="form-post">
+								<input type="hidden" name="token" value="{{ csrfToken }}">
+								<div class="form-group mb-3 ">
+									<input class="form-control col-md" type="text" name="title" id="title" required placeholder="entrez le titre!">
+								</div>
+								<div class="form-group mb-3">
+									<input class="form-control col-md" type="text" name="excerpt" id="excerpt" length="255" placeholder="entrez un résumé de l'article">
+								</div>
+								<div class="form-group mb-3">
+									<label class="form-label col-md-3" for"content">Entrez le contenu du blog post :</label>
+									<textarea class="form-control col-md" name="content" id="content_id" rows="10" required></textarea>
+
+								</div>
+								<div class="form-group mb-3 text-center"><input class=" btn btn-primary btn-block px-5" type="submit" value="publier"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	{% endblock %}
