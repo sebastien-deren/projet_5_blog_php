@@ -21,6 +21,9 @@ class MailValidifier extends FormValidifier{
             throw new FormException("des champs ont été laissé vide !");
         }
         ValidData::mail($this->data['mail'])?:throw new FormException("l'adresse mail n'est pas valide");
+        if(count($this->data['message']) <10){
+            throw new FormException("le message est trop court");
+        }
 
     }
     protected function createDTO()
