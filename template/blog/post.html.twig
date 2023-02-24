@@ -1,6 +1,15 @@
 {% extends "layout.html.twig" %}
 {% block content %}
 	<div class="container-lg">
+        {% if comment %}
+        <div>
+        <h2>votre commentaire:</h2>
+        <p>{{comment.content}}</p>
+        <p>est en attente de modération<p>
+        </div>
+        {% endif %}
+        
+
 		<article>
 
 			<header
@@ -33,11 +42,11 @@
 					<!-- Comment form-->
 
 					{% if user %}
-						<form class="mb-4 action=" " method=" post" onsubmit=" comment(event)"">
+						<form class="mb-4" action=" " method="post" onsubmit=" comment(event)">
 							<input type="hidden" name="token" value="{{ csrfToken }}">
 							<input type="hidden" name="idPost" value="{{post.id}}">
 							<div class="mb-3">
-								<textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+								<textarea class="form-control" name ="content"rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
 							</div>
 							<input class="btn btn-primary" type="submit">
                             <hr>

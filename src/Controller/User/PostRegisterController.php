@@ -2,10 +2,10 @@
 
 namespace Blog\Controller\User;
 
-use Exception;
 use Blog\Service\UserService;
 use Blog\DTO\User\RegisterDTO;
 use Blog\Form\User\RegisterForm;
+use Blog\Exception\FormException;
 use Blog\Controller\AbstractController;
 
 
@@ -14,11 +14,11 @@ class PostRegisterController extends AbstractController{
     {
         try{
             $registerDTO = $this->validateFormIntoDTO($_POST);
-            
             $this->CreateUser($registerDTO);
         }
-        catch(\Exception $e){
-            throw new Exception($e->getMessage(),$e->getCode());
+        catch(FormException $e){
+            $this->argument['error']= $e;
+            return parent::execute();
         }
         
         header("location: /connection");

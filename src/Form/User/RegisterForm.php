@@ -4,6 +4,7 @@ namespace Blog\Form\User;
 
 use Blog\Enum\RoleEnum;
 use Blog\DTO\User\RegisterDTO;
+use Blog\Exception\FormException;
 use Blog\Form\Abstracts\FormValidifier;
 
 class RegisterForm extends FormValidifier
@@ -29,16 +30,16 @@ class RegisterForm extends FormValidifier
     protected function checkingRequired()
     {
         if (empty($this->data["login"])) {
-            throw new \UnexpectedValueException('le nom d\'utilisateur n\'ai pas rempli');
+            throw new FormException('le nom d\'utilisateur n\'ai pas rempli');
         }
         if (empty($this->data["password"]) || empty($this->data["passwordverify"])) {
-            throw new \UnexpectedValueException("le mot de passe n\'ai pas rempli");
+            throw new FormException("le mot de passe n\'ai pas rempli");
         }
         if (!($this->data["password"] === $this->data["passwordverify"])) {
-            throw new \UnexpectedValueException('deux mots de passe ne corresponde pas');
+            throw new FormException('deux mots de passe ne corresponde pas');
         }
         if (empty($this->data['mail'])) {
-            throw new \InvalidArgumentException('le mail n\'ai pas rempli');
+            throw new FormException('le mail n\'ai pas rempli');
         }
     }
 }

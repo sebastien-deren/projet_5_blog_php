@@ -4,6 +4,7 @@ namespace Blog\Form\User;
 
 use Blog\Enum\FieldType;
 use Blog\DTO\User\LoginDTO;
+use Blog\Exception\FormException;
 use Blog\Form\Abstracts\ValidData;
 use Blog\Form\Abstracts\FormValidifier;
 
@@ -18,13 +19,13 @@ class LoginForm extends FormValidifier
     protected function checkingRequired()
     {
         if (empty($this->data['login'])) {
-            throw new \Exception("votre login est vide");
+            throw new FormException("votre login est vide");
         }
         if (empty($this->data['password'])) {
-            throw new \Exception("merci de rentrer un mot de passe");
+            throw new FormException("merci de rentrer un mot de passe");
         }
         if (FieldType::NULL === $this->checkLoginType($this->data['login'])) {
-            throw new \Exception("votre login n'est pas correct");
+            throw new FormException("votre login n'est pas correct");
         }
     }
     protected function createDTO()

@@ -23,7 +23,7 @@ if(isset($_SESSION['id'])){
 try{
     echo $router->getController()->execute();
 }
-catch( \ErrorException $e){
+catch( \Exception $e){
         $controllerErreur = new ErrorController($twig,$entityManager,$e);
         echo $controllerErreur->execute();
 }

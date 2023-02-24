@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blog\Form\Comment;
 
 use Exception;
+use Blog\Exception\FormException;
 use Blog\DTO\Comment\CreateComment;
 use Blog\Form\Abstracts\FormValidifier;
 
@@ -18,10 +19,10 @@ class CommentForm extends FormValidifier
     protected function checkingRequired()
     {
         if (!isset($_SESSION['id'])) {
-            throw new Exception("you must be connected to post a comment");
+            throw new FormException("you must be connected to post a comment");
         }
         if (empty($this->data['content'])) {
-            throw new Exception("you must write a comment before sending it");
+            throw new FormException("you must write a comment before sending it");
         }
     }
     protected function createDTO()
