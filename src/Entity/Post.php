@@ -41,8 +41,7 @@ class Post extends ContentAbstract
     #[OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comment;
 
-    public function __construct($user, $content, $title, $excerpt)
-    {
+    public function __construct($user,$content,$title,$excerpt){
         $this->user = $user;
         $this->content = $content;
         $this->title = $title;

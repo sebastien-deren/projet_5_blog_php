@@ -1,36 +1,102 @@
 {% extends "layout.html.twig"%}
 {% block title "accueil" %}
 {% block content %}
-	<div class="container-lg">
-		<h1>vous êtes bien sur la page index</h1>
-
-		<form class="container-fluid" method="post" accept-charset="UTF-8" action="">
-			<div class="row">
-				<input type="hidden" name="token" value="{{ csrftoken }}">
-				<div class="mb-3 col">
-					<label for="" class="form-label">Email</label>
-					<input type="email" class="form-control" name="mail" id="mail" aria-describedby="emailHelpId" value="{% if user %} {{user.email}} {% endif %} ">
-					<small id="emailHelpId" class="form-text text-muted">votre mail</small>
+	<div class="container-xl justify-content-center ">
+		<section class=" presentation row container-fluid my-lg-10 my-5">
+			<div class="col col-12 col-lg-4 me-2">
+				<img class="photo" src="./Assets/photo.jpg">
+			</div>
+			<div class="col ms-2 d-flex flex-column justify-content-center">
+				<h2 class="fs-0">Bonjour!</h2>
+				<p class="fs-4">
+					Je suis
+					<span class="fs-3 fw-bold">Sébastien Deren</span>
+					en reconversion dans la progamation php, passioné de programmation et de sciences informatiques</p>
+			</div>
+		</section>
+		<section class="container-fluid row my-8 pe-4">
+			<div class="col col-12 col-md-6 d-flex flex-column justify-content-between">
+				<div class="d-flex flex-column justify-content-around">
+					<h2 class="fs-1 mb-3">Mes compètences:</h2>
+					<p class="fs-5">Etant encore en formation je dèveloppe mes compètences en progamation tout les jours Et bien que je ne maitrise pas encore de langages je m'améliore dans plusieurs, notamments ceux listés à coté.</p>
+				</div>
+				<div class="d-flex flex-column justify-content-end">
+					<h3 class="fs-2">
+						Voici mon CV pour me connaitre un peu plus :</h3>
+					<div class="text-center">
+						<a class="btn btn-dark px-3 text-end" href="./Assets/CV_Sebastien_Deren.pdf">Mon CV</a>
+					</div>
 				</div>
 
-				<div class="mb-3 col">
-					<label for="" class="form-label">Name</label>
-					<input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" value="{% if user %}{{ user.firstname}} {{ user.lastname }}{% endif %}">
-					<small id="helpId" class="form-text text-muted">Help text</small>
+			</div>
+			<div class="col icon-listing">
+				<div class="row d-flex justify-content-end align-content-end">
+					<div class="col-9 ">
+						<div class="row my-4 d-flex justify-content-end align-items-center">
+							<div class="col-3">
+								<img class="img-fluid" src="./Assets/icons/php-svgrepo-com.svg">
+								<p class="text-muted text-center">PHP</p>
+							</div>
+							<div class="col-3">
+								<img class="img-fluid " src="./Assets/icons/mysql-logo-svgrepo-com.svg">
+								<p class="text-muted text-center">Mysql</p>
+							</div>
+							<div class="col-3">
+								<img class="img-fluid" src="./Assets/icons/bootstrap-svgrepo-com.svg">
+								<p class="text-muted text-center">Bootstrap</p>
+							</div>
+						</div>
+						<div class="row my-4 d-flex justify-content-end align-items-center">
+							<div class="col-3">
+								<img class="img-fluid" src="./Assets/icons/html-5-svgrepo-com.svg">
+								<p class="text-muted text-center">HTML</p>
+							</div>
+							<div class="col-3">
+								<img class="img-fluid" src="./Assets/icons/css-3-svgrepo-com.svg">
+								<p class="text-muted text-center">CSS</p>
+							</div>
+							<div class="col-3">
+								<img class="img-fluid" src="./Assets/icons/javascript-svgrepo-com.svg">
+								<p class="text-muted text-center">JavaScript</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class=" row">
-				<div class="mb-3 col">
-					<label for="" class="form-label"></label>
-					<textarea class="form-control" name="message" id="message" rows="3"></textarea>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-4">
-					<input type="submit" value="envoyer mail">
-				</div>
-			</div>
-		</form>
-	</div>
 
-{% endblock %}
+
+		</section>
+		<section class="row"></section>
+		<section class="mx-3 my-5 px-4 containter-fluid py-5 row border-0 rounded-5 border border-dark shadow-lg bg-alt">
+			<div class="col-12 col-md-6 my-5 d-flex">
+				<h2 class="fs-0">Rester en contact ?</h2>
+			</div>
+			<div class="col my-5">
+				<form method="post" accept-charset="UTF-8" action="">
+					<div class="row">
+						<input type="hidden" name="token" value="{{ csrftoken }}">
+						<div class="col ">
+							<label for="" class="form-label">Email</label>
+							<input type="email" class="form-control" name="mail" id="mail" aria-describedby="emailHelpId" value="{% if user %} {{user.email}} {% endif %} ">
+						</div>
+						<div class="col mb-3">
+							<label for="" class="form-label">Name</label>
+							<input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" value="{% if user %}{{ user.firstname}} {{ user.lastname }}{% endif %}">
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col mb-3">
+							<label for="message" class="form-label">message</label>
+							<textarea class="form-control" name="message" id="message" rows="5"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col mb-3 d-grid gap-2">
+							<button type="submit" class=" col-auto btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	{% endblock %}

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg  navbar-dark bg-primary mb-3 ">
-	<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3 ">
+	<div class="container-lg">
 		{% if user %}
 			<a href="/compte" class="navbar-brand">
 				{% if user.firstname and user.lastname %}
@@ -9,11 +9,6 @@
 					{{user.login}}
 				{% endif %}
 			</a>
-		{% else %}
-			<div class="navbar-brand mt-2 mb-2">
-				<a class="btn bg-secondary nav-item" href="/connection">Se connecter</a>
-				<a class="btn bg-secondary nav-item " href="/register">S'enregistrer</a>
-			</div>
 		{% endif %}
 
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,25 +19,25 @@
 				<div class="text-align-center navbar-nav  mb-2 mb-lg-0 ">
 					<a href="/" class="nav-link">Accueil</a>
 					<a href="/blog" class="nav-link">Blog</a>
-					<a href="/cont" class="nav-link">Contact</a>
-                    {% if user.role.value == "admin" %}
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Admin
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li>
-								<a class="dropdown-item" href="/admin/createpost">createpost</a>
-                                <a href="/admin/comment" class="dropdown-item">Comment moderation</a>
-							</li>
-						</ul>
-                    </li>
-                    {% endif %}
+					{% if user.role.value == "admin" %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Admin
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li>
+									<a class="dropdown-item" href="/admin/createpost">createpost</a>
+									<a href="/admin/comment" class="dropdown-item">Comment moderation</a>
+								</li>
+							</ul>
+						</li>
+					{% endif %}
 					{% if user %}
 						<a href="/deconnection" class="nav-link">Déconnection</a>
+					{% else %}
+						<a href="/connection" class="nav-link">Connexion</a>
 					{% endif %}
 				</div>
 			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
