@@ -2,11 +2,7 @@
 {% block title "Connection" %}
 {% block content %}
 	<div class="container-lg border border-light rounded">
-		{% if error %}
-			<h2>{{error.code}}</h2>
-			<h3>
-				{{error.message}}</h3>
-		{% endif %}
+        {% include "composant/error.html.twig" %}
 		<div class="row justify-content-center form">
 
 			<div class="col-xl-10 col-lg-12 col-md-9">
