@@ -6,10 +6,9 @@ use Blog\Service\UserService;
 use Blog\DTO\User\RegisterDTO;
 use Blog\Form\User\RegisterForm;
 use Blog\Exception\FormException;
-use Blog\Controller\AbstractController;
 
 
-class PostRegisterController extends AbstractController{
+class PostRegisterController extends RegisterController{
     public function execute():?string
     {
         try{

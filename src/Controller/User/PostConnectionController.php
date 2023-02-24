@@ -8,7 +8,7 @@ use Blog\Service\UserService;
 use Blog\Controller\AbstractController;
 use Blog\Exception\FormException;
 
-class PostConnectionController extends AbstractController
+class PostConnectionController extends ConnectionController
 {
 
     public function execute():?string

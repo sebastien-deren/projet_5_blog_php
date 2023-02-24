@@ -53,11 +53,11 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         $uniqueKeyViolationMsg = "";
         foreach ($KeyToCheck as $columnName => $columnValue) {
             if ($this->entityManager->getRepository(User::class)->findOneBy([$columnName => $columnValue])) {
-                $uniqueKeyViolationMsg = $uniqueKeyViolationMsg . " le " . $columnName . " est déjà utilisé.<br>";
+                $uniqueKeyViolationMsg = $uniqueKeyViolationMsg . " le " . $columnName . " est déjà utilisé.".\PHP_EOL ;
             }
         }
         if ("" !== $uniqueKeyViolationMsg) {
-            throw new UniqueKeyViolationException($uniqueKeyViolationMsg);
+            throw new FormException($uniqueKeyViolationMsg);
         }
     }
 
