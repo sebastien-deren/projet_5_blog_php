@@ -11,20 +11,22 @@
 			{% if post.comments %}
 				{% set commmentModeration = 1 %}
 				<div class="card my-3 ">
-					<div class="card-header  d-flex flex-row align-items-center justify-content-between dropdown-toggle " 
-                    role="button" aria-controls="collapse{{post.id}}" data-bs-target="#collapse{{post.id}}" data-bs-toggle="collapse" aria-expanded="false">
-						<h3>
-							{{post.title}}</h3>
-
-						<h4>
-							{{post.comments|length}}
-							commentaire non modéré</h4>
-						<h6>
-							By :
-							{{post.author}}
-							Le :
-							{{post.date}}
-						</h6>
+					<div class="card-header flex-wrap d-flex flex-column align-items-center justify-content-between dropdown-toggle " role="button" aria-controls="collapse{{post.id}}" data-bs-target="#collapse{{post.id}}" data-bs-toggle="collapse" aria-expanded="false">
+						<div class="text-center">
+							<h3>
+								{{post.title}}</h3>
+						</div>
+						<div class="mt-2 d-flex justify-content-around w-100">
+							<h5>
+								{{post.comments|length}}
+								commentaire non modéré</h5>
+							<h6>
+								By :
+								{{post.author}}
+								Le :
+								{{post.date}}
+							</h6>
+						</div>
 
 					</div>
 					<!-- Card Body -->
