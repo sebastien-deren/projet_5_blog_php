@@ -38,7 +38,7 @@ class Router
             $this->controller = $this->findController();
             return new $this->controller($this->twig, $this->entityManager);
         } catch (Exception $e) {
-            return new ErrorController($this->twig,$this->entityManager,$e);
+            return new ErrorController($this->twig, $this->entityManager, $e);
         }
     }
 

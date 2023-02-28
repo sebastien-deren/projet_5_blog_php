@@ -19,9 +19,9 @@ use Doctrine\Persistence\ObjectRepository;
 use Blog\Exception\UniqueKeyViolationException;
 
 
-class UserService implements  Logger, Displayer //Updater, Deleter
+class UserService implements Logger, Displayer //Updater, Deleter
 {
-    private static ?UserService $_userService =null;
+    private static ?UserService $_userService = null;
     private User $user;
     private ObjectRepository|EntityRepository $repoUser;
     //pass it to private when refactoring register
@@ -29,13 +29,14 @@ class UserService implements  Logger, Displayer //Updater, Deleter
     {
         $this->repoUser = $this->entityManager->getRepository(User::class);
     }
-    public static function getService($entityManager){
-        if (is_null(self::$_userService)){
+    public static function getService($entityManager)
+    {
+        if (is_null(self::$_userService)) {
             self::$_userService = new UserService($entityManager);
         }
         return self::$_userService;
     }
-    public function create( $registerDTO)
+    public function create($registerDTO)
     {
         if (!($registerDTO instanceof RegisterDTO)) {
             throw new \Exception("Internal Server Error", 500);
@@ -53,7 +54,7 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         $uniqueKeyViolationMsg = "";
         foreach ($KeyToCheck as $columnName => $columnValue) {
             if ($this->entityManager->getRepository(User::class)->findOneBy([$columnName => $columnValue])) {
-                $uniqueKeyViolationMsg = $uniqueKeyViolationMsg . " le " . $columnName . " est déjà utilisé.".\PHP_EOL ;
+                $uniqueKeyViolationMsg = $uniqueKeyViolationMsg . " le " . $columnName . " est déjà utilisé." . \PHP_EOL;
             }
         }
         if ("" !== $uniqueKeyViolationMsg) {
@@ -80,13 +81,15 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         $userDTO->lastname = $user->getLastname();
         $userDTO->login = $user->getlogin();
         $userDTO->role = $user->getRole();
-        $userDTO->email =$user->getMail();
+        $userDTO->email = $user->getMail();
         return $userDTO;
     }
-    public function getRole($id){
+    public function getRole($id)
+    {
         return $this->getUser($id)->getRole();
     }
-    public function getUser($id){
-        return $this->entityManager->find(User::class,$id);
+    public function getUser($id)
+    {
+        return $this->entityManager->find(User::class, $id);
     }
 }

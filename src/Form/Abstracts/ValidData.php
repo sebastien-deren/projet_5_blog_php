@@ -16,5 +16,4 @@ class ValidData
         //here we can do our regex logic
         return !\strchr($login, " ") && !\strchr($login, "@") ? FieldType::LOGIN : null;
     }
-
 }

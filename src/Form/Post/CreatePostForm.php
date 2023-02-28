@@ -16,18 +16,18 @@ class CreatePostForm extends FormValidifier
     }
     protected function checkingRequired()
     {
-        if (\strlen($this->data['title'])<6) {
+        if (\strlen($this->data['title']) < 6) {
             throw new FormException("le titre n'est pas assez long");
         }
 
-        if (\strlen($this->data['content'])<30) {
+        if (\strlen($this->data['content']) < 30) {
             throw new FormException("l'article n'es pas assez long");
         }
-        if(\strlen($this->data['excerpt'])>60){
+        if (\strlen($this->data['excerpt']) > 60) {
             throw new FormException("le résumé est trop long");
         }
         if (empty($this->data['excerpt'])) {
-            $this->data['excerpt']= \substr($this->data['content'],0,50)."...";
+            $this->data['excerpt'] = \substr($this->data['content'], 0, 50) . "...";
         }
     }
     protected function createDTO()

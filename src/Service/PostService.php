@@ -21,7 +21,7 @@ class PostService
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function CreatePost(CreatePostDTO $postToCreate,int $userId): int
+    public function CreatePost(CreatePostDTO $postToCreate, int $userId): int
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);
@@ -35,7 +35,7 @@ class PostService
     public function getSingle($id): SinglePostDTO
     {
         $singlePost = $this->entityManager->find(Post::class, $id);
-        return new SinglePostDTO($singlePost,$this->getComment($singlePost,CommentStatus::Approved));
+        return new SinglePostDTO($singlePost, $this->getComment($singlePost, CommentStatus::Approved));
     }
     /**
      * @return array<PostDTO>
@@ -43,7 +43,7 @@ class PostService
     public function getAll(): array
     {
         $postrepository = $this->entityManager->getRepository(Post::class);
-        $posts = $postrepository->findAll() ;
+        $posts = $postrepository->findAll();
         $constructor = fn (Post $post) =>  new PostDTO($post);
         return  \array_map($constructor(...), $posts);
     }
@@ -53,7 +53,7 @@ class PostService
     public function getPostsCommentsPending(): array
     {
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
-        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post,$this->getComment($post,CommentStatus::Pending));
+        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post, $this->getComment($post, CommentStatus::Pending));
         return \array_map($createSingleDTO(...), $posts);
     }
     /**

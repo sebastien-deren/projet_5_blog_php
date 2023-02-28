@@ -51,14 +51,13 @@ class User
         $this->setRole($registerDTO->role);
         $this->setFirstname($registerDTO->firstName);
         $this->setLastname($registerDTO->lastName);
-
     }
 
     public function checkPassword(string $password)
     {
-        return \password_verify($password,$this->password);
+        return \password_verify($password, $this->password);
     }
-    public function setPassword(string $password):User
+    public function setPassword(string $password): User
     {
         $this->password = password_hash($password, \PASSWORD_DEFAULT);
 
@@ -68,7 +67,7 @@ class User
     {
         return $this->login;
     }
-    public function setLogin(string $login):User
+    public function setLogin(string $login): User
     {
         if (!ValidData::login($login)) {
             throw new \InvalidArgumentException("your login cannot contain spaces");
@@ -82,7 +81,7 @@ class User
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname):User
+    public function setFirstname(string $firstname): User
     {
         if (null !== $firstname) {
             $this->firstname = $firstname;
@@ -94,7 +93,7 @@ class User
     {
         return $this->lastname;
     }
-    public function setLastname(string $lastname):User
+    public function setLastname(string $lastname): User
     {
         if (null !== $lastname) {
             $this->lastname = $lastname;
@@ -102,14 +101,15 @@ class User
 
         return $this;
     }
-    public function getFullName(){
-        return $this->firstname." ".$this->lastname;
+    public function getFullName()
+    {
+        return $this->firstname . " " . $this->lastname;
     }
     public function getMail()
     {
         return $this->mail;
     }
-    public function setMail(string $mail):User
+    public function setMail(string $mail): User
     {
         if (!ValidData::mail($mail)) {
             throw new \InvalidArgumentException('email is not a valid email!');
@@ -126,7 +126,7 @@ class User
     {
         return RoleEnum::tryfrom($this->role) ?: throw new \Exception("your role is not configured");
     }
-    public function setRole(RoleEnum $role):User
+    public function setRole(RoleEnum $role): User
     {
         $this->role = $role->value;
 
