@@ -4,6 +4,7 @@ namespace Blog\Controller\Admin;
 
 
 use Blog\Service\CommentService;
+use Blog\Exception\FormException;
 use Blog\Form\Comment\CommentModerationForm;
 use Blog\DTO\Comment\CommentModerationListDTO;
 
@@ -19,7 +20,7 @@ class PostCommentModerationController extends CommentModerationController
             $modification = $commentService->moderateComments($commentArray);
 
             $this->argument["information"] = $modification['number'] . " commentaire(s) ont bien été " . $modification['method'] . " !";
-        } catch (\InvalidArgumentException $e) {
+        } catch (FormException $e) {
             $this->argument['information'] = $e->getMessage();
         }
         return parent::execute();

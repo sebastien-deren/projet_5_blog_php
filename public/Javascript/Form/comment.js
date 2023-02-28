@@ -9,4 +9,3 @@ function comment(evt) {
     help.insertAdjacentHTML("beforeend","veuillez écrire un commentaire de 6 charactère au moins")
   }
 }
-console.log("coucou")

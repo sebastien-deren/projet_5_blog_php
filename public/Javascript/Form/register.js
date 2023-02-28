@@ -24,14 +24,14 @@ function register(evt) {
     isformvalid = false;
   }
 
-  if (!isvalid(password, strongRegex, password)) {
+  if (!isvalid(password, strongRegex)) {
     passwordmessage.classList.add("text-danger");
     isformvalid = false;
   }
-  if (!isvalid(passwordMatch, password, passwordMatch)) {
+  if (!isvalid(passwordMatch, password)) {
     isformvalid = false;
   }
-  if (!isvalid(email, emailRegex, email)) {
+  if (!isvalid(email, emailRegex)) {
     isformvalid = false;
   }
   if (!isformvalid) {
