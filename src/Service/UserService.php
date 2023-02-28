@@ -90,7 +90,11 @@ class UserService implements  Logger, Displayer //Updater, Deleter
     {
         return $this->getUser($id)->getRole();
     }
-    public function getUser($id)
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function getUser($id) : User
     {
         return $this->entityManager->find(User::class, $id);
     }

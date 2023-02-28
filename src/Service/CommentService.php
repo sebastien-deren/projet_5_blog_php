@@ -28,8 +28,12 @@ class CommentService
     {
         $this->repoComment = $this->entityManager->getRepository(Comment::class);
     }
-
-    public static function getService($entityManager)
+    /**
+     * getService
+     * @param EntityManager $entityManager
+     * @return CommentService
+     */
+    public static function getService($entityManager) : CommentService
     {
         if (is_null(self::$_CommentService)) {
             self::$_CommentService = new CommentService($entityManager);

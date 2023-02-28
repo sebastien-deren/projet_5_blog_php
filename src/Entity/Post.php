@@ -77,6 +77,11 @@ class Post extends ContentAbstract
     {
         return $this->title;
     }
+    /**
+     * getCommentApproved
+     * 
+     * @return void
+     */
     public function getCommentApproved()
     {
         $criteria = new Criteria();

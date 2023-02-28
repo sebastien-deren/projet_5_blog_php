@@ -12,10 +12,17 @@ class MailValidifier extends NewFormValidifier
         $this->DTO = $mailDto;
         parent::__construct($data);
     }
+    /**
+     * valdify
+     * @return MailDTO
+     */
     public function validify():MailDTO
     {
         return parent::validify();
     }
+    /**
+     * @return void
+     */
     protected function checkingRequired()
     {
         if(count($this->data)!== count(\array_filter($this->data))) {

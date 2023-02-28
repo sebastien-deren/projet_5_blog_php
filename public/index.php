@@ -7,10 +7,9 @@ require_once dirname(__FILE__) . '/../bootstrap.php';
 
 /**
  * We will find the controller linked to our route 
- * we will call the execute method 
+ * we will call the execute method
  * this will return a string, our twig rendering pages,
  * Index will display it
- * 
  * This try catch is here to display all our exception thrown in our code and not catch before.
  */
 

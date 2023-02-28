@@ -2,7 +2,7 @@
 /**
  * This document run on page load and create our base utilities
  * (router , entity manager , templating services)
- *  */  
+ */  
 
 use Blog\Enum\Method;
 use Twig\Environment;
@@ -28,11 +28,11 @@ use Blog\Controller\Admin\PostCreatePostController;
 use Blog\Controller\Admin\CommentModerationController;
 use Blog\Controller\Admin\PostCommentModerationController;
 
-require_once dirname(__FILE__) . '/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 
 /*creation of our entity manager*/
-$paths = [dirname(__FILE__) . '/src/Entity'];
+$paths = [__DIR__.'/src/Entity'];
 $isDevMode = true;
 $dbParams = [
     'driver' => 'pdo_mysql',

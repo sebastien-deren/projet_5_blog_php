@@ -19,6 +19,11 @@ abstract class AbstractController implements ControllerInterface
         
     }
     abstract public function execute():?string;
+
+    /**
+     * Check if the new page is called by the same client
+     * @return void
+     */
     protected function protectSession():void
     {
         
@@ -33,7 +38,11 @@ abstract class AbstractController implements ControllerInterface
             return;
         }
     }
-    //maybe by composition
+    /**
+     * Adding a field to our global variable $_SESSION
+     * @param array<string> $data
+     * @return void
+     */
     protected function addFieldSession(array $data)
     {
         $_SESSION['ipAddress']=$_SERVER['REMOTE_ADDR'];
