@@ -6,10 +6,13 @@ class Session
 {
     /**
      * addElement
-     * 
-     * @param array<string> $data
+     *
+     * @param array<string> $data the element added to $_SESSION
+     *
      * @return void
      */
+
+     
     public static function addElement(array $data): void
     {
         $_SESSION['ipAddress'] = $_SERVER['REMOTE_ADDR'];

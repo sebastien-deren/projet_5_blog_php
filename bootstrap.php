@@ -2,7 +2,7 @@
 /**
  * This document run on page load and create our base utilities
  * (router , entity manager , templating services)
- */  
+ */
 
 use Blog\Enum\Method;
 use Twig\Environment;

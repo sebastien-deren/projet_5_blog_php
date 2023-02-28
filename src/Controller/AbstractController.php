@@ -40,7 +40,9 @@ abstract class AbstractController implements ControllerInterface
     }
     /**
      * Adding a field to our global variable $_SESSION
-     * @param array<string> $data
+     * 
+     * @param array<string> $data the value of _POST
+     * 
      * @return void
      */
     protected function addFieldSession(array $data)

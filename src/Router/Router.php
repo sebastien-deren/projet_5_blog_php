@@ -23,15 +23,15 @@ class Router
         private Method $methodRequested,
         private Environment $twig,
         private EntityManagerInterface $entityManager
-    ) 
+    )
     {
 
     }
     /**
      * addPath
-     * @param string $name
-     * @param string $fullyQualifierController
-     * @param Method $method
+     * @param string $name nom du chemin
+     * @param string $fullyQualifierController nom du Controller
+     * @param Method $method methode d'accés à la page
      * @return void
      */
     public function addPath(string $name, string $fullyQualifierController, Method $method = Method::GET)
@@ -52,7 +52,7 @@ class Router
             return new ErrorController($this->twig, $this->entityManager, $e);
         }
     }
-    
+
     private function findController(): string
     {
         foreach ($this->paths as $validpath) {

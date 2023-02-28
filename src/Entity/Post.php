@@ -79,7 +79,7 @@ class Post extends ContentAbstract
     }
     /**
      * getCommentApproved
-     * 
+     *
      * @return void
      */
     public function getCommentApproved()

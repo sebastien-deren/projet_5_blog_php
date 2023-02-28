@@ -91,7 +91,7 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         return $this->getUser($id)->getRole();
     }
     /**
-     * @param int $id
+     * @param int $id the id of a User
      * @return User
      */
     public function getUser($id) : User
