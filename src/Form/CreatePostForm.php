@@ -8,7 +8,8 @@ use Blog\DTO\Post\CreatePostDTO;
 class CreatePostForm extends FormValidifier
 {
 
-    protected function checkingRequired(array $data){
+    protected function checkingRequired(array $data)
+    {
         if (empty($data['title'])) {
             throw new \Exception("pas de titre");
         }
@@ -21,7 +22,7 @@ class CreatePostForm extends FormValidifier
     }
     protected function createDTO(array $data)
     {       
-        if(!($this->DTO instanceof CreatePostDTO)){
+        if(!($this->DTO instanceof CreatePostDTO)) {
             throw new \Exception("DTO type exception");
         }
         $this->DTO->content = ($data['content']);

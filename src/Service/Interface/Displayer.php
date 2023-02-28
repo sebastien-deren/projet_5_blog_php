@@ -3,6 +3,7 @@ namespace Blog\Service\Interface;
 
 use Blog\DTO\AbstractDTO;
 
-interface Displayer{
+interface Displayer
+{
     public function display(int $id);
 }

@@ -25,11 +25,11 @@ class Comment
     private  $content;
     #[Column()]
     private \DateTime $date;
-    #[ManyToOne(targetEntity:User::class,inversedBy:'comment')]
-    #[JoinColumn(referencedColumnName:'id',name:'user_id')]
+    #[ManyToOne(targetEntity:User::class, inversedBy:'comment')]
+    #[JoinColumn(referencedColumnName:'id', name:'user_id')]
     private User|null $user =null;
-    #[ManyToOne(targetEntity:Post::class,inversedBy:'comment')]
-    #[JoinColumn(name:'post_id',referencedColumnName:'id')]
+    #[ManyToOne(targetEntity:Post::class, inversedBy:'comment')]
+    #[JoinColumn(name:'post_id', referencedColumnName:'id')]
     private Post|null $post =null;
     #[Column(type: Types::STRING, nullable: true)]
     private string $validity;
@@ -85,7 +85,7 @@ class Comment
      */ 
     public function getValidity()
     {
-        if(!isset($this->validity)){
+        if(!isset($this->validity)) {
             return CommentStatus::Pending;
         }
         return CommentStatus::from($this->validity);

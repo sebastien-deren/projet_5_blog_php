@@ -25,34 +25,58 @@ class Router
         private EntityManagerInterface $entityManager
     ) {
     }
-
+    
+    /**
+     * addPath
+     *
+     * @param  mixed $name
+     * @param  mixed $fullyQualifierController
+     * @param  mixed $method
+     * @return void
+     */
     public function addPath(string $name, string $fullyQualifierController, Method $method = Method::GET)
     {
         $this->paths[] = ["name" => $name, "controller" => $fullyQualifierController, 'method' => $method];
     }
-
+    
+    /**
+     * getController
+     *
+     * @return ControllerInterface
+     */
     public function getController(): ControllerInterface
     {
         try {
             $this->url = \trim($this->url, '/');
-            $this->controller = $this->findController();
+            $this->controller = $this->_findController();
             return new $this->controller($this->twig, $this->entityManager);
         } catch (Exception $e) {
-            return new ErrorController($this->twig,$this->entityManager,$e);
+            return new ErrorController($this->twig, $this->entityManager, $e);
         }
     }
-
-    private function findController(): string
+    
+    /**
+     * findController
+     *
+     * @return string
+     */
+    private function _findController(): string
     {
         foreach ($this->paths as $validpath) {
-            if ($this->checkController($validpath)) {
+            if ($this->_checkController($validpath)) {
                 return $validpath["controller"];
             }
         }
         throw new RouterException("page non trouvé", 404);
     }
-
-    private function checkController(array $pathtocheck): bool
+    
+    /**
+     * checkController
+     *
+     * @param  mixed $pathtocheck
+     * @return bool
+     */
+    private function _checkController(array $pathtocheck): bool
     {
         if (\strtolower($pathtocheck['name']) !== \strtolower($this->url)) {
             return false;

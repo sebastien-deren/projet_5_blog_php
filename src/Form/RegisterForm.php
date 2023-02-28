@@ -19,14 +19,14 @@ class RegisterForm extends FormValidifier
             $this->DTO->password = $data["password"];
             $this->DTO->login = \htmlspecialchars($data["login"]);
             /*here we can update this by checking if the connected user is admin 
-        and let him assign another role to a new "user".
-        */
+            and let him assign another role to a new "user".
+            */
             $this->DTO->role = RoleEnum::USER;
             $this->DTO->firstName = \htmlspecialchars($data['firstname']);
             $this->DTO->lastName = \htmlspecialchars($data['lastname']);
         }
         else{
-            throw new \Exception("We need a Register DTO, received".$this->DTO::class,2);
+            throw new \Exception("We need a Register DTO, received".$this->DTO::class, 2);
         }
     }
     protected function checkingRequired(array $data)

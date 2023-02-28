@@ -35,7 +35,7 @@ class PostService
     public function getSingle($id): SinglePostDTO
     {
         $singlePost = $this->entityManager->find(Post::class, $id);
-        return new SinglePostDTO($singlePost,$this->getComment($singlePost,CommentStatus::Approved));
+        return new SinglePostDTO($singlePost, $this->getComment($singlePost, CommentStatus::Approved));
     }
     /**
      * @return array<PostDTO>
@@ -43,17 +43,17 @@ class PostService
     public function getAll(): array
     {
         $postrepository = $this->entityManager->getRepository(Post::class);
-        $posts = $postrepository->findAll() ;
+        $posts = $postrepository->findAll();
         $constructor = fn (Post $post) =>  new PostDTO($post);
         return  \array_map($constructor(...), $posts);
     }
     /**
-     *  @return array<SinglePostDTO>
+     * @return array<SinglePostDTO>
      */
     public function getPostsCommentsPending(): array
     {
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
-        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post,$this->getComment($post,CommentStatus::Pending));
+        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post, $this->getComment($post, CommentStatus::Pending));
         return \array_map($createSingleDTO(...), $posts);
     }
     /**

@@ -3,6 +3,7 @@ namespace Blog\Service\Interface;
 
 use Blog\DTO\User\LoginDTO;
 
-interface Logger{
+interface Logger
+{
     public function log(LoginDTO $objecttoCreate);
 }

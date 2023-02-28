@@ -41,7 +41,8 @@ class Post extends ContentAbstract
     #[OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comment;
 
-    public function __construct($user,$content,$title,$excerpt){
+    public function __construct($user,$content,$title,$excerpt)
+    {
         $this->user = $user;
         $this->content = $content;
         $this->title = $title;
@@ -76,9 +77,10 @@ class Post extends ContentAbstract
     {
         return $this->title;
     }
-    public function getCommentApproved(){
+    public function getCommentApproved()
+    {
         $criteria = new Criteria();
-        $expr = new Comparison("validity",Comparison::IS, CommentStatus::Approved);
+        $expr = new Comparison("validity", Comparison::IS, CommentStatus::Approved);
         $criteria->where($expr);
         $criteria->orderBy(['date' => 'DESC']);
         return (new arrayCollection($this->comment->toArray()))->matching($criteria);
@@ -89,7 +91,7 @@ class Post extends ContentAbstract
         /*Doctrine use the Status getter to make the comparison 
         since our getStatus return an Enum we must compare Enum and not string!
         */
-        $expr = new Comparison("validity",Comparison::IS, CommentStatus::Pending);
+        $expr = new Comparison("validity", Comparison::IS, CommentStatus::Pending);
         $criteria->where($expr);
         $criteria->orderBy(['date' => 'DESC']);
         return (new arrayCollection($this->comment->toArray()))->matching($criteria);

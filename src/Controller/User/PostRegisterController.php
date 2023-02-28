@@ -9,7 +9,8 @@ use Blog\Controller\AbstractController;
 use Exception;
 
 
-class PostRegisterController extends AbstractController{
+class PostRegisterController extends AbstractController
+{
     public function execute():?string
     {
         try{
@@ -18,7 +19,7 @@ class PostRegisterController extends AbstractController{
             $this->CreateUser($registerDTO);
         }
         catch(\Exception $e){
-            throw new Exception($e->getMessage(),$e->getCode());
+            throw new Exception($e->getMessage(), $e->getCode());
         }
         
         header("location: /connection");

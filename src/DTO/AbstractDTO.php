@@ -1,6 +1,7 @@
 <?php
 namespace Blog\DTO;
 
-abstract class AbstractDTO{
+abstract class AbstractDTO
+{
 
 }

@@ -27,10 +27,10 @@ class MailService
     }
     public function sendMail(MailDTO $mailDto):bool
     {
-        if(!ValidData::mail($mailDto->mail)){
+        if(!ValidData::mail($mailDto->mail)) {
             throw new \Exception("votre adresse mail n'est pas correct");
         }
-        $this->mailer->setFrom($mailDto->mail,$mailDto->name);
+        $this->mailer->setFrom($mailDto->mail, $mailDto->name);
         $this->mailer->Body = $mailDto->message;
         return $this->mailer->send();
 

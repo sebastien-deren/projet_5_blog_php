@@ -20,11 +20,11 @@ class ConnectionController extends AbstractController
 
     public function execute() :?string
     {
-        if(isset($_SESSION['id'])){
+        if(isset($_SESSION['id'])) {
             \header("location: /");
         }
         $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
         $this->argument['csrfToken'] = $_SESSION['token'];
-        return $this->twig->render('@user/connection.html.twig',$this->argument);
+        return $this->twig->render('@user/connection.html.twig', $this->argument);
     }
 }

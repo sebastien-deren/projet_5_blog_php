@@ -2,7 +2,8 @@
 declare(strict_types=1);
 namespace Blog\DTO\Comment;
 
-class CommentDTO{
+class CommentDTO
+{
     public string $content;
     public string $author;
     public string $date;

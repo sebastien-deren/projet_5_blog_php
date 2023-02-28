@@ -1,7 +1,8 @@
 <?php
 namespace Blog\Service\Interface;
 
-interface Getter{
+interface Getter
+{
     public function getAll();
     public function getBy(array $params);
 }

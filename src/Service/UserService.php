@@ -29,8 +29,9 @@ class UserService implements  Logger, Displayer //Updater, Deleter
     {
         $this->repoUser = $this->entityManager->getRepository(User::class);
     }
-    public static function getService($entityManager){
-        if (is_null(self::$_userService)){
+    public static function getService($entityManager)
+    {
+        if (is_null(self::$_userService)) {
             self::$_userService = new UserService($entityManager);
         }
         return self::$_userService;
@@ -40,10 +41,12 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         if (!($registerDTO instanceof RegisterDTO)) {
             throw new \Exception("Internal Server Error", 500);
         }
-        $this->uniqueKeyChecker([
+        $this->uniqueKeyChecker(
+            [
             "mail" => $registerDTO->mail,
             "login" => $registerDTO->login
-        ]);
+            ]
+        );
         $this->user = new User($registerDTO);
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
@@ -83,10 +86,12 @@ class UserService implements  Logger, Displayer //Updater, Deleter
         $userDTO->email =$user->getMail();
         return $userDTO;
     }
-    public function getRole($id){
+    public function getRole($id)
+    {
         return $this->getUser($id)->getRole();
     }
-    public function getUser($id){
-        return $this->entityManager->find(User::class,$id);
+    public function getUser($id)
+    {
+        return $this->entityManager->find(User::class, $id);
     }
 }

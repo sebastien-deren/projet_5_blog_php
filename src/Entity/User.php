@@ -56,7 +56,7 @@ class User
 
     public function checkPassword(string $password)
     {
-        return \password_verify($password,$this->password);
+        return \password_verify($password, $this->password);
     }
     public function setPassword(string $password):User
     {
@@ -102,7 +102,8 @@ class User
 
         return $this;
     }
-    public function getFullName(){
+    public function getFullName()
+    {
         return $this->firstname." ".$this->lastname;
     }
     public function getMail()
