@@ -53,7 +53,7 @@ class User
         $this->setLastname($registerDTO->lastName);
     }
 
-    public function checkPassword(string $password)
+    public function checkPassword(string $password): bool
     {
         return \password_verify($password, $this->password);
     }
@@ -63,7 +63,7 @@ class User
 
         return $this;
     }
-    public function getLogin()
+    public function getLogin(): string
     {
         return $this->login;
     }
@@ -76,7 +76,7 @@ class User
 
         return $this;
     }
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -89,7 +89,7 @@ class User
 
         return $this;
     }
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
@@ -101,11 +101,11 @@ class User
 
         return $this;
     }
-    public function getFullName()
+    public function getFullName(): string
     {
         return $this->firstname . " " . $this->lastname;
     }
-    public function getMail()
+    public function getMail(): string
     {
         return $this->mail;
     }
@@ -118,7 +118,7 @@ class User
 
         return $this;
     }
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }

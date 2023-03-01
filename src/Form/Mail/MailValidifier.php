@@ -19,7 +19,7 @@ class MailValidifier extends FormValidifier
     {
         return parent::validify();
     }
-    protected function checkingRequired()
+    protected function checkingRequired(): void
     {
         if (count($this->data) !== count(\array_filter($this->data))) {
             throw new FormException("des champs ont été laissé vide !");
@@ -29,7 +29,7 @@ class MailValidifier extends FormValidifier
             throw new FormException("le message est trop court");
         }
     }
-    protected function createDTO()
+    protected function createDTO(): void
     {
         $this->DTO->mail = $this->data['mail'];
         $this->DTO->message = $this->data['message'];

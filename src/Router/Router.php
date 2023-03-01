@@ -26,7 +26,7 @@ class Router
     ) {
     }
 
-    public function addPath(string $name, string $fullyQualifierController, Method $method = Method::GET)
+    public function addPath(string $name, string $fullyQualifierController, Method $method = Method::GET): void
     {
         $this->paths[] = ["name" => $name, "controller" => $fullyQualifierController, 'method' => $method];
     }

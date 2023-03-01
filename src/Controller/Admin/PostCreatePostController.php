@@ -15,7 +15,7 @@ class PostCreatePostController extends CreatePostController
             $formvalidifier = new CreatePostForm(new CreatePostDTO, $_POST);
             $post = $formvalidifier->validify();
             $postService = new PostService($this->entityManager);
-            $postService->CreatePost($post, $_SESSION['id']);
+            $postService->createPost($post, $_SESSION['id']);
             $this->argument['post'] = $post;
         } catch (FormException $e) {
             $this->argument['error'] = $e;

@@ -25,73 +25,73 @@ class Comment
     private  $content;
     #[Column()]
     private \DateTime $date;
-    #[ManyToOne(targetEntity:User::class,inversedBy:'comment')]
-    #[JoinColumn(referencedColumnName:'id',name:'user_id')]
-    private User|null $user =null;
-    #[ManyToOne(targetEntity:Post::class,inversedBy:'comment')]
-    #[JoinColumn(name:'post_id',referencedColumnName:'id')]
-    private Post|null $post =null;
+    #[ManyToOne(targetEntity: User::class, inversedBy: 'comment')]
+    #[JoinColumn(referencedColumnName: 'id', name: 'user_id')]
+    private User|null $user = null;
+    #[ManyToOne(targetEntity: Post::class, inversedBy: 'comment')]
+    #[JoinColumn(name: 'post_id', referencedColumnName: 'id')]
+    private Post|null $post = null;
     #[Column(type: Types::STRING, nullable: true)]
     private string $validity;
 
     public function __construct()
     {
     }
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function getDate()
+    public function getDate(): \DateTime
     {
         return $this->date;
     }
-    public function setDate()
+    public function setDate(): Comment
     {
         $this->date = new \DateTime();
         return $this;
     }
-    public function getUser()
+    public function getUser(): User
     {
         return $this->user;
     }
-    public function setPost(Post $post)
+    public function setPost(Post $post): Comment
     {
-        $this->post= $post;
+        $this->post = $post;
         return $this;
     }
-    public function setUser(User $user)
+    public function setUser(User $user): Comment
     {
-        $this->user =$user;
+        $this->user = $user;
         return $this;
     }
-    public function setContent(string $content)
+    public function setContent(string $content): Comment
     {
         $this->content = $content;
         return $this;
     }
 
-    public function getPost()
+    public function getPost(): Post
     {
         return $this->post;
     }
 
     /**
      * Get the value of validity
-     */ 
-    public function getValidity()
+     */
+    public function getValidity(): CommentStatus
     {
-        if(!isset($this->validity)){
+        if (!isset($this->validity)) {
             return CommentStatus::Pending;
         }
         return CommentStatus::from($this->validity);
     }
 
-    public function setValidity(CommentStatus $validity)
+    public function setValidity(CommentStatus $validity): Comment
     {
         $this->validity = $validity->value;
 

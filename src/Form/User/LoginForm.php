@@ -16,7 +16,7 @@ class LoginForm extends FormValidifier
         $this->DTO = $DTO;
         parent::__construct($data);
     }
-    protected function checkingRequired()
+    protected function checkingRequired(): void
     {
         if (empty($this->data['login'])) {
             throw new FormException("votre login est vide");
@@ -28,14 +28,14 @@ class LoginForm extends FormValidifier
             throw new FormException("votre login n'est pas correct");
         }
     }
-    protected function createDTO()
+    protected function createDTO(): void
     {
 
         $this->DTO->login = $this->data['login'];
         $this->DTO->password = $this->data['password'];
         $this->DTO->logintype = $this->checkLoginType($this->data['login']);
     }
-    private function checkLoginType($login)
+    private function checkLoginType(string $login): FieldType
     {
         $dataType = FieldType::NULL;
         $dataType = ValidData::mail($login) ?? $dataType;

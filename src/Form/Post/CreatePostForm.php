@@ -14,7 +14,7 @@ class CreatePostForm extends FormValidifier
         parent::__construct($data);
         $this->DTO = $DTO;
     }
-    protected function checkingRequired()
+    protected function checkingRequired(): void
     {
         if (\strlen($this->data['title']) < 6) {
             throw new FormException("le titre n'est pas assez long");
@@ -30,7 +30,7 @@ class CreatePostForm extends FormValidifier
             $this->data['excerpt'] = \substr($this->data['content'], 0, 50) . "...";
         }
     }
-    protected function createDTO()
+    protected function createDTO(): void
     {
         $this->DTO->content = ($this->data['content']);
         $this->DTO->excerpt = $this->data['excerpt'];

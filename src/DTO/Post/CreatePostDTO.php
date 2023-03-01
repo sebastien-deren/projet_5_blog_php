@@ -2,7 +2,7 @@
 
 namespace Blog\DTO\Post;
 
-class createPostDTO
+class CreatePostDTO
 {
     public string $title;
     public string $excerpt;

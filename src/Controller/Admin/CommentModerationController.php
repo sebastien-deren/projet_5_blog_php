@@ -12,7 +12,7 @@ use Blog\Controller\AbstractController;
 class CommentModerationController extends AdminController
 {
     use Token;
-    public function execute():string
+    public function execute(): string
     {
         try {
             $this->argument['csrfToken'] = $this->createToken();

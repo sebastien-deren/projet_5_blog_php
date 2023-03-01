@@ -7,9 +7,9 @@ const password = document.getElementById("password");
 const passwordMatch = document.getElementById("passwordverify");
 const email = document.getElementById("mail");
 const regexListener = [
-  {element:email,regex: emailRegex},
-  {element:password,regex: strongRegex},
-  {element:login,regex: loginRegex},
+  { element: email, regex: emailRegex },
+  { element: password, regex: strongRegex },
+  { element: login, regex: loginRegex },
 ];
 
 function register(evt) {
@@ -50,7 +50,9 @@ function isvalid(element, matches) {
 }
 
 function listenform() {
-    regexListener.map(({element,regex})=>element.addEventListener("input",(e) => isvalid(e.target,regex) ))
+  regexListener.map(({ element, regex }) =>
+    element.addEventListener("input", (e) => isvalid(e.target, regex))
+  );
   passwordMatch
     ? passwordMatch.addEventListener("input", (e) =>
         isvalid(e.target, password.value)
