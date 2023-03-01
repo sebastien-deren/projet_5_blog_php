@@ -77,15 +77,15 @@ class Post extends ContentAbstract
     {
         return $this->title;
     }
-    public function getCommentApproved(): ArrayCollection
+    public function getCommentApproved(): Collection
     {
         return $this->getCommentByStatus(CommentStatus::Approved);
     }
-    public function getCommentPending(): ArrayCollection
+    public function getCommentPending(): Collection
     {
         return $this->getCommentByStatus(CommentStatus::Pending);
     }
-    private function getCommentByStatus(CommentStatus $status): ArrayCollection
+    private function getCommentByStatus(CommentStatus $status): Collection
     {
         /*Doctrine use the Status getter to make the comparison 
         since our getStatus return an Enum we must compare Enum and not string!
