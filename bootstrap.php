@@ -12,20 +12,20 @@ use Blog\Controller\Admin\EditController;
 use Blog\Controller\Blog\ArticleController;
 use Blog\Controller\Blog\BlogListController;
 use Blog\Controller\User\RegisterController;
+use Blog\Controller\Admin\ListPostController;
 use Blog\Controller\Admin\PostEditController;
 use Blog\Controller\Homepage\IndexController;
 use Blog\Controller\User\ConnectionController;
 use Blog\Controller\Admin\CreatePostController;
 use Blog\Controller\Blog\PostArticleController;
-use Blog\Controller\User\DeconnectionController;
 
+use Blog\Controller\Admin\SupressPostController;
+use Blog\Controller\User\DeconnectionController;
 use Blog\Controller\User\PostRegisterController;
-use Blog\Controller\Admin\CommentAdminController;
 use Blog\Controller\Homepage\PostIndexController;
 use Blog\Controller\User\PostConnectionController;
 use Blog\Controller\Admin\PostCreatePostController;
 use Blog\Controller\Admin\CommentModerationController;
-use Blog\Controller\Admin\ListPostController;
 use Blog\Controller\Admin\PostCommentModerationController;
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
@@ -92,5 +92,6 @@ $router->addPath('',PostIndexController::class,Method::POST);
 
 //edit Post Route
 $router->addPath('admin/listpost',ListPostController::class);
+$router->addPath("admin/supress_post",SupressPostController::class);
 $router->addPath('admin/post',EditController::class);
 $router->addPath('admin/post',PostEditController::class,Method::POST);

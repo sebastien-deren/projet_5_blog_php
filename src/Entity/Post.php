@@ -38,7 +38,7 @@ class Post extends ContentAbstract
     #[ManyToOne(targetEntity: User::class, inversedBy: 'post')]
     #[JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private User $user;
-    #[OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
+    #[OneToMany(mappedBy: 'post', targetEntity: Comment::class,cascade:['remove'])]
     private Collection $comment;
 
     public function __construct($user, $content, $title, $excerpt)

@@ -10,8 +10,10 @@ use Blog\DTO\Comment\CommentDTO;
 use Blog\DTO\Post\createPostDTO;
 use Blog\DTO\Post\SinglePostDTO;
 use Blog\DTO\Post\UpdatePostDTO;
+use Blog\Exception\UniqueKeyViolationException;
 use Blog\Service\CommentService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
 
 class PostService
 {
@@ -51,6 +53,13 @@ class PostService
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
         $createSingleDTO = fn (Post $post) => new SinglePostDTO($post, $this->getComment($post, CommentStatus::Pending));
         return \array_map($createSingleDTO(...), $posts);
+    }
+
+
+    public function delete($id){
+        $post =$this->entityManager->find(Post::class, $id)??throw new EntityNotFoundException("post not found");
+        $this->entityManager->remove($post);
+        $this->entityManager->flush();
     }
     /**
      * @return array<CommentDTO>
