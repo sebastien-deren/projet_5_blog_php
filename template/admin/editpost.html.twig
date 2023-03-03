@@ -4,9 +4,7 @@
 	<div class="postList" data-posts="{{posts.listPost|json_encode}}"></div>
 	<div class="container-lg">
 		{% for post in posts %}
-			<div class="card text-dark my-4 px-2">
-
-
+			<div class="card text-dark my-4 px-2" name="post">
 				<div class="text-center">
 					<h2 class="text-center">{{post.title}}</h2>
 				</div>
@@ -24,13 +22,20 @@
 				</div>
 				<div class="row my-2">
 					<div class="d-grid gap-2 col">
-						<a type="button" name="" id="" href="/admin/post?id={{post.id}}" class="btn btn-primary">edit</a>
+						<a type="button" name="edit" href="/admin/post?id={{post.id}}" class="btn btn-primary">edit</a>
 					</div>
 					<div class="d-grid gap-2 col">
-						<a type="button" name="" id="" href="/admin/supress_post?id={{post.id}}" class="btn btn-primary">suppress</a>
+						<button type="button" name="suppress" id="{{post.id}}" onclick="suppress({{post.id}},'{{post.title}}')" class="btn btn-primary">suppress</button>
 					</div>
 				</div>
 			</div>
 		{% endfor %}
 	</div>
+	<script type="text/javascript">
+		function suppress(id, title){
+            if(confirm("êtes vous sur de vouloir supprimmer le post :\"" + title + "\" ?")){
+                window.location="/admin/supress_post?id="+id;
+            }
+        }
+	</script>
 {% endblock %}
