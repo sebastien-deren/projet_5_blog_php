@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Controller\Admin;
+namespace Blog\Controller\Admin\ModerateComment;
 
 
 use Blog\Service\CommentService;
