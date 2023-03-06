@@ -51,20 +51,9 @@ class PostService
     {
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
         $createSingleDTO = fn (Post $post) => new CompletePostDTO($post,$this->getComment($post,CommentStatus::Pending));
-        return \array_map($createSingleDTO(...), $posts);
+        $array = \array_map($createSingleDTO(...), $posts);
+        return $array;
     }
-    private function getCommentToModerate($post): ?PostModerationDTO
-    {
-        $getComment=fn($comment)=> new CommentDTO($comment); 
-        $commentList = $post->getCommentPending()->toArray();
-        $commentsToModerate = \array_map($getComment, $commentList);
-        if (empty($commentsToModerate)) {
-            return null;
-        }
-        return new PostModerationDTO($post, $commentsToModerate);
-
-    }
-    
     /**
      * @return array<CommentDTO>
      */

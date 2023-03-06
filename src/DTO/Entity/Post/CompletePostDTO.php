@@ -16,7 +16,7 @@ class CompletePostDTO extends PostDTO
     public string $content;
 
 
-    public function __construct(Post $post, $comments)
+    public function __construct(Post $post,array $comments)
     {
         parent::__construct($post);
         $this->content = $post->getContent();
