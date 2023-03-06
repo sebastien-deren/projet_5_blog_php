@@ -7,7 +7,7 @@ use Blog\Service\UserService;
 use Blog\Controller\Traits\Token;
 use Blog\Controller\Admin\AdminController;
 
-class EditController extends AdminController
+class EditPostController extends AdminController
 {
     Use Token;
     public function execute():string

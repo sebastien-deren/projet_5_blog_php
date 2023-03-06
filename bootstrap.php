@@ -90,5 +90,5 @@ $router->addPath('admin/comment',Blog\Controller\Admin\ModerateComment\PostComme
 //edit Post Route
 $router->addPath('admin/listpost',Blog\Controller\Admin\EditPost\ListPostController::class);
 $router->addPath("admin/supress_post",Blog\Controller\Admin\EditPost\SupressPostController::class);
-$router->addPath('admin/post',Blog\Controller\Admin\EditPost\EditController::class);
-$router->addPath('admin/post',Blog\Controller\Admin\EditPost\PostEditController::class,Method::POST);
+$router->addPath('admin/post',Blog\Controller\Admin\EditPost\EditPostController::class);
+$router->addPath('admin/post',Blog\Controller\Admin\EditPost\PostEditPostController::class,Method::POST);
