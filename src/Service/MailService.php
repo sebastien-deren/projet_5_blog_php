@@ -28,7 +28,7 @@ class MailService
             throw new \Exception("votre adresse mail n'est pas correct");
         }
         $this->mailer->setFrom($mailDto->mail, $mailDto->name);
-        $this->mailer->Body = $mailDto->message;
+        $this->mailer->Body = htmlspecialchars_decode($mailDto->message);
         return $this->mailer->send();
     }
 }

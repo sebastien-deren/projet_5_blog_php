@@ -75,7 +75,7 @@
 			<div class="col my-5">
 				<form method="post" accept-charset="UTF-8" action="">
 					<div class="row">
-						<input type="hidden" name="csrfToken" value="{{ csrftoken }}">
+						<input type="hidden" name="csrfToken" value="{{ csrfToken }}">
 						<div class="col ">
 							<label for="" class="form-label">Email</label>
 							<input type="email" class="form-control" name="mail" id="mail" aria-describedby="emailHelpId" value="{% if user %} {{user.email}} {% endif %} ">
