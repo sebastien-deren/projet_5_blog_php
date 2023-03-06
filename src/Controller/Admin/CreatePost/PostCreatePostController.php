@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Controller\Admin;
+namespace Blog\Controller\Admin\CreatePost;
 
 use Blog\Service\PostService;
 use Blog\Exception\FormException;

@@ -37,7 +37,7 @@ abstract class FormValidifier implements FormValidifierInterface
 
 
     /**
-     * we check our token received with the token stocked in our server
+     * we check our csrfToken received with the csrfToken stocked in our server
      *
      * @throws Exception
      *
@@ -45,7 +45,7 @@ abstract class FormValidifier implements FormValidifierInterface
      */
     protected function tokenValidation(): void
     {
-        if (!$this->data['token'] || ($this->data['token'] !== $_SESSION['token'])) {
+        if (!$this->data['csrfToken'] || ($this->data['csrfToken'] !== $_SESSION['csrfToken'])) {
             throw new \Exception("Method not allowed", 405);
         }
     }

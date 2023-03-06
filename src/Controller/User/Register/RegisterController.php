@@ -1,16 +1,16 @@
 <?php
 
-namespace Blog\Controller\User;
+namespace Blog\Controller\User\Register;
 
 use Blog\Controller\AbstractController;
+use Blog\Controller\Traits\Token;
 
 class RegisterController extends AbstractController
 {
-
+    use Token;
     public function execute():?string
     {
-        $this->addFieldSession(['token' => \md5(\uniqid(\mt_rand(), true))]);
-        $this->argument['csrfToken'] = $_SESSION['token'];
+        $this->createToken();
         return $this->twig->render('@user/register.html.twig', $this->argument);
     }
 }

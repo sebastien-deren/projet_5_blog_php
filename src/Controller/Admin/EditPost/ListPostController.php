@@ -1,8 +1,9 @@
 <?php
 
-namespace Blog\Controller\Admin;
+namespace Blog\Controller\Admin\EditPost;
 
 use Blog\Service\PostService;
+use Blog\Controller\Admin\AdminController;
 
 class ListPostController extends AdminController
 {

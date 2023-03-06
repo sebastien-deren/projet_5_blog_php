@@ -19,7 +19,7 @@
 								<h1 class="h4 text-gray-900 mb-4">Create a new Post!</h1>
 							</div>
 							<form action="" method="post" class="form-post">
-								<input type="hidden" name="token" value="{{ csrfToken }}">
+								<input type="hidden" name="csrfToken" value="{{ csrfToken }}">
 								<div class="form-group mb-3 ">
 									<input class="form-control col-md" type="text" name="title" id="title" required placeholder="entrez le titre! (6 charactère minimum)">
 									<div id="titlehelp" class="form-text ps-2">le titre doit faire 6 charactère minimum</div>

@@ -13,7 +13,7 @@ class IndexController extends AbstractController
     use Token;
     public function execute(): string
     {
-        $this->argument['csrftoken'] = $this->createToken();
+        $this->createToken();
         return $this->twig->render('@user/index.html.twig', $this->argument);
     }
 }

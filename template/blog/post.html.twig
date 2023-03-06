@@ -45,7 +45,7 @@
 
 					{% if user %}
 						<form class="mb-4" action=" " method="post" onsubmit=" comment(event)">
-							<input type="hidden" name="token" value="{{ csrfToken }}">
+							<input type="hidden" name="csrfToken" value="{{ csrfToken }}">
 							<input type="hidden" name="idPost" value="{{post.id}}">
 							<div class="mb-3" id="contentParent">
 								<textarea class="form-control" id="content"name="content" rows="3" placeholder="Laissez un commentaire!"></textarea>

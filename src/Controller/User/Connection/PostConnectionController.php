@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Controller\User;
+namespace Blog\Controller\User\Connection;
 
 use Blog\Form\User\LoginForm;
 use Blog\Service\UserService;
