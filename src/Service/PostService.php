@@ -55,7 +55,7 @@ class PostService
         return $array;
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $post = $this->entityManager->find(Post::class, $id) ?? throw new FormException("post not found");
         $this->entityManager->remove($post);
@@ -79,7 +79,7 @@ class PostService
         return \array_map($getComment, $commentList);
     }
 
-    public function updatePost(PostEditionDTO $postUpdate)
+    public function updatePost(PostEditionDTO $postUpdate): void
     {
         $postStocked = $this->entityManager->find(Post::class, $postUpdate->id);
         if ($postUpdate->title !== $postStocked->getTitle()) {
