@@ -38,14 +38,14 @@ class CommentService
     {
         $commentRepo = $this->entityManager->getRepository(Comment::class);
         foreach ($commentList->commentsToModerate as $comment) {
-            $commentEntity = $commentRepo->find($comment)?: throw new \Exception("le commentaire n'existe pas");
+            $commentEntity = $commentRepo->find($comment) ?: throw new \Exception("le commentaire n'existe pas");
             $commentEntity->getValidity() === CommentStatus::Pending ?: throw new \InvalidArgumentException("le commentaire à déjà été modéré");
             $commentEntity->setValidity($commentList->validity);
         }
         $this->entityManager->flush();
         return ["number" => count($commentList->commentsToModerate), "method" => $commentList->validity->value];
     }
-    public function create(CommentCreationDTO $objecttoCreate, int $userId)  
+    public function create(CommentCreationDTO $objecttoCreate, int $userId): void
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $blogPost = $this->entityManager->find(Post::class, $objecttoCreate->postId);
@@ -68,9 +68,10 @@ class CommentService
     {
         return new CommentDTO($comment);
     }
-    public static function getInCollection(ArrayCollection $comments){
+    public static function getInCollection(ArrayCollection $comments): array
+    {
 
-        $creationDTO = fn($comment)=> new CommentDTO($comment);
-        return \array_map($creationDTO(...),$comments->toArray());
+        $creationDTO = fn ($comment) => new CommentDTO($comment);
+        return \array_map($creationDTO(...), $comments->toArray());
     }
 }

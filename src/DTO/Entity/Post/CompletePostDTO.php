@@ -14,12 +14,14 @@ class CompletePostDTO extends PostDTO
      *  */
     public array $comments;
     public string $content;
+    public int $authorId;
 
 
     public function __construct(Post $post,array $comments)
     {
         parent::__construct($post);
         $this->content = $post->getContent();
+        $this->authorId = $post->getUser()->getId();
         $this->comments = $comments;
     }
 }

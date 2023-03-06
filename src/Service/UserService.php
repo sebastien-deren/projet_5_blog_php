@@ -21,7 +21,6 @@ class UserService
     private static ?UserService $_userService = null;
     private User $user;
     private ObjectRepository|EntityRepository $repoUser;
-    //pass it to private when refactoring register
     private function __construct(private EntityManager $entityManager)
     {
         $this->repoUser = $this->entityManager->getRepository(User::class);
@@ -59,17 +58,12 @@ class UserService
 
     public function log(LoginDTO $userToLog): int
     {
-        try {
-            $user = $this->repoUser->findOneBy([$userToLog->logintype->value => $userToLog->login]) ?? throw new \Exception();
-            $user->checkPassword($userToLog->password) ?: throw new \Exception();
-        } catch (\Exception $e) {
-            throw new FormException("mot de passe ou login incorrect");
-        }
+        $user = $this->repoUser->findOneBy([$userToLog->logintype->value => $userToLog->login]) ?? throw new FormException("mot de passe ou login incorrect");
+        $user->checkPassword($userToLog->password) ?: throw new FormException("mot de passe ou login incorrect");
         return $user->getId();
     }
-    public function display(int $id): UserDTO
+    public function display(User $user): UserDTO
     {
-        $user = $this->entityManager->find(User::class, $id);
         return new UserDTO($user);
     }
     public function getRole(int $id): RoleEnum
@@ -78,6 +72,15 @@ class UserService
     }
     public function getUser(int $id): User
     {
-        return $this->entityManager->find(User::class, $id) ?? throw new \Exception("no User with id" . (string)$id);
+        return $this->entityManager->find(User::class, $id);
+    }
+    /**
+     * @return array<UserDTO>
+     * 
+     */
+    public function getAdmins(): array
+    {
+        $users = $this->repoUser->findBy(["role" => RoleEnum::ADMIN]);
+        return \array_map($this->display(...), $users);
     }
 }
