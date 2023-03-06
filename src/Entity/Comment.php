@@ -80,9 +80,6 @@ class Comment
         return $this->post;
     }
 
-    /**
-     * Get the value of validity
-     */
     public function getValidity(): CommentStatus
     {
         if (!isset($this->validity)) {

@@ -8,25 +8,6 @@ use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Twig\Loader\FilesystemLoader;
-use Blog\Controller\Admin\EditController;
-use Blog\Controller\Blog\ArticleController;
-use Blog\Controller\Blog\BlogListController;
-use Blog\Controller\User\RegisterController;
-use Blog\Controller\Admin\ListPostController;
-use Blog\Controller\Admin\PostEditController;
-use Blog\Controller\Homepage\IndexController;
-use Blog\Controller\User\ConnectionController;
-use Blog\Controller\Admin\CreatePostController;
-use Blog\Controller\Blog\PostArticleController;
-
-use Blog\Controller\Admin\SupressPostController;
-use Blog\Controller\User\DeconnectionController;
-use Blog\Controller\User\PostRegisterController;
-use Blog\Controller\Homepage\PostIndexController;
-use Blog\Controller\User\PostConnectionController;
-use Blog\Controller\Admin\PostCreatePostController;
-use Blog\Controller\Admin\CommentModerationController;
-use Blog\Controller\Admin\PostCommentModerationController;
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
@@ -65,35 +46,49 @@ $method = Method::tryFrom($_SERVER['REQUEST_METHOD'])??Method::GET;
 $router = new Router($_GET['url']??"",$method,$twig,$entityManager);
 
 
-/*connection Route */
-$router->addPath('connection', ConnectionController::class);
-$router->addPath('connection',PostConnectionController::class,Method::POST);
-//deconnection Route
-$router->addPath('deconnection',DeconnectionController::class);
-
-//CreatePosts Route
-$router->addPath('admin/createpost', CreatePostController::class);
-$router->addPath('admin/createpost',PostCreatePostController::class,Method::POST);
-
-//comment moderation Route
-$router->addPath('admin/comment', CommentModerationController::class);
-$router->addPath('admin/comment',PostCommentModerationController::class,Method::POST);
-
-//display messages Route
-$router->addPath('blog/post',ArticleController::class);
-$router->addPath('blog/post',PostArticleController::class,Method::POST);
-$router->addPath('blog',BlogListController::class);
-
-//registers Route
-$router->addPath('register',RegisterController::class);
-$router->addPath('register',PostRegisterController::class,Method::POST);
+//HOMEPAGE ROUTE
 
 //index Route
-$router->addPath('', IndexController::class);
-$router->addPath('',PostIndexController::class,Method::POST);
+$router->addPath('', Blog\Controller\Homepage\IndexController::class);
+$router->addPath('',Blog\Controller\Homepage\PostIndexController::class,Method::POST);
+
+
+//USER ROUTE
+
+/*connection Route */
+$router->addPath('connection', Blog\Controller\User\Connection\ConnectionController::class);
+$router->addPath('connection',Blog\Controller\User\Connection\PostConnectionController::class,Method::POST);
+
+//deconnection Route
+$router->addPath('deconnection',Blog\Controller\User\Connection\DeconnectionController::class);
+
+//registers Route
+$router->addPath('register',Blog\Controller\User\Register\RegisterController::class);
+$router->addPath('register',Blog\Controller\User\Register\PostRegisterController::class,Method::POST);
+
+
+//BLOG ROUTE
+
+//blog list route
+$router->addPath('blog',Blog\Controller\Blog\BlogListController::class);
+
+//single blog post Route
+$router->addPath('blog/post',Blog\Controller\Blog\ArticleController::class);
+$router->addPath('blog/post',Blog\Controller\Blog\PostArticleController::class,Method::POST);
+
+
+//ADMIN ROUTE
+
+//CreatePosts Route
+$router->addPath('admin/createpost', Blog\Controller\Admin\CreatePost\CreatePostController::class);
+$router->addPath('admin/createpost',Blog\Controller\Admin\CreatePost\PostCreatePostController::class,Method::POST);
+
+//comment moderation Route
+$router->addPath('admin/comment', Blog\Controller\Admin\ModerateComment\CommentModerationController::class);
+$router->addPath('admin/comment',Blog\Controller\Admin\ModerateComment\PostCommentModerationController::class,Method::POST);
 
 //edit Post Route
-$router->addPath('admin/listpost',ListPostController::class);
-$router->addPath("admin/supress_post",SupressPostController::class);
-$router->addPath('admin/post',EditController::class);
-$router->addPath('admin/post',PostEditController::class,Method::POST);
+$router->addPath('admin/listpost',Blog\Controller\Admin\EditPost\ListPostController::class);
+$router->addPath("admin/supress_post",Blog\Controller\Admin\EditPost\SupressPostController::class);
+$router->addPath('admin/post',Blog\Controller\Admin\EditPost\EditController::class);
+$router->addPath('admin/post',Blog\Controller\Admin\EditPost\PostEditController::class,Method::POST);

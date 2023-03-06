@@ -37,6 +37,8 @@ abstract class AbstractController implements ControllerInterface
     {
         $_SESSION['ipAddress'] = $_SERVER['REMOTE_ADDR'];
         $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
-        $_SESSION = \array_merge($data, $_SESSION);
+        foreach($data as $key => $value){
+            $_SESSION[$key] =$value;
+        }
     }
 }
