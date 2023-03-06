@@ -1,10 +1,12 @@
 <?php
-namespace Blog\DTO\Entitie\User;
+
+namespace Blog\DTO\Entity\User;
 
 use Blog\Entity\User;
 use Blog\Enum\RoleEnum;
 
-class UserDTO{
+class UserDTO
+{
     public string $firstname;
     public string $lastname;
     public string $login;
@@ -16,7 +18,6 @@ class UserDTO{
         $this->lastname = $user->getLastname();
         $this->login = $user->getlogin();
         $this->role = $user->getRole();
-        $this->email =$user->getMail();
+        $this->email = $user->getMail();
     }
-    
 }

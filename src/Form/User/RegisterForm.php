@@ -3,8 +3,8 @@
 namespace Blog\Form\User;
 
 use Blog\Enum\RoleEnum;
-use Blog\DTO\User\RegisterDTO;
 use Blog\Exception\FormException;
+use Blog\DTO\Form\User\RegisterDTO;
 use Blog\Form\Abstracts\FormValidifier;
 
 class RegisterForm extends FormValidifier

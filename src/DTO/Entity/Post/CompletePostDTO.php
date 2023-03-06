@@ -1,9 +1,10 @@
 <?php
 
-namespace Blog\DTO\Entitie\Post;
+namespace Blog\DTO\Entity\Post;
 
 use Blog\Entity\Post;
 use Blog\Service\CommentService;
+use Blog\DTO\Entity\Post\PostDTO;
 
 class CompletePostDTO extends PostDTO
 {
@@ -15,7 +16,7 @@ class CompletePostDTO extends PostDTO
     public string $content;
 
 
-    public function __construct(Post $post,$comments)
+    public function __construct(Post $post, $comments)
     {
         parent::__construct($post);
         $this->content = $post->getContent();

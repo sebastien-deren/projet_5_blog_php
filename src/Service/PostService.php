@@ -2,22 +2,15 @@
 
 namespace Blog\Service;
 
-use Blog\Enum\CommentStatus;
-use Blog\Service\CommentService;
-use Blog\DTO\Post\PostDisplayDTO;
 use Blog\Entity\Post;
-use Blog\Entity\Comment;
-use Blog\DTO\Post\PostDTO;
-use Blog\DTO\Post\ListPostDTO;
-use Blog\DTO\Comment\CommentDTO;
-use Blog\DTO\Post\CreatePostDTO; 
+use Blog\Enum\CommentStatus;
 use Blog\DTO\Post\SinglePostDTO;
-use Blog\Service\Interface\Getter;
+use Blog\DTO\Entity\Post\PostDTO;
 use Blog\DTO\Form\Post\PostCreationDTO;
-use Blog\DTO\Entitie\Comment\CommentDTO;
+use Blog\DTO\Entity\Comment\CommentDTO;
 use Doctrine\ORM\EntityManagerInterface;
-use Blog\DTO\Entitie\Post\CompletePostDTO;
-use Blog\DTO\Entitie\Post\PostModerationDTO;
+use Blog\DTO\Entity\Post\CompletePostDTO;
+use Blog\DTO\Entity\Post\PostModerationDTO;
 
 
 class PostService
@@ -25,7 +18,7 @@ class PostService
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function createPost(CreatePostDTO $postToCreate, int $userId): int 
+    public function createPost(PostCreationDTO $postToCreate, int $userId): int 
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);

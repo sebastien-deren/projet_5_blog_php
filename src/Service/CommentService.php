@@ -10,7 +10,7 @@ use Blog\Entity\Comment;
 use Blog\Enum\CommentStatus;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Blog\DTO\Entitie\Comment\CommentDTO;
+use Blog\DTO\Entity\Comment\CommentDTO;
 use Doctrine\Persistence\ObjectRepository;
 use Blog\DTO\Form\Comment\CommentCreationDTO;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -66,12 +66,8 @@ class CommentService
      */
     public static function createDTO(Comment $comment): CommentDTO
     {
-        $commentDTO = new CommentDTO;
-        $commentDTO->content = $comment->getContent();
-        $commentDTO->author = $comment->getUser()->getFullName();
-        $commentDTO->date = $comment->getDate()->format("Y-m-d H:i:s");
-        $commentDTO->id = $comment->getId();
-        return $commentDTO;
+        return new CommentDTO($comment);
+    }
     public static function getInCollection(ArrayCollection $comments){
 
         $creationDTO = fn($comment)=> new CommentDTO($comment);

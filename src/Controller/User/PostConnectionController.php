@@ -2,10 +2,9 @@
 
 namespace Blog\Controller\User;
 
-use Blog\Form\LoginForm;
+use Blog\Form\User\LoginForm;
 use Blog\Service\UserService;
 use Blog\DTO\Form\User\LoginDTO;
-use Blog\Controller\AbstractController;
 use Blog\Exception\FormException;
 
 class PostConnectionController extends ConnectionController

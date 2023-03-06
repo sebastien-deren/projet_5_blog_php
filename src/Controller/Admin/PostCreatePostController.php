@@ -3,9 +3,9 @@
 namespace Blog\Controller\Admin;
 
 use Blog\Service\PostService;
-use Blog\DTO\Post\CreatePostDTO;
 use Blog\Exception\FormException;
 use Blog\Form\Post\CreatePostForm;
+use Blog\DTO\Form\Post\PostCreationDTO;
 
 class PostCreatePostController extends CreatePostController
 {

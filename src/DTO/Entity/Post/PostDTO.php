@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\DTO\Entitie\Post;
+namespace Blog\DTO\Entity\Post;
 
 use Blog\Entity\Post;
 //not to be confused with single Post DTO who will display a lot more

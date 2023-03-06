@@ -3,7 +3,7 @@
 namespace Blog\Form\Mail;
 
 use Error;
-use Blog\DTO\Mail\MailDTO;
+use Blog\DTO\Form\Mail\MailDTO;
 use Blog\Exception\FormException;
 use Blog\Form\Abstracts\ValidData;
 use Blog\Form\Abstracts\FormValidifier;
