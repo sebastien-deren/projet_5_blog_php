@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Blog\Entity;
 
 use Blog\Enum\RoleEnum;
-use Blog\Form\ValidData;
 use Doctrine\ORM\Mapping\Id;
+use Blog\DTO\User\RegisterDTO;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Table;
@@ -51,24 +51,23 @@ class User
         $this->setRole($registerDTO->role);
         $this->setFirstname($registerDTO->firstName);
         $this->setLastname($registerDTO->lastName);
-
     }
 
-    public function checkPassword(string $password)
+    public function checkPassword(string $password): bool
     {
-        return \password_verify($password,$this->password);
+        return \password_verify($password, $this->password);
     }
-    public function setPassword(string $password):User
+    public function setPassword(string $password): User
     {
         $this->password = password_hash($password, \PASSWORD_DEFAULT);
 
         return $this;
     }
-    public function getLogin()
+    public function getLogin(): string
     {
         return $this->login;
     }
-    public function setLogin(string $login):User
+    public function setLogin(string $login): User
     {
         if (!ValidData::login($login)) {
             throw new \InvalidArgumentException("your login cannot contain spaces");
@@ -77,12 +76,12 @@ class User
 
         return $this;
     }
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname):User
+    public function setFirstname(string $firstname): User
     {
         if (null !== $firstname) {
             $this->firstname = $firstname;
@@ -90,11 +89,11 @@ class User
 
         return $this;
     }
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
-    public function setLastname(string $lastname):User
+    public function setLastname(string $lastname): User
     {
         if (null !== $lastname) {
             $this->lastname = $lastname;
@@ -102,14 +101,15 @@ class User
 
         return $this;
     }
-    public function getFullName(){
-        return $this->firstname." ".$this->lastname;
+    public function getFullName(): string
+    {
+        return $this->firstname . " " . $this->lastname;
     }
-    public function getMail()
+    public function getMail(): string
     {
         return $this->mail;
     }
-    public function setMail(string $mail):User
+    public function setMail(string $mail): User
     {
         if (!ValidData::mail($mail)) {
             throw new \InvalidArgumentException('email is not a valid email!');
@@ -118,7 +118,7 @@ class User
 
         return $this;
     }
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -126,7 +126,7 @@ class User
     {
         return RoleEnum::tryfrom($this->role) ?: throw new \Exception("your role is not configured");
     }
-    public function setRole(RoleEnum $role):User
+    public function setRole(RoleEnum $role): User
     {
         $this->role = $role->value;
 

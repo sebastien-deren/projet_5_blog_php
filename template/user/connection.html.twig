@@ -2,29 +2,51 @@
 {% block title "Connection" %}
 {% block content %}
 	<div class="container-lg border border-light rounded">
-		{% if error %}
-			<h2>{{error.code}}</h2>
-			<h3>
-				{{error.message}}</h3>
-		{% endif %}
-		<h1>vous êtes bien sur la page de Connection</h1>
-		<form action="" method="post" class="mt-3 ms-2">
-        <input type="hidden" name="token" value="{{ csrfToken }}">
+        {% include "composant/error.html.twig" %}
+		<div class="row justify-content-center form">
 
-			<div class="mb-3">
-				<label for="username" class="form-label">Username</label>
-				<input type="text" class="form-control" name="login" id="username" aria-describedby="helpId" placeholder="" required>
-				<small id="helpId" class="form-text text-muted">votre pseudo sur notre site, ou votre email</small>
-			</div>
-			<div class="mb-3">
-				<label for="password" class="form-label">Password</label>
-				<input type="password" class="form-control" name="password" id="password" placeholder="" required>
-			</div>
-            <button type="submit" class="btn btn-primary">login</button>
+			<div class="col-xl-10 col-lg-12 col-md-9">
 
-			<p>
-				<a href="FORGOT_PASSWORDURL">Forgot your password?</a>
-			</p>
-		</form>
-	</div>
-{% endblock %}
+				<div class="card o-hidden border-0  shadow-lg my-5">
+					<div
+						class="bg-light card-body rounded  border-0 p-0">
+						<!-- Nested Row within Card Body -->
+						<div class="row">
+							<div class="col-lg-6 d-none d-lg-block  rounded-start bg-login-image"></div>
+							<div class="col-lg-6">
+								<div class="p-5">
+									<div class="text-center">
+										<h1 class="h4 text-gray-900 mb-4">Connectez vous!</h1>
+									</div>
+									<form action="" method="post" class="mt-3 ms-2 user form-post row" onsubmit="connection(event)">
+										<input type="hidden" name="token" value="{{ csrfToken }}">
+										<div class="form-group ">
+											<label for="username" class="form-label">Username</label>
+											<input type="text" class="form-control form-control-user" name="login" id="username" aria-describedby="helpId" placeholder="" required>
+                                            <div id="loginmessage"></div>
+                                        </div>
+										<div class="form-group">
+											<div class="mb-3">
+												<label for="password" class="form-label">Password</label>
+												<input type="password" class="form-control form-control-user" name="password" id="password" placeholder="" required>
+											</div>
+										</div>
+                                        <hr class="form-separator-user">
+                                        <div class="form-group d-grid gap-2">
+										<button class="btn btn-primary btn-user ">Se connecter</button>
+                                        </div>
+									</form>
+									<hr>
+									<div class="text-center">
+										<a class="small" href="/register">Create an Account!</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+        <script src="/Javascript/Form/connection.js"></script>
+	{% endblock %}

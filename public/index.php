@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 use Blog\Service\UserService;
 use Blog\Controller\ErrorController;
 
@@ -15,15 +16,14 @@ require_once(dirname(__FILE__) . '/../bootstrap.php');
  */
 
 
-if(isset($_SESSION['id'])){
-    $userService =UserService::getService($entityManager);
-    $twig->addGlobal('user',$userService->display($_SESSION['id']));
+if (isset($_SESSION['id'])) {
+    $userService = UserService::getService($entityManager);
+    $twig->addGlobal('user', $userService->display($_SESSION['id']));
 }
 
-try{
+try {
     echo $router->getController()->execute();
-}
-catch( \ErrorException $e){
-        $controllerErreur = new ErrorController($twig,$entityManager,$e);
-        echo $controllerErreur->execute();
+} catch (\Exception $e) {
+    $controllerErreur = new ErrorController($twig, $entityManager, $e);
+    echo $controllerErreur->execute();
 }

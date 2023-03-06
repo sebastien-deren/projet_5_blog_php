@@ -27,6 +27,7 @@ use Blog\Controller\Admin\PostCommentModerationController;
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
+
 /*creation of our entity manager*/
 $paths = [dirname(__FILE__) . '/src/Entity'];
 $isDevMode = true;
@@ -52,6 +53,7 @@ $loader->addPath($dir_template . "/user", "user");
 $loader->addPath($dir_template . "/blog", "blog");
 $twig = new Environment($loader, ['debug' => true]);
 $twig->addExtension(new \Twig\Extension\DebugExtension);
+$twig->addGlobal("CSS",'blog/css');
 
 
 /* creation of our router*/

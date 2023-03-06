@@ -2,11 +2,16 @@
 
 namespace Blog\Service;
 
-use Blog\Entity\Post;
 use Blog\Enum\CommentStatus;
-
 use Blog\Service\CommentService;
-use Blog\DTO\Entitie\Post\PostDTO;
+use Blog\DTO\Post\PostDisplayDTO;
+use Blog\Entity\Post;
+use Blog\Entity\Comment;
+use Blog\DTO\Post\PostDTO;
+use Blog\DTO\Post\ListPostDTO;
+use Blog\DTO\Comment\CommentDTO;
+use Blog\DTO\Post\CreatePostDTO; 
+use Blog\DTO\Post\SinglePostDTO;
 use Blog\Service\Interface\Getter;
 use Blog\DTO\Form\Post\PostCreationDTO;
 use Blog\DTO\Entitie\Comment\CommentDTO;
@@ -20,7 +25,7 @@ class PostService
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function CreatePost(PostCreationDTO $postToCreate,int $userId): int
+    public function createPost(CreatePostDTO $postToCreate, int $userId): int 
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);
@@ -31,10 +36,10 @@ class PostService
     /**
      * @return SinglePostDTO
      */
-    public function getSingle($id): CompletePostDTO
+    public function getSingle(int $id): CompletePostDTO 
     {
         $singlePost = $this->entityManager->find(Post::class, $id);
-        return new CompletePostDTO($singlePost,$this->getComment($singlePost,CommentStatus::Approved));
+        return new CompletePostDTO($singlePost, $this->getComment($singlePost, CommentStatus::Approved)); 
     }
     /**
      * @return array<PostDTO>
@@ -42,7 +47,7 @@ class PostService
     public function getAll(): array
     {
         $postrepository = $this->entityManager->getRepository(Post::class);
-        $posts = $postrepository->findAll() ;
+        $posts = $postrepository->findAll();
         $constructor = fn (Post $post) =>  new PostDTO($post);
         return  \array_map($constructor(...), $posts);
     }
