@@ -12,7 +12,7 @@ class SupressPostController extends AdminController
     public function execute(): null
     {
         $postService = new PostService($this->entityManager);
-        $postService->delete($_GET["id"]);  
+        $postService->delete((int)$_GET["id"]);  
         \header("location: /admin/listpost");   
         return null;
     }
