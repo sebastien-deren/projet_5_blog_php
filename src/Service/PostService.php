@@ -94,6 +94,7 @@ class PostService
         if ($postUpdate->excerpt !== $postStocked->getExcerpt()) {
             $postStocked->setExcerpt($postUpdate->excerpt);
         }
-        return $this->entityManager->flush();
+        $this->entityManager->flush();
+        return;
     }
 }
