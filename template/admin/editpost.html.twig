@@ -3,23 +3,39 @@
 {% block content %}
 	<div class="postList" data-posts="{{posts.listPost|json_encode}}"></div>
 	<div class="container-lg">
-    {% for post in posts %}
-      <a href="/admin/post?id={{post.id}}" class="card">
-      <form >		
-      
-      <div class="row">
-          <div class="col">
-              <h2 class="text-center">{{post.title}}</h2>
-          </div>
-          <div class="col">
-              <h2>{{post.author}}
-              </h2>
-              <h4>{{post.date}}<h4></div>
-                  <h3>{{post.excerpt}}</h3>
-              </div>
-          </a>
-          </form>
-          </a>`
-        {% endfor %}
+		{% for post in posts %}
+			<div class="card text-dark my-4 px-2" name="post">
+				<div class="text-center">
+					<h2 class="text-center">{{post.title}}</h2>
+				</div>
+				<div class="row ">
+					<div class="col">
+						<h2>{{post.author}}
+						</h2>
+					</div>
+					<div class="col">
+						<h4>{{post.date}}</h4>
+					</div>
+				</div>
+				<div class="row">
+					<h3>{{post.excerpt}}</h3>
+				</div>
+				<div class="row my-2">
+					<div class="d-grid gap-2 col">
+						<a type="button" name="edit" href="/admin/post?id={{post.id}}" class="btn btn-primary">edit</a>
+					</div>
+					<div class="d-grid gap-2 col">
+						<button type="button" name="suppress" id="{{post.id}}" onclick="suppress({{post.id}},'{{post.title}}')" class="btn btn-primary">suppress</button>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
 	</div>
+	<script type="text/javascript">
+		function suppress(id, title){
+            if(confirm("êtes vous sur de vouloir supprimmer le post :\"" + title + "\" ?")){
+                window.location="/admin/supress_post?id="+id;
+            }
+        }
+	</script>
 {% endblock %}
