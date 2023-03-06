@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Blog\Form\Comment;
 
 use Blog\Exception\FormException;
-use Blog\DTO\Comment\CreateComment;
 use Blog\Form\Abstracts\FormValidifier;
+use Blog\DTO\Form\Comment\CommentCreationDTO;
 
 class CommentForm extends FormValidifier
 {
@@ -15,12 +15,12 @@ class CommentForm extends FormValidifier
     /**
      * construction of our CommentForm
      *
-     * @param CreateComment $DTO A DTO object
+     * @param CommentCreationDTO $DTO A DTO object
      * @param array $data the $_POST data
      *
      * @return void
      */
-    public function __construct(CreateComment $DTO, array $data)
+    public function __construct(CommentCreationDTO $DTO, array $data)
     {
         $this->DTO = $DTO;
         parent::__construct($data);
