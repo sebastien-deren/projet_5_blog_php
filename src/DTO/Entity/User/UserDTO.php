@@ -11,6 +11,7 @@ class UserDTO
     public string $lastname;
     public string $login;
     public string $email;
+    public int $id;
     public RoleEnum $role;
     public function __construct(User $user)
     {
@@ -18,6 +19,7 @@ class UserDTO
         $this->lastname = $user->getLastname();
         $this->login = $user->getlogin();
         $this->role = $user->getRole();
+        $this->id= $user->getId();
         $this->email = $user->getMail();
     }
 }

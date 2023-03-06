@@ -12,7 +12,6 @@ use Blog\Exception\FormException;
 use Blog\DTO\Entity\User\UserDTO;
 use Doctrine\ORM\EntityRepository;
 use Blog\DTO\Form\User\RegisterDTO;
-use Blog\Enum\RoleEnum;
 use Doctrine\Persistence\ObjectRepository;
 
 
@@ -72,9 +71,8 @@ class UserService
          $user = $this->entityManager->find(User::class, $id);
          return $user;
     }
-    public function display(User $user): UserToDisplayDTO
+    public function display(User $user): UserDTO
     {
-        $user = $this->entityManager->find(User::class, $id);
         return new UserDTO($user);
     }
     public function getRole(int $id): RoleEnum

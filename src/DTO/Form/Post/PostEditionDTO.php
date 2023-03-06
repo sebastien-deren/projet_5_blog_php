@@ -1,6 +1,6 @@
 <?php
-namespace Blog\DTO\Post;
-class UpdatePostDTO{
+namespace Blog\DTO\Form\Post;
+class PostEditionDTO{
     public string $title;
     public string $content;
     public int $authorId;
