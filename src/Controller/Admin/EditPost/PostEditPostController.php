@@ -1,12 +1,9 @@
 <?php
 
-namespace Blog\Controller\Admin;
+namespace Blog\Controller\Admin\EditPost;
 
 use Blog\DTO\Form\Post\PostEditionDTO;
-use Blog\DTO\Post\PostDTO;
 use Blog\Service\PostService;
-use Blog\DTO\Post\SinglePostDTO;
-use Blog\DTO\Post\UpdatePostDTO;
 use Blog\Form\Post\EditPostValidifier;
 
 class PostEditController extends EditController

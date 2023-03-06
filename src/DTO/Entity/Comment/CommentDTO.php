@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blog\DTO\Entity\Comment;
 
+use Blog\Controller\Traits\Token;
 use Blog\Entity\Comment;
 
 class CommentDTO

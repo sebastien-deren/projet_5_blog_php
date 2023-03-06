@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blog\Controller\Blog;
 
+use Blog\Controller\Traits\Token;
 use Blog\Service\CommentService;
 use Blog\Form\Comment\CommentForm;
 use Blog\Exception\FormException;

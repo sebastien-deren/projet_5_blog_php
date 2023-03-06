@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Blog\Controller\Admin;
+namespace Blog\Controller\Admin\EditPost;
 
 use Blog\Service\PostService;
-use Blog\Controller\Admin\ListPostController;
-use Doctrine\ORM\EntityNotFoundException;
+use Blog\Controller\Admin\AdminController;
 
 class SupressPostController extends AdminController
 {

@@ -17,7 +17,7 @@
 								<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
 							</div>
 							<form action="" method="post" class="user form-post row needs-validation" name="registerForm" onsubmit="register(event)" no-validate>
-								<input type="hidden" name="token" value="{{ csrfToken }}">
+								<input type="hidden" name="csrfToken" value="{{ csrfToken }}">
 								<div class="form group">
 									<input class="form-control form-control-user col-lg" type="text" name="login" id="login" placeholder="Login">
 									<div id="loginhelp" class="form-text ps-2"></div>
