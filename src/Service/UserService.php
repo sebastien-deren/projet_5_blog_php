@@ -21,7 +21,6 @@ class UserService
     private static ?UserService $_userService = null;
     private User $user;
     private ObjectRepository|EntityRepository $repoUser;
-    //pass it to private when refactoring register
     private function __construct(private EntityManager $entityManager)
     {
         $this->repoUser = $this->entityManager->getRepository(User::class);
@@ -76,7 +75,7 @@ class UserService
         return $this->entityManager->find(User::class, $id);
     }
     /**
-     * @return array<UserToDisplay>
+     * @return array<UserDTO>
      * 
      */
     public function getAdmins(): array

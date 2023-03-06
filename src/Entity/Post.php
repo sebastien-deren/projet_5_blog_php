@@ -96,48 +96,31 @@ class Post
         return (new arrayCollection($this->comment->toArray()))->matching($criteria);
     }
 
-    /**
-     * Set the value of excerpt
-     *
-     * @return  self
-     */
-    public function setExcerpt($excerpt): Post
+
+    public function setExcerpt(string $excerpt): Post
     {
         $this->excerpt = $excerpt;
 
         return $this;
     }
 
-    /**
-     * Set the value of content
-     *
-     * @return  self
-     */
-    public function setContent($content): Post
+
+    public function setContent(string $content): Post
     {
         $this->content = $content;
 
         return $this;
     }
 
-    /**
-     * Set the value of date
-     *
-     * @return  self
-     */
-    public function setDate($date): Post
+    public function setDate(\DateTime $date): Post
     {
         $this->date = $date;
 
         return $this;
     }
 
-    /**
-     * Set the value of user
-     *
-     * @return  self
-     */
-    public function setUser($user): Post
+
+    public function setUser(User $user): Post
     {
         if ($user === null) {
             return $this;
@@ -147,12 +130,7 @@ class Post
         return $this;
     }
 
-    /**
-     * Set the value of title
-     *
-     * @return  self
-     */
-    public function setTitle($title): Post
+    public function setTitle(string $title): Post
     {
         $this->title = $title;
 
