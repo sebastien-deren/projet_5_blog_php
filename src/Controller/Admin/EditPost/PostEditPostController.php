@@ -6,7 +6,7 @@ use Blog\DTO\Form\Post\PostEditionDTO;
 use Blog\Service\PostService;
 use Blog\Form\Post\EditPostValidifier;
 
-class PostEditController extends EditController
+class PostEditPostController extends EditPostController
 {
     public function execute(): string
     {
