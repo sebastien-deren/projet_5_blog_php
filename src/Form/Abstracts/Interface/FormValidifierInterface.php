@@ -2,7 +2,7 @@
 
 namespace Blog\Form\Abstracts\Interface;
 
-interface FormValidifier
+interface FormValidifierInterface
 {
     public function validify(): object;
 }

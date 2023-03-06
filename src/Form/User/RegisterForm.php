@@ -14,7 +14,7 @@ class RegisterForm extends FormValidifier
         $this->DTO = $RegisterDTO;
         parent::__construct($data);
     }
-    protected function createDTO()
+    protected function createDTO(): void
     {
         //we'd prefer to not encapsulate our function but if not this will trigger our linter
         $this->DTO->mail = \htmlspecialchars($this->data['mail']);
@@ -27,7 +27,7 @@ class RegisterForm extends FormValidifier
         $this->DTO->firstName = \htmlspecialchars($this->data['firstname']);
         $this->DTO->lastName = \htmlspecialchars($this->data['lastname']);
     }
-    protected function checkingRequired()
+    protected function checkingRequired(): void
     {
         if (empty($this->data["login"])) {
             throw new FormException('le nom d\'utilisateur n\'ai pas rempli');

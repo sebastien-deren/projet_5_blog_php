@@ -21,14 +21,14 @@ class CommentModerationForm extends FormValidifier
         $this->DTO = $DTO;
     }
 
-    protected function createDTO()
+    protected function createDTO(): void
     {
         foreach ($this->data['id'] as $idComment) {
             $CommentDTO = new CommentModerationDTO(\intval($idComment));
             $this->DTO->commentsToModerate[] = $CommentDTO;
         }
     }
-    protected function checkingRequired()
+    protected function checkingRequired(): void
     {
         isset($this->data['id']) ?: throw new FormException("veuillez selectionner au moins un commentaire a modérer");
         foreach (CommentStatus::cases() as $case) {

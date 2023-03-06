@@ -34,7 +34,7 @@ class CommentForm extends FormValidifier
      *
      * @throws FormException
      */
-    protected function checkingRequired()
+    protected function checkingRequired(): void
     {
         $countline = substr_count($this->data['content'], "\n");
         $countchar = \strlen($this->data['content']) - $countline;
@@ -57,7 +57,7 @@ class CommentForm extends FormValidifier
      *
      * @return void
      */
-    protected function createDTO()
+    protected function createDTO(): void
     {
         $this->DTO->content = $this->data['content'];
         $this->DTO->postId = (int)($this->data['idPost']);

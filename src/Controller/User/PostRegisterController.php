@@ -13,7 +13,7 @@ class PostRegisterController extends RegisterController{
     {
         try{
             $registerDTO = $this->validateFormIntoDTO($_POST);
-            $this->CreateUser($registerDTO);
+            $this->createUser($registerDTO);
         }
         catch(FormException $e){
             $this->argument['error']= $e;
@@ -24,12 +24,12 @@ class PostRegisterController extends RegisterController{
         return null;
 
     }
-    private function validateFormIntoDTO($data): RegisterDTO
+    private function validateFormIntoDTO(array $data): RegisterDTO
     {
         $formValidifier = new RegisterForm(new RegisterDTO,$data);
         return $formValidifier->validify();
     }
-    private function createUser(RegisterDTO $registerDTO)
+    private function createUser(RegisterDTO $registerDTO) : void
     {
         $userService = UserService::getService($this->entityManager);
         $userService->create($registerDTO);

@@ -23,14 +23,13 @@ use Blog\DTO\Comment\CommentModerationListDTO;
 class CommentService
 {
     private static ?CommentService $_CommentService = null;
-    private Comment $comment;
     private ObjectRepository|EntityRepository $repoComment;
     private function __construct(private EntityManager $entityManager)
     {
         $this->repoComment = $this->entityManager->getRepository(Comment::class);
     }
 
-    public static function getService($entityManager)
+    public static function getService(EntityManager $entityManager): CommentService
     {
         if (is_null(self::$_CommentService)) {
             self::$_CommentService = new CommentService($entityManager);
@@ -50,7 +49,7 @@ class CommentService
         return ["number" => count($commentList->commentsToModerate), "method" => $commentList->validity->value];
     }
 
-    public function create(CreateComment $objecttoCreate, int $userId)
+    public function create(CreateComment $objecttoCreate, int $userId): void
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $blogPost = $this->entityManager->find(Post::class, $objecttoCreate->postId);

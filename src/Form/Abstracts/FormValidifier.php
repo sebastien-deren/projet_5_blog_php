@@ -1,15 +1,16 @@
 <?php
+
 namespace Blog\Form\Abstracts;
 
-use Blog\Form\Abstracts\Interface\FormValidifier as InterfaceFormValidifier;
+use Blog\Form\Abstracts\Interface\FormValidifierInterface;
 
 
-abstract class FormValidifier implements InterfaceFormValidifier
+abstract class FormValidifier implements FormValidifierInterface
 {
-    
-    protected object $DTO;// i'd like to infer a type here like this object is of type <T> and then when declared boom it's the DTO i want
-    
-    
+
+    protected object $DTO; // i'd like to infer a type here like this object is of type <T> and then when declared boom it's the DTO i want
+
+
     /**
      * create a FormValidifier with _POST in $data
      *
@@ -19,17 +20,16 @@ abstract class FormValidifier implements InterfaceFormValidifier
      */
     public function __construct(protected array $data)
     {
-        
     }
-    
+
     /**
      * We check all our datas and send back a DTO
      * 
-     * @return object(A DTO) 
+     * @return object(DTO) 
      */
-    public function validify():object
+    public function validify(): object
     {
-        $this->TokenValidation();
+        $this->tokenValidation();
         $this->checkingRequired();
         $this->createDTO();
         return $this->DTO;
@@ -43,13 +43,12 @@ abstract class FormValidifier implements InterfaceFormValidifier
      *
      * @return void
      */
-    protected function TokenValidation()
+    protected function tokenValidation(): void
     {
         if (!$this->data['token'] || ($this->data['token'] !== $_SESSION['token'])) {
             throw new \Exception("Method not allowed", 405);
         }
     }
-    abstract protected function checkingRequired();
-    abstract protected function createDTO();
-    
+    abstract protected function checkingRequired(): void;
+    abstract protected function createDTO(): void;
 }

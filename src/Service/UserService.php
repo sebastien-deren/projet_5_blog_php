@@ -13,13 +13,16 @@ use Blog\Exception\FormException;
 use Blog\Service\Interface\Logger;
 use Doctrine\ORM\EntityRepository;
 use Blog\DTO\User\UserToDisplayDTO;
+use Blog\Enum\RoleEnum;
 use Blog\Service\Interface\Creater;
 use Blog\Service\Interface\Displayer;
 use Doctrine\Persistence\ObjectRepository;
 use Blog\Exception\UniqueKeyViolationException;
+use Blog\Service\Interface\DisplayerInterface;
+use Blog\Service\Interface\LoggerInterface;
+use Exception;
 
-
-class UserService implements Logger, Displayer //Updater, Deleter
+class UserService implements LoggerInterface, DisplayerInterface //Updater, Deleter
 {
     private static ?UserService $_userService = null;
     private User $user;
@@ -29,18 +32,15 @@ class UserService implements Logger, Displayer //Updater, Deleter
     {
         $this->repoUser = $this->entityManager->getRepository(User::class);
     }
-    public static function getService($entityManager)
+    public static function getService(EntityManager $entityManager): UserService
     {
         if (is_null(self::$_userService)) {
             self::$_userService = new UserService($entityManager);
         }
         return self::$_userService;
     }
-    public function create($registerDTO)
+    public function create(RegisterDTO $registerDTO): void
     {
-        if (!($registerDTO instanceof RegisterDTO)) {
-            throw new \Exception("Internal Server Error", 500);
-        }
         $this->uniqueKeyChecker([
             "mail" => $registerDTO->mail,
             "login" => $registerDTO->login
@@ -49,7 +49,7 @@ class UserService implements Logger, Displayer //Updater, Deleter
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
     }
-    private function uniqueKeyChecker(array $KeyToCheck)
+    private function uniqueKeyChecker(array $KeyToCheck): void
     {
         $uniqueKeyViolationMsg = "";
         foreach ($KeyToCheck as $columnName => $columnValue) {
@@ -84,12 +84,12 @@ class UserService implements Logger, Displayer //Updater, Deleter
         $userDTO->email = $user->getMail();
         return $userDTO;
     }
-    public function getRole($id)
+    public function getRole(int $id): RoleEnum
     {
         return $this->getUser($id)->getRole();
     }
-    public function getUser($id)
+    public function getUser(int $id): User
     {
-        return $this->entityManager->find(User::class, $id);
+        return $this->entityManager->find(User::class, $id) ?? throw new Exception("no User with id" . (string)$id);
     }
 }

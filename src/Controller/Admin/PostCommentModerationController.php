@@ -14,8 +14,8 @@ class PostCommentModerationController extends CommentModerationController
     {
 
         try {
-            $commentsValidifier = new CommentModerationForm(new CommentModerationListDTO,$_POST);
-            $commentArray =$commentsValidifier->validify();
+            $commentsValidifier = new CommentModerationForm(new CommentModerationListDTO, $_POST);
+            $commentArray = $commentsValidifier->validify();
             $commentService = CommentService::getService($this->entityManager);
             $modification = $commentService->moderateComments($commentArray);
 

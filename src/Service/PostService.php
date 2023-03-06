@@ -10,7 +10,7 @@ use Blog\Entity\Comment;
 use Blog\DTO\Post\PostDTO;
 use Blog\DTO\Post\ListPostDTO;
 use Blog\DTO\Comment\CommentDTO;
-use Blog\DTO\Post\createPostDTO;
+use Blog\DTO\Post\CreatePostDTO;
 use Blog\DTO\Post\SinglePostDTO;
 use Blog\Service\Interface\Getter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +21,7 @@ class PostService
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function CreatePost(CreatePostDTO $postToCreate, int $userId): int
+    public function createPost(CreatePostDTO $postToCreate, int $userId): int
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);
@@ -32,7 +32,7 @@ class PostService
     /**
      * @return SinglePostDTO
      */
-    public function getSingle($id): SinglePostDTO
+    public function getSingle(int $id): SinglePostDTO
     {
         $singlePost = $this->entityManager->find(Post::class, $id);
         return new SinglePostDTO($singlePost, $this->getComment($singlePost, CommentStatus::Approved));

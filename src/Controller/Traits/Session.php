@@ -4,7 +4,7 @@ namespace Blog\Controller\Traits;
 
 class Session
 {
-    public static function addElement(array $data)
+    public static function addElement(array $data) : void
     {
         $_SESSION['ipAddress'] = $_SERVER['REMOTE_ADDR'];
         $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
