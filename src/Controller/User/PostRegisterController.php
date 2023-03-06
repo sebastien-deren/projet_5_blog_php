@@ -2,35 +2,34 @@
 
 namespace Blog\Controller\User;
 
-use Blog\Form\RegisterForm;
 use Blog\Service\UserService;
 use Blog\DTO\User\RegisterDTO;
-use Blog\Controller\AbstractController;
-use Exception;
+use Blog\Form\User\RegisterForm;
+use Blog\Exception\FormException;
 
 
-class PostRegisterController extends AbstractController{
+class PostRegisterController extends RegisterController{
     public function execute():?string
     {
         try{
             $registerDTO = $this->validateFormIntoDTO($_POST);
-            
-            $this->CreateUser($registerDTO);
+            $this->createUser($registerDTO);
         }
-        catch(\Exception $e){
-            throw new Exception($e->getMessage(),$e->getCode());
+        catch(FormException $e){
+            $this->argument['error']= $e;
+            return parent::execute();
         }
         
         header("location: /connection");
         return null;
 
     }
-    private function validateFormIntoDTO($data): RegisterDTO
+    private function validateFormIntoDTO(array $data): RegisterDTO
     {
-        $formValidifier = new RegisterForm(new RegisterDTO);
-        return $formValidifier->validify($data);
+        $formValidifier = new RegisterForm(new RegisterDTO,$data);
+        return $formValidifier->validify();
     }
-    private function createUser(RegisterDTO $registerDTO)
+    private function createUser(RegisterDTO $registerDTO) : void
     {
         $userService = UserService::getService($this->entityManager);
         $userService->create($registerDTO);

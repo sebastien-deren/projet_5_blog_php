@@ -6,7 +6,8 @@
         "psr-4": {
             "Blog\\": "src/",
             "templates\\": "templates/",
-            "Test\\":"Test/"
+            "Test\\":"Test/",
+            "Migrations\\":"Migrations/"
         }
     },
     "authors": [
@@ -24,6 +25,7 @@
         "symfony/cache": "^6.2",
         "doctrine/collections": "^2.1",
         "php-di/php-di": "^7.0",
-        "symfony/asset": "^6.2"
+        "symfony/asset": "^6.2",
+        "doctrine/migrations": "^3.6"
     }
 }

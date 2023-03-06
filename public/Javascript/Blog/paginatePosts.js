@@ -16,7 +16,7 @@ function displayPost(posts) {
             <a class="btn btn-primary" href="/blog/post?id=${id}">Read more →</a>
         </div>
     </div>
-    </div>`
+    </div>`;
     sectionFiches.insertAdjacentHTML("beforeend", html);
   });
 }

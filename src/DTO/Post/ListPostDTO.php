@@ -1,5 +1,8 @@
 <?php
+
 namespace Blog\DTO\Post;
-class ListPostDTO{
+
+class ListPostDTO
+{
     public array $listPost;
 }
