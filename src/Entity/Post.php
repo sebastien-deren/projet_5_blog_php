@@ -37,7 +37,7 @@ class Post
     #[ManyToOne(targetEntity: User::class, inversedBy: 'post')]
     #[JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private User $user;
-    #[OneToMany(mappedBy: 'post', targetEntity: Comment::class,cascade:['remove'])]
+    #[OneToMany(mappedBy: 'post', targetEntity: Comment::class, cascade: ['remove'])]
     private Collection $comment;
 
     public function __construct(User $user, string $content, string $title, string $excerpt)
@@ -100,8 +100,8 @@ class Post
      * Set the value of excerpt
      *
      * @return  self
-     */ 
-    public function setExcerpt($excerpt)
+     */
+    public function setExcerpt($excerpt): Post
     {
         $this->excerpt = $excerpt;
 
@@ -112,8 +112,8 @@ class Post
      * Set the value of content
      *
      * @return  self
-     */ 
-    public function setContent($content)
+     */
+    public function setContent($content): Post
     {
         $this->content = $content;
 
@@ -124,8 +124,8 @@ class Post
      * Set the value of date
      *
      * @return  self
-     */ 
-    public function setDate($date)
+     */
+    public function setDate($date): Post
     {
         $this->date = $date;
 
@@ -136,10 +136,10 @@ class Post
      * Set the value of user
      *
      * @return  self
-     */ 
-    public function setUser($user)
+     */
+    public function setUser($user): Post
     {
-        if($user==null){
+        if ($user === null) {
             return $this;
         }
         $this->user = $user;
@@ -151,8 +151,8 @@ class Post
      * Set the value of title
      *
      * @return  self
-     */ 
-    public function setTitle($title)
+     */
+    public function setTitle($title): Post
     {
         $this->title = $title;
 

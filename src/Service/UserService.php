@@ -59,17 +59,9 @@ class UserService
 
     public function log(LoginDTO $userToLog): int
     {
-        try {
-            $user = $this->repoUser->findOneBy([$userToLog->logintype->value => $userToLog->login]) ?? throw new \Exception();
-            $user->checkPassword($userToLog->password) ?: throw new \Exception();
-        } catch (\Exception $e) {
-            throw new FormException("mot de passe ou login incorrect");
-        }
+        $user = $this->repoUser->findOneBy([$userToLog->logintype->value => $userToLog->login]) ?? throw new FormException("mot de passe ou login incorrect");
+        $user->checkPassword($userToLog->password) ?: throw new FormException("mot de passe ou login incorrect");
         return $user->getId();
-    }
-    public function findUser(int $id){
-         $user = $this->entityManager->find(User::class, $id);
-         return $user;
     }
     public function display(User $user): UserDTO
     {
@@ -79,15 +71,17 @@ class UserService
     {
         return $this->getUser($id)->getRole();
     }
-    public function getUser($id){
-        return $this->entityManager->find(User::class,$id);
+    public function getUser(int $id): User
+    {
+        return $this->entityManager->find(User::class, $id);
     }
-        /**
+    /**
      * @return array<UserToDisplay>
      * 
      */
-    public function getAdmins():array{
-        $users = $this->repoUser->findBy(["role"=>RoleEnum::ADMIN]);
-        return \array_map($this->display(...),$users);
+    public function getAdmins(): array
+    {
+        $users = $this->repoUser->findBy(["role" => RoleEnum::ADMIN]);
+        return \array_map($this->display(...), $users);
     }
 }

@@ -9,7 +9,7 @@ use Blog\Form\Abstracts\FormValidifier;
 
 class EditPostValidifier extends FormValidifier
 {
-    public function __construct(PostEditionDTO $Dto, $data)
+    public function __construct(PostEditionDTO $Dto,array $data)
     {
         $this->DTO = $Dto;
         parent::__construct($data);

@@ -55,7 +55,7 @@ class PostService
         return $array;
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $post = $this->entityManager->find(Post::class, $id) ?? throw new FormException("post not found");
         $this->entityManager->remove($post);
