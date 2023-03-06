@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Blog\DTO\Comment;
+namespace Blog\DTO\Form\Comment;
 
 use Blog\DTO\AbstractDTO;
 use Blog\Enum\CommentStatus;
-use Blog\DTO\Comment\CommentModerationDTO;
 
-class CommentModerationListDTO extends AbstractDTO
+class CommentModerationListDTO
 {
+    /**
+     * @var array<int(commentid)>
+     */
     public array $commentsToModerate;
     public CommentStatus $validity;
 }

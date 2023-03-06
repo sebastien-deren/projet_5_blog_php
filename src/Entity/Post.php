@@ -8,7 +8,6 @@ use DateTime;
 use Blog\Enum\CommentStatus;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
-use Blog\Entity\ContentAbstract;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -21,7 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Expr\Comparison;
 
 #[Entity()]
-class Post extends ContentAbstract
+class Post
 {
     #[Id]
     #[Column(unique: true, updatable: false)]

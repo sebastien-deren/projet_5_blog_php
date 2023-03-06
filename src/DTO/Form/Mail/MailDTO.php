@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\DTO\Mail;
+namespace Blog\DTO\Form\Mail;
 
 class MailDTO
 {

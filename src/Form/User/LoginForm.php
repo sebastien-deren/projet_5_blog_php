@@ -3,7 +3,7 @@
 namespace Blog\Form\User;
 
 use Blog\Enum\FieldType;
-use Blog\DTO\User\LoginDTO;
+use Blog\DTO\Form\User\LoginDTO;
 use Blog\Exception\FormException;
 use Blog\Form\Abstracts\ValidData;
 use Blog\Form\Abstracts\FormValidifier;

@@ -2,11 +2,8 @@
 
 namespace Blog\Service;
 
-use Blog\DTO\Mail\MailDTO;
-
-use PHPMailer\PHPMailer\SMTP;
+use Blog\DTO\Form\Mail\MailDTO;
 use Blog\Form\Abstracts\ValidData;
-use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
 class MailService

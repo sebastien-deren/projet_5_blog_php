@@ -1,8 +1,8 @@
 <?php
 
-namespace Blog\DTO\Post;
+namespace Blog\DTO\Form\Post;
 
-class CreatePostDTO
+class PostCreationDTO
 {
     public string $title;
     public string $excerpt;

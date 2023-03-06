@@ -6,15 +6,12 @@ namespace Blog\Entity;
 
 use Blog\Enum\RoleEnum;
 use Doctrine\ORM\Mapping\Id;
-use Blog\DTO\User\RegisterDTO;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Blog\Form\Abstracts\ValidData;
+use Blog\DTO\Form\User\RegisterDTO;
 use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\Common\Collections\Collection;
 

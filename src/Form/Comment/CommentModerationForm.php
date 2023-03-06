@@ -10,7 +10,7 @@ use Blog\Enum\CommentStatus;
 use Blog\Exception\FormException;
 use Blog\Form\Abstracts\FormValidifier;
 use Blog\DTO\Comment\CommentModerationDTO;
-use Blog\DTO\Comment\CommentModerationListDTO;
+use Blog\DTO\Form\Comment\CommentModerationListDTO;
 use Symfony\Component\Console\Exception\MissingInputException;
 
 class CommentModerationForm extends FormValidifier
@@ -24,8 +24,7 @@ class CommentModerationForm extends FormValidifier
     protected function createDTO(): void
     {
         foreach ($this->data['id'] as $idComment) {
-            $CommentDTO = new CommentModerationDTO(\intval($idComment));
-            $this->DTO->commentsToModerate[] = $CommentDTO;
+            $this->DTO->commentsToModerate[] = (int)$idComment;
         }
     }
     protected function checkingRequired(): void
@@ -36,6 +35,6 @@ class CommentModerationForm extends FormValidifier
                 $this->DTO->validity = $case;
             }
         }
-        $this->DTO->validity ?? throw new \Exception("you cannot moderate comment like this");
+        $this->DTO->validity ?? throw new FormException("you cannot moderate comment like this");
     }
 }

@@ -6,7 +6,8 @@ namespace Blog\Controller\Admin;
 use Blog\Service\CommentService;
 use Blog\Exception\FormException;
 use Blog\Form\Comment\CommentModerationForm;
-use Blog\DTO\Comment\CommentModerationListDTO;
+use Blog\DTO\Form\Comment\CommentModerationListDTO;
+
 
 class PostCommentModerationController extends CommentModerationController
 {

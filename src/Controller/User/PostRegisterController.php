@@ -3,9 +3,9 @@
 namespace Blog\Controller\User;
 
 use Blog\Service\UserService;
-use Blog\DTO\User\RegisterDTO;
 use Blog\Form\User\RegisterForm;
 use Blog\Exception\FormException;
+use Blog\DTO\Form\User\RegisterDTO;
 
 
 class PostRegisterController extends RegisterController{

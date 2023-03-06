@@ -3,16 +3,16 @@
 namespace Blog\Controller\Admin;
 
 use Blog\Service\PostService;
-use Blog\DTO\Post\CreatePostDTO;
 use Blog\Exception\FormException;
 use Blog\Form\Post\CreatePostForm;
+use Blog\DTO\Form\Post\PostCreationDTO;
 
 class PostCreatePostController extends CreatePostController
 {
     public function execute(): string
     {
         try {
-            $formvalidifier = new CreatePostForm(new CreatePostDTO, $_POST);
+            $formvalidifier = new CreatePostForm(new PostCreationDTO, $_POST);
             $post = $formvalidifier->validify();
             $postService = new PostService($this->entityManager);
             $postService->createPost($post, $_SESSION['id']);

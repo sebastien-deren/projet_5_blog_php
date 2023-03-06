@@ -3,7 +3,7 @@
 namespace Blog\Form\Mail;
 
 use Error;
-use Blog\DTO\Mail\MailDTO;
+use Blog\DTO\Form\Mail\MailDTO;
 use Blog\Exception\FormException;
 use Blog\Form\Abstracts\ValidData;
 use Blog\Form\Abstracts\FormValidifier;
@@ -25,7 +25,7 @@ class MailValidifier extends FormValidifier
             throw new FormException("des champs ont été laissé vide !");
         }
         ValidData::mail($this->data['mail']) ?: throw new FormException("l'adresse mail n'est pas valide");
-        if (count($this->data['message']) < 10) {
+        if (\strlen($this->data['message']) < 10) {
             throw new FormException("le message est trop court");
         }
     }

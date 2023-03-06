@@ -2,14 +2,14 @@
 
 namespace Blog\Form\Post;
 
-use Blog\DTO\Post\CreatePostDTO;
+use Blog\DTO\Form\Post\PostCreationDTO;
 use Blog\Exception\FormException;
 use Blog\Form\Abstracts\FormValidifier;
 
 class CreatePostForm extends FormValidifier
 {
 
-    public function __construct(CreatePostDTO $DTO, array $data)
+    public function __construct(PostCreationDTO $DTO, array $data)
     {
         parent::__construct($data);
         $this->DTO = $DTO;
