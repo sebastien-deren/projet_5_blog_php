@@ -3,24 +3,22 @@
 namespace Blog\Service;
 
 use Blog\Entity\Post;
-use Blog\Entity\User;
-use Blog\DTO\Post\PostDTO;
 use Blog\Enum\CommentStatus;
-use Blog\DTO\Comment\CommentDTO;
-use Blog\DTO\Post\createPostDTO;
 use Blog\DTO\Post\SinglePostDTO;
-use Blog\DTO\Post\UpdatePostDTO;
-use Blog\Exception\UniqueKeyViolationException;
-use Blog\Service\CommentService;
+use Blog\DTO\Entity\Post\PostDTO;
+use Blog\DTO\Form\Post\PostCreationDTO;
+use Blog\DTO\Entity\Comment\CommentDTO;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityNotFoundException;
+use Blog\DTO\Entity\Post\CompletePostDTO;
+use Blog\DTO\Entity\Post\PostModerationDTO;
+
 
 class PostService
 {
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
-    public function CreatePost(CreatePostDTO $postToCreate, int $userId): int
+    public function createPost(PostCreationDTO $postToCreate, int $userId): int 
     {
         $user = UserService::getService($this->entityManager)->getUser($userId);
         $post = new Post($user, $postToCreate->content, $postToCreate->title, $postToCreate->excerpt);
@@ -31,10 +29,10 @@ class PostService
     /**
      * @return SinglePostDTO
      */
-    public function getSingle($id): SinglePostDTO
+    public function getSingle(int $id): CompletePostDTO 
     {
         $singlePost = $this->entityManager->find(Post::class, $id);
-        return new SinglePostDTO($singlePost, $this->getComment($singlePost, CommentStatus::Approved));
+        return new CompletePostDTO($singlePost, $this->getComment($singlePost, CommentStatus::Approved)); 
     }
     /**
      * @return array<PostDTO>
@@ -51,22 +49,23 @@ class PostService
     public function getPostsCommentsPending(): array
     {
         $posts = $this->entityManager->getRepository(Post::class)->findAll();
-        $createSingleDTO = fn (Post $post) => new SinglePostDTO($post, $this->getComment($post, CommentStatus::Pending));
-        return \array_map($createSingleDTO(...), $posts);
+        $createSingleDTO = fn (Post $post) => new CompletePostDTO($post,$this->getComment($post,CommentStatus::Pending));
+        $array = \array_map($createSingleDTO(...), $posts);
+        return $array;
     }
-
 
     public function delete($id){
         $post =$this->entityManager->find(Post::class, $id)??throw new EntityNotFoundException("post not found");
         $this->entityManager->remove($post);
         $this->entityManager->flush();
     }
+
     /**
      * @return array<CommentDTO>
      */
     private function getComment(Post $post, CommentStatus $status): array
     {
-        $getComment = CommentService::getService($this->entityManager)->createDTO(...);
+        $getComment = fn($comment)=> new CommentDTO($comment);
         if (CommentStatus::Pending === $status) {
             $commentList = $post->getCommentPending()->toArray();
         } elseif (CommentStatus::Approved === $status) {
@@ -74,7 +73,7 @@ class PostService
         } else {
             //if we want other comments for now:
             throw new \Exception("not possible to retrieve this comments");
-        }
+        } 
         return \array_map($getComment, $commentList);
     }
 

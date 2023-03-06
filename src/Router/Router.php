@@ -26,7 +26,7 @@ class Router
     ) {
     }
 
-    public function addPath(string $name, string $fullyQualifierController, Method $method = Method::GET)
+    public function addPath(string $name, string $fullyQualifierController, Method $method = Method::GET): void
     {
         $this->paths[] = ["name" => $name, "controller" => $fullyQualifierController, 'method' => $method];
     }
@@ -38,7 +38,7 @@ class Router
             $this->controller = $this->findController();
             return new $this->controller($this->twig, $this->entityManager);
         } catch (Exception $e) {
-            return new ErrorController($this->twig,$this->entityManager,$e);
+            return new ErrorController($this->twig, $this->entityManager, $e);
         }
     }
 

@@ -1,45 +1,64 @@
 {% extends "layout.html.twig" %}
 {% block content %}
+
 	<div class="container-lg">
 		{% if information %}
 			<h3>{{information}}</h3>
 		{% endif %}
 		{% set commmentModeration = 0 %}
+		<h1>Commentaires à modérer</h1>
 		{%for post in posts %}
 			{% if post.comments %}
 				{% set commmentModeration = 1 %}
-				<form method="post" accept-charset="UTF-8">
-					<input type="hidden" name="token" value="{{ csrfToken }}">
-					<h3>
-						Article : {{post.title}}</h3 >
-                        <p>
-						By : {{post.author}} 
-						Le : {{post.date}}</p>
+				<div class="card my-3 ">
+					<div class="card-header flex-wrap d-flex flex-column align-items-center justify-content-between dropdown-toggle " role="button" aria-controls="collapse{{post.id}}" data-bs-target="#collapse{{post.id}}" data-bs-toggle="collapse" aria-expanded="false">
+						<div class="text-center">
+							<h3>
+								{{post.title}}</h3>
+						</div>
+						<div class="mt-2 d-flex justify-content-around w-100">
+							<h5>
+								{{post.comments|length}}
+								commentaire non modéré</h5>
+							<h6>
+								By :
+								{{post.author}}
+								Le :
+								{{post.date}}
+							</h6>
+						</div>
 
-					<table class="table table-info table-striped">
-						<thead>
-							<tr class="">
-								<th scope="col" class="col-1 text-center">Select</th>
-								<th scope="col" class="col-3">author name</th>
-								<th scope="col">content</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for comment in post.comments %}
+					</div>
+					<!-- Card Body -->
+					<form method="post" accept-charset="UTF-8" class="collapse" id="collapse{{post.id}}">
+						<input type="hidden" name="token" value="{{ csrfToken }}">
+						<table class="table table-striped card-body">
+							<thead>
 								<tr class="">
-									<td scope="row " class="text-center col-1">
-										<input type="checkbox" class="form-checkbox" name="id[]" value="{{comment.id}}">
-									</td>
-									<td class="col-3">{{ comment.author }}
-									</td>
-									<td>{{comment.content}}</td>
+									<th scope="col" class="col-1 text-center">Select</th>
+									<th scope="col" class="col-3">author name</th>
+									<th scope="col">content</th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-					<input class="btn-warning btn" type="submit" name="deleted" value="supprimer">
-					<input class="btn btn-warning" type="submit" name="approved" value="approuver">
-				</form>
+							</thead>
+							<tbody>
+								{% for comment in post.comments %}
+									<tr class="">
+										<td scope="row " class="text-center col-1">
+											<input type="checkbox" class="form-checkbox" name="id[]" value="{{comment.id}}">
+										</td>
+										<td class="col-3">{{ comment.author }}
+										</td>
+										<td>{{comment.content}}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						<div class="m-2">
+							<input class="btn-warning btn" type="submit" name="deleted" value="supprimer">
+							<input class="btn btn-warning" type="submit" name="approved" value="approuver">
+						</div>
+					</form>
+				</div>
 			{% endif %}
 		{% endfor %}
 		{% if commmentModeration == 0 %}

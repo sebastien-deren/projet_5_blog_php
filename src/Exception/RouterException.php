@@ -1,6 +1,7 @@
 <?php
+
 namespace Blog\Exception;
 
-class RouterException extends \Exception{
-    
+class RouterException extends \Exception
+{
 }

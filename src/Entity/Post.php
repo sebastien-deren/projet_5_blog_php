@@ -8,7 +8,6 @@ use DateTime;
 use Blog\Enum\CommentStatus;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\DBAL\Types\Types;
-use Blog\Entity\ContentAbstract;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -21,7 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Expr\Comparison;
 
 #[Entity()]
-class Post extends ContentAbstract
+class Post
 {
     #[Id]
     #[Column(unique: true, updatable: false)]
@@ -41,7 +40,7 @@ class Post extends ContentAbstract
     #[OneToMany(mappedBy: 'post', targetEntity: Comment::class,cascade:['remove'])]
     private Collection $comment;
 
-    public function __construct($user, $content, $title, $excerpt)
+    public function __construct(User $user, string $content, string $title, string $excerpt)
     {
         $this->user = $user;
         $this->content = $content;
@@ -49,48 +48,49 @@ class Post extends ContentAbstract
         $this->excerpt = $excerpt;
         $this->date = new \DateTime();
     }
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
-    public function getDate()
+    public function getDate(): \DateTime
     {
         return $this->date;
     }
-    public function getUser()
+    public function getUser(): User
     {
         return $this->user;
     }
-    public function getExcerpt()
+    public function getExcerpt(): string
     {
         return $this->excerpt;
     }
-    public function getComment()
+    public function getComment(): Collection
     {
         return $this->comment;
     }
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
-    public function getCommentApproved(){
-        $criteria = new Criteria();
-        $expr = new Comparison("validity",Comparison::IS, CommentStatus::Approved);
-        $criteria->where($expr);
-        $criteria->orderBy(['date' => 'DESC']);
-        return (new arrayCollection($this->comment->toArray()))->matching($criteria);
+    public function getCommentApproved(): Collection
+    {
+        return $this->getCommentByStatus(CommentStatus::Approved);
     }
-    public function getCommentPending()
-    { 
-        $criteria = new Criteria();
+    public function getCommentPending(): Collection
+    {
+        return $this->getCommentByStatus(CommentStatus::Pending);
+    }
+    private function getCommentByStatus(CommentStatus $status): Collection
+    {
         /*Doctrine use the Status getter to make the comparison 
         since our getStatus return an Enum we must compare Enum and not string!
         */
-        $expr = new Comparison("validity",Comparison::IS, CommentStatus::Pending);
+        $criteria = new Criteria();
+        $expr = new Comparison("validity", Comparison::IS, $status);
         $criteria->where($expr);
         $criteria->orderBy(['date' => 'DESC']);
         return (new arrayCollection($this->comment->toArray()))->matching($criteria);
