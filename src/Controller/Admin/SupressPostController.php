@@ -8,19 +8,14 @@ use Blog\Service\PostService;
 use Blog\Controller\Admin\ListPostController;
 use Doctrine\ORM\EntityNotFoundException;
 
-class SupressPostController extends ListPostController
+class SupressPostController extends AdminController
 {
-    public function execute(): string
+    public function execute(): null
     {
-        try{
         $postService = new PostService($this->entityManager);
         $postService->delete($_GET["id"]);  
-        \header("location: /admin/listpost");
-        }
-        catch(EntityNotFoundException $e){
-            $this->argument['error']=$e;
-        }
-        return parent::execute(); 
+        \header("location: /admin/listpost");   
+        return null;
     }
 
 }
