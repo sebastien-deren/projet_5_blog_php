@@ -13,7 +13,7 @@ function displayPost(posts) {
             <h2 class="card-title">${title}</h2>
             <h3 class="card-subtitle">${author}</h3>
             <p class="card-text">${excerpt}</p>
-            <a class="btn btn-primary" href="/blog/post?id=${id}">Read more →</a>
+            <a class="btn btn-primary" href="/blog/post?id=${id}">Lire plus →</a>
         </div>
     </div>
     </div>`;
@@ -26,10 +26,6 @@ function displayPagination(postNumber, postPerPages) {
     return;
   }
   sectionPages.innerHTML = "";
-  sectionPages.insertAdjacentHTML(
-    "beforeend",
-    `<li class="page-item" ><a class="page-link page" data-page="previous" href="#">Previous</a></li>`
-  );
   for (i = 0; i < postNumber / postPerPages; i++) {
     sectionPages.insertAdjacentHTML(
       "beforeend",
@@ -38,10 +34,7 @@ function displayPagination(postNumber, postPerPages) {
       }</a></li>`
     );
   }
-  sectionPages.insertAdjacentHTML(
-    "beforeend",
-    `<li class="page-item"><button class="page-link page" href="#">Next</a></li>`
-  );
+
 }
 function paginatePost(posts, numberOfpost, pages = 0) {
   postsToDisplay = posts.slice(
