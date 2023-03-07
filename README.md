@@ -22,9 +22,9 @@ to see the email sent go to localhost:8090.
   
 If you want to setup a new admin go to adminer (localhost:/8080)
 and change the role of the selected user to "admin".
-
-
-
+  
+  
+  
 If you use a *amp server:  
 You will need to update your server rules.  
 for apache copy the apache2.conf in place of your 000-default.conf  
