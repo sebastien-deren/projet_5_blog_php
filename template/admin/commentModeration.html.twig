@@ -16,12 +16,12 @@
 							<h3>
 								{{post.title}}</h3>
 						</div>
-						<div class="mt-2 d-flex justify-content-around w-100">
+						<div class="mt-2 d-flex flex-wrap justify-content-around w-100">
 							<h5>
 								{{post.comments|length}}
 								commentaire non modéré</h5>
 							<h6>
-								By :
+								Par :
 								{{post.author}}
 								Le :
 								{{post.date}}
@@ -35,9 +35,9 @@
 						<table class="table table-striped card-body">
 							<thead>
 								<tr class="">
-									<th scope="col" class="col-1 text-center">Select</th>
-									<th scope="col" class="col-3">author name</th>
-									<th scope="col">content</th>
+									<th scope="col" class="col-1 text-center">Selectionner</th>
+									<th scope="col" class="col-3">Nom de l'auteur</th>
+									<th scope="col">Commentaire</th>
 								</tr>
 							</thead>
 							<tbody>
