@@ -1,0 +1,96 @@
+{% extends "layout.html.twig"%}
+{% block title "accueil" %}
+{% block content %}
+	<div class="container-xl justify-content-center ">
+		{% include "composant/error.html.twig" %}
+		<section class=" presentation row container-fluid my-lg-10 my-5">
+			<div class="col col-12 col-lg-4 me-2">
+				<img class="photo" src="./Assets/photo.jpg">
+			</div>
+			<div class="col ms-2 d-flex flex-column justify-content-center">
+				<h2 class="fs-0">Bonjour!</h2>
+				<p class="fs-4">
+					Je suis
+					<span class="fs-3 fw-bold">Sébastien Deren</span>
+					en reconversion dans la progamation php, passioné de programmation et de sciences informatiques</p>
+			</div>
+		</section>
+		<section class="container-fluid row my-8 pe-4">
+			<div class="col col-12 col-md-6 d-flex flex-column justify-content-evenly">
+				<div class="d-flex flex-column justify-content-around">
+					<h2 class="fs-1 mb-3">Mes compètences:</h2>
+					<p class="fs-4 ">Etant encore en formation je dèveloppe mes compètences en progammation tout les jours.<br>
+						Et je m'amèmeliore notamments dans ceux listés ici.</p>
+				</div>
+
+			</div>
+			<div class="mt-4 mt-md-0 col-12 col-md-6 icon-listing">
+				<div class="row my-4 d-flex justify-content-md-end justify-content-between align-items-center">
+					<div class="col-3">
+						<img class="img-fluid" src="./Assets/icons/php-svgrepo-com.svg">
+						<p class="text-muted text-center">PHP</p>
+					</div>
+					<div class="col-3">
+						<img class="img-fluid " src="./Assets/icons/mysql-logo-svgrepo-com.svg">
+						<p class="text-muted text-center">Mysql</p>
+					</div>
+					<div class="col-3">
+						<img class="img-fluid" src="./Assets/icons/bootstrap-svgrepo-com.svg">
+						<p class="text-muted text-center">Bootstrap</p>
+					</div>
+				</div>
+				<div class="row my-4 d-flex justify-content-md-end justify-content-between align-items-center">
+					<div class="col-3">
+						<img class="img-fluid" src="./Assets/icons/html-5-svgrepo-com.svg">
+						<p class="text-muted text-center">HTML</p>
+					</div>
+					<div class="col-3">
+						<img class="img-fluid" src="./Assets/icons/css-3-svgrepo-com.svg">
+						<p class="text-muted text-center">CSS</p>
+					</div>
+					<div class="col-3">
+						<img class="img-fluid" src="./Assets/icons/javascript-svgrepo-com.svg">
+						<p class="text-muted text-center">JavaScript</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex flex-column mt-6 align-items-center justify-content-center">
+					<a class="btn btn-primary px-3 my-2 fs-2 rounded-4" href="./Assets/CV_Sebastien_Deren.pdf">Découvrez mon CV pour me connaitre un peu plus</a>
+			</div>
+
+
+		</section>
+		<section class="row"></section>
+		<section class="mx-3 my-6 px-4 containter-fluid py-5 row border-0 rounded-5 border border-dark shadow-lg bg-alt">
+			<div class="col-12 col-md-6 my-5 d-flex">
+				<h2 class="fs-0">Rester en contact ?</h2>
+			</div>
+			<div class="col my-5">
+				<form method="post" accept-charset="UTF-8" action="">
+					<div class="row">
+						<input type="hidden" name="csrfToken" value="{{ csrfToken }}">
+						<div class="col ">
+							<label for="" class="form-label">Email</label>
+							<input type="email" class="form-control" name="mail" id="mail" aria-describedby="emailHelpId" value="{% if user %} {{user.email}} {% endif %} ">
+						</div>
+						<div class="col mb-3">
+							<label for="" class="form-label">Nom</label>
+							<input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" value="{% if user %}{{ user.firstname}} {{ user.lastname }}{% endif %}">
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col mb-3">
+							<label for="message" class="form-label">message</label>
+							<textarea class="form-control" name="message" id="message" rows="5"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col mb-3 d-grid gap-2">
+							<button type="submit" class=" col-auto btn btn-primary">Envoyer le mail</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	{% endblock %}

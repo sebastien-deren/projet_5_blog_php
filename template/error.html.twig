@@ -1,0 +1,12 @@
+{% extends "layout.html.twig"%}
+{% block title %}
+    erreur {{error.code}}
+{% endblock %}
+{% block content %}
+	<div class="container-lg">
+		<h2>{{error.code}}</h2>
+		<h3>
+			{{error.message}}</h3>
+            <h4> {{error.getLine}} {{error.getFile}}</h4>
+	</div>
+{% endblock %}

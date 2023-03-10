@@ -1,0 +1,44 @@
+version: '3'
+services:
+  php-apache:
+    container_name: php_apache
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: always
+    ports: 
+      - 127.0.0.1:80:80
+    volumes:
+      - ./:/var/www/blog
+    depends_on:
+      - mysql
+  mysql: 
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    volumes:
+      - ./data/Mysql:/var/lib/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'user'
+      MYSQL_DATABASE: 'test'
+    ports:
+      - 127.0.0.1:9906:33060
+  adminer:
+    image: adminer:latest
+    ports:
+     - "127.0.0.1:8080:8080"
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+      ADMINER_DESIGN: mancave
+  maildev:
+    image: maildev/maildev
+    container_name: maildev
+    command: bin/maildev --web 80 --stmp 25 --hide-extensions STARTTLS
+    ports:
+      - "8090:80"
+    restart: always
+    depends_on:
+      - php-apache

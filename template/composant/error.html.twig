@@ -1,0 +1,10 @@
+<div class="container-lg border border-light">
+	{% if error.code != 0 %}
+		<h2>
+			{{error.code}}
+		</h2>
+	{% endif %}
+	<h2>
+		{{error.message|nl2br}}
+	</h2>
+</div>

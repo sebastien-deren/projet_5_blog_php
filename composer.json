@@ -1,0 +1,28 @@
+{
+    "name": "sebastien/blog",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Blog\\": "src/",
+            "templates\\": "templates/",
+            "Test\\":"Test/",
+            "Migrations\\":"Migrations/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sebastien deren laptop",
+            "email": "sebastien.deren@gmail.com"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "^5.2",
+        "phpmailer/phpmailer": "^6.7",
+        "twig/twig": "^3.5",
+        "doctrine/orm": "^2.14",
+        "doctrine/collections": "^2.1",
+        "doctrine/migrations": "^3.6",
+        "symfony/cache": "^6.2"
+    }
+}

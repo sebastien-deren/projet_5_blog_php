@@ -1,0 +1,70 @@
+{% extends 'layout.html.twig'  %}
+{% block title "register" %}
+
+{% block content %}
+
+
+	<div class="container">
+		{% include "composant/error.html.twig" %}
+
+		<div class="card o-hidden border-0 shadow-lg my-5">
+			<div class="card-body p-0">
+				<div class="row">
+					<div class="col-lg-5 d-none d-lg-block bg-register-image rounded-start"></div>
+					<div class="col-lg-7 ">
+						<div class="p-5">
+							<div class="text-center">
+								<h1 class="h4 text-gray-900 mb-4">Créer un compte!</h1>
+							</div>
+							<form action="" method="post" class="user form-post row needs-validation" name="registerForm" onsubmit="register(event)" no-validate>
+								<input type="hidden" name="csrfToken" value="{{ csrfToken }}">
+								<div class="form group">
+									<input class="form-control form-control-user col-lg" type="text" name="login" id="login" placeholder="Login">
+									<div id="loginhelp" class="form-text ps-2"></div>
+
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="text" class="form-control form-control-user" name="firstname" id="firstname" placeholder="Prénom">
+									</div>
+									<div class="col-sm-6 justify-content-end d-flex">
+										<input type="text" class="form-control form-control-user" name="lastname" id="lastname" placeholder="Nom">
+									</div>
+								</div>
+								<div class="form-group">
+									<input class="form-control form-control-user col-lg" type="email" name="mail" id="mail" placeholder="Adresse E-mail">
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Mot de passe">
+
+
+									</div>
+									<div class="col-sm-6 justify-content-end d-flex">
+										<input type="password" class="form-control form-control-user border-alert" name="passwordverify" id="passwordverify" placeholder="Confirmez votre mot de passe">
+									</div>
+								</div>
+								<div class="form-group">
+									<div id="passwordhelp" class="form-text ps-2">merci de taper un mot de passe d'au moins 8 caractère,
+										      avec au moins une lettre et une majuscule!</div>
+								</div>
+								<hr class="form-separator-user">
+								<div class="form-group d-grid gap-2">
+									<button class="btn btn-primary btn-user">S'enregistrer</button>
+								</div>
+							</form>
+							<hr>
+							<div class="text-center">
+								<a class="small" href="/connection">Vous avez déjà un compte ? Connectez vous !</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="/Javascript/Form/register.js"></script>
+
+{% endblock %}
