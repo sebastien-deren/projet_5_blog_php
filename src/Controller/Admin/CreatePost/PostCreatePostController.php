@@ -2,24 +2,25 @@
 
 namespace Blog\Controller\Admin\CreatePost;
 
+use Blog\Controller\Admin\AdminController;
 use Blog\Service\PostService;
 use Blog\Exception\FormException;
 use Blog\Form\Post\CreatePostForm;
 use Blog\DTO\Form\Post\PostCreationDTO;
 
-class PostCreatePostController extends CreatePostController
+class PostCreatePostController extends AdminController
 {
-    public function execute(): string
+    public function execute(): null
     {
         try {
             $formvalidifier = new CreatePostForm(new PostCreationDTO, $_POST);
             $post = $formvalidifier->validify();
             $postService = new PostService($this->entityManager);
-            $postService->createPost($post, $_SESSION['id']);
-            $this->argument['post'] = $post;
+            $id = $postService->createPost($post, $_SESSION['id']);
+            \header('location: /blog/post?id='.$id.'');
         } catch (FormException $e) {
             $this->argument['error'] = $e;
         }
-        return parent::execute();
+        return null;
     }
 }
